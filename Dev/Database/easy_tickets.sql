@@ -181,7 +181,7 @@ ALTER TABLE [ticket_booking]
 ADD CONSTRAINT fk_ticket_booking_username FOREIGN KEY(username) REFERENCES account(username)
 
 ALTER TABLE [ticket_booking] 
-ADD CONSTRAINT fk_ticket_booking_usercheck FOREIGN KEY(username) REFERENCES account(username)
+ADD CONSTRAINT fk_ticket_booking_usercheck FOREIGN KEY(usercheck) REFERENCES account(username)
 
 ALTER TABLE [ticket_booking] 
 ADD CONSTRAINT fk_ticket_booking_payment_detailID FOREIGN KEY(payment_detailID) REFERENCES payment_detail(ID)
