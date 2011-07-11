@@ -4,7 +4,6 @@
 ---Date: 7/10/2011 (mm/dd/yyyy)
 ------------------------------------------------------------------------------------------------
 --CREATE DATABASE easy_tickets
-
 USE easy_tickets
 
 ---------------------------------------------CREATE TABLE---------------------------------------
@@ -59,7 +58,6 @@ CREATE TABLE [city]
 CREATE TABLE [ticket]
 (
 	[ticketID] INT IDENTITY(1,1) PRIMARY KEY,
-	[image] VARCHAR(100),
 	[promotion] NVARCHAR(300),
 	[discount] MONEY,
 	[price] MONEY NOT NULL,
@@ -71,56 +69,25 @@ CREATE TABLE [ticket]
 	[cityID] INT, --fk
 	[address] NVARCHAR(100) NOT NULL,
 	[create_username] VARCHAR(50),	
-	[categoryID] INT
+	[ticket_detailID] INT --fk
 )
 
-CREATE TABLE [movie_ticket]
+CREATE TABLE [ticket_detail]
 (
 	[ID] INT IDENTITY (1,1) PRIMARY KEY,
-	[ticketID] INT, --fk
 	[title] NVARCHAR(200) NOT NULL,
 	[content] NVARCHAR(1000),
-	[director] NVARCHAR(200),
-	[actor] NVARCHAR(200)
+	[artist] NVARCHAR(200),
+	[image] VARCHAR(100),
+	[categoryID] INT --fk
 )
 
-CREATE TABLE [music_ticket]
-(
-	[ID] INT IDENTITY (1,1) PRIMARY KEY,
-	[ticketID] INT, -- fk
-	[song] NVARCHAR(100) NOT NULL,
-	[singer] NVARCHAR(200),
-	[content] NVARCHAR(1000)
-)
-
-CREATE TABLE [drama_ticket]
-(
-	[ID] INT IDENTITY (1,1) PRIMARY KEY,
-	[ticketID] INT, --fk
-	[title]  NVARCHAR(100) NOT NULL,
-	[content] NVARCHAR(1000),
-	[artist] NVARCHAR(200)
-)
-
-CREATE TABLE [sport_ticket]
-(
-	[ID] INT IDENTITY (1,1) PRIMARY KEY,
-	[ticketID] INT, --fk
-	[title] NVARCHAR(100) NOT NULL,
-	[content] NVARCHAR(1000)
-)
-
-CREATE TABLE [area]
-(
-	[ID] INT IDENTITY (1,1) PRIMARY KEY,
-	[name] NVARCHAR(100) NOT NULL,
-)
 
 CREATE TABLE [category]
 (
 	[ID] INT IDENTITY (1,1) PRIMARY KEY,
 	[name] NVARCHAR(100) NOT NULL,
-	[areaID] INT
+	[ticket_typeID] INT
 )
 
 CREATE TABLE [ticket_type]
@@ -196,19 +163,10 @@ ALTER TABLE [ticket]
 ADD CONSTRAINT fk_ticket_create_user FOREIGN KEY(create_username) REFERENCES account(username);
 
 ALTER TABLE [ticket] 
-ADD CONSTRAINT fk_ticket_categoryID FOREIGN KEY(categoryID) REFERENCES category(ID)
+ADD CONSTRAINT fk_ticket_ticket_detailID FOREIGN KEY(ticket_detailID) REFERENCES ticket_detail(ID)
 
-ALTER TABLE [movie_ticket] 
-ADD CONSTRAINT fk_movie_ticket_ticketID FOREIGN KEY(ticketID) REFERENCES ticket(ticketID)
-
-ALTER TABLE [music_ticket] 
-ADD CONSTRAINT fk_music_ticket_ticketID FOREIGN KEY(ticketID) REFERENCES ticket(ticketID)
-
-ALTER TABLE [drama_ticket] 
-ADD CONSTRAINT fk_drama_ticket_ticketID FOREIGN KEY(ticketID) REFERENCES ticket(ticketID)
-
-ALTER TABLE [sport_ticket] 
-ADD CONSTRAINT fk_sport_ticket_ticketID FOREIGN KEY(ticketID) REFERENCES ticket(ticketID)
+ALTER TABLE [ticket_detail] 
+ADD CONSTRAINT fk_ticket_detail_categoryID FOREIGN KEY(categoryID) REFERENCES category(ID)
 
 ALTER TABLE [payment_detail] 
 ADD CONSTRAINT fk_payment_detail_payment_typeID FOREIGN KEY(payment_typeID) REFERENCES payment_type(ID)
@@ -229,6 +187,6 @@ ALTER TABLE [ticket_booking]
 ADD CONSTRAINT fk_ticket_booking_payment_detailID FOREIGN KEY(payment_detailID) REFERENCES payment_detail(ID)
 
 ALTER TABLE [category] 
-ADD CONSTRAINT fk_category_areaID FOREIGN KEY(areaID) REFERENCES area(ID)
+ADD CONSTRAINT fk_category_ticket_typeID FOREIGN KEY(ticket_typeID) REFERENCES ticket_type(ID)
 
 -----------------------------------------------------------------------------------------------
