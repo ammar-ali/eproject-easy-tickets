@@ -1,8 +1,8 @@
---dbo.area
-INSERT INTO area([name]) VALUES('Movie')
-INSERT INTO area([name]) VALUES('Music')
-INSERT INTO area([name]) VALUES('Drama')
-INSERT INTO area([name]) VALUES('Sport')
+--dbo.ticket_type
+INSERT INTO ticket_type([name]) VALUES('Movie')
+INSERT INTO ticket_type([name]) VALUES('Music')
+INSERT INTO ticket_type([name]) VALUES('Drama')
+INSERT INTO ticket_type([name]) VALUES('Sport')
 
 
 --dbo.city ------------------------------- 
