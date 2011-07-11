@@ -1,4 +1,4 @@
-
+USE [master]
 --------------------------------------------DATABASE--------------------------------------------
 ---Name: easy_tickets
 ---Date: 7/10/2011 (mm/dd/yyyy)
@@ -18,13 +18,14 @@ CREATE TABLE [account]
 	[email] VARCHAR(100),
 	[create_date] DATETIME,
 	[birth_date] DATETIME,
-	[roleID] INT	
+	[person_card_number] VARCHAR(20) NOT NULL,
+	[roleID] INT
 )
 
 
 CREATE TABLE [role]
 (
-	[roleID] INT IDENTITY(1,1) PRIMARY KEY,
+	[ID] INT IDENTITY(1,1) PRIMARY KEY,
 	[name] NVARCHAR(50) NOT NULL
 )
 
@@ -57,7 +58,7 @@ CREATE TABLE [city]
 
 CREATE TABLE [ticket]
 (
-	[ticketID] INT IDENTITY(1,1) PRIMARY KEY,
+	[ID] INT IDENTITY(1,1) PRIMARY KEY,
 	[promotion] NVARCHAR(300),
 	[discount] MONEY,
 	[price] MONEY NOT NULL,
@@ -65,38 +66,30 @@ CREATE TABLE [ticket]
 	[create_date] DATETIME NOT NULL,
 	[view_date] DATETIME NOT NULL,
 	[view_time] TIMESTAMP NOT NULL,
-	[ticket_typeID] INT, --fk
-	[cityID] INT, --fk
-	[address] NVARCHAR(100) NOT NULL,
 	[create_username] VARCHAR(50),	
-	[ticket_detailID] INT --fk
+	[eventID] INT --fk
 )
 
-CREATE TABLE [ticket_detail]
+CREATE TABLE Venue
+(
+	[ID] INT IDENTITY (1,1) PRIMARY KEY,
+	[name] NVARCHAR(100) NOT NULL,
+	[address] NVARCHAR(100) NOT NULL
+)
+
+CREATE TABLE [event]
 (
 	[ID] INT IDENTITY (1,1) PRIMARY KEY,
 	[title] NVARCHAR(200) NOT NULL,
 	[content] NVARCHAR(1000),
 	[artist] NVARCHAR(200),
 	[image] VARCHAR(100),
-	[categoryID] INT --fk
+	[event_typeID] INT, --fk
+	[venueID] INT, --fk
+	[cityID] INT --fk
 )
 
-
-CREATE TABLE [category]
-(
-	[ID] INT IDENTITY (1,1) PRIMARY KEY,
-	[name] NVARCHAR(100) NOT NULL,
-	[ticket_typeID] INT
-)
-
-CREATE TABLE [ticket_type]
-(
-	[ID] INT IDENTITY(1,1) PRIMARY KEY,
-	[name] NVARCHAR(100) NOT NULL
-)
-
-CREATE TABLE [card_type]
+CREATE TABLE [event_type]
 (
 	[ID] INT IDENTITY(1,1) PRIMARY KEY,
 	[name] NVARCHAR(100) NOT NULL
@@ -111,12 +104,8 @@ CREATE TABLE [payment_type]
 CREATE TABLE [payment_detail]
 (
 	[ID] INT IDENTITY(1,1) PRIMARY KEY,
-	[cc_number] VARCHAR(20) NOT NULL,
-	[cvv] VARCHAR(20) NOT NULL,
-	[security_number] VARCHAR(20) NOT NULL,
-	[expiration_date] DATETIME,
-	[payment_typeID] INT, --fk
-	[card_typeID] INT -- fk
+	[card_number] VARCHAR(20) NOT NULL,
+	[payment_typeID] INT --fk
 )
 
 CREATE TABLE [ticket_booking]	
@@ -124,16 +113,13 @@ CREATE TABLE [ticket_booking]
 	[ID] INT IDENTITY(1,1) PRIMARY KEY,
 	[ticketID] INT, -- fk
 	[username] VARCHAR(50), -- fk,
-	[usercheck] VARCHAR(50), -- fk
+	[admin] VARCHAR(50), -- fk
 	[ticket_total] INT DEFAULT 1 NOT NULL ,
 	[price_total] MONEY NOT NULL,
-	[promotion] NVARCHAR(300),
 	[discount] MONEY,
 	[accept_status] CHAR DEFAULT '0' NOT NULL, --1 ACCEPT , 0 NOT YET,
-	[person_card_number] VARCHAR(20) NOT NULL,
 	[payment_detailID] INT, -- fk,
-	[receiver_name] NVARCHAR(50),
-	[receive_date] DATETIME
+	[delivery_date] DATETIME
 )
 
 
@@ -145,7 +131,7 @@ CREATE TABLE [ticket_booking]
 ------------------------------------------FOREIGN KEY------------------------------------------
 
 ALTER TABLE [account]
-ADD CONSTRAINT fk_account_roleID FOREIGN KEY([roleID]) REFERENCES [role]([roleID])
+ADD CONSTRAINT fk_account_roleID FOREIGN KEY([roleID]) REFERENCES [role]([ID])
 
 ALTER TABLE [contact]
 ADD CONSTRAINT fk_contact_username FOREIGN KEY([username]) REFERENCES [account]([username])
@@ -154,39 +140,34 @@ ALTER TABLE [FAQ]
 ADD CONSTRAINT fk_FAQ_username FOREIGN KEY([username]) REFERENCES [account]([username])
 
 ALTER TABLE [ticket] 
-ADD CONSTRAINT fk_ticket_ticket_typeID FOREIGN KEY(ticket_typeID) REFERENCES ticket_type(ID)
+ADD CONSTRAINT fk_ticket_create_user FOREIGN KEY([create_username]) REFERENCES [account]([username]);
 
 ALTER TABLE [ticket] 
-ADD CONSTRAINT fk_ticket_cityID FOREIGN KEY(cityID) REFERENCES city(ID)
+ADD CONSTRAINT fk_ticket_eventID FOREIGN KEY([eventID]) REFERENCES [event]([ID])
 
-ALTER TABLE [ticket] 
-ADD CONSTRAINT fk_ticket_create_user FOREIGN KEY(create_username) REFERENCES account(username);
+ALTER TABLE [event] 
+ADD CONSTRAINT fk_event_cityID FOREIGN KEY([cityID]) REFERENCES [city]([ID])
 
-ALTER TABLE [ticket] 
-ADD CONSTRAINT fk_ticket_ticket_detailID FOREIGN KEY(ticket_detailID) REFERENCES ticket_detail(ID)
+ALTER TABLE [event] 
+ADD CONSTRAINT fk_event_venueID FOREIGN KEY([venueID]) REFERENCES venue([ID])
 
-ALTER TABLE [ticket_detail] 
-ADD CONSTRAINT fk_ticket_detail_categoryID FOREIGN KEY(categoryID) REFERENCES category(ID)
+ALTER TABLE [event] 
+ADD CONSTRAINT fk_event_type_event_typeID FOREIGN KEY([event_typeID]) REFERENCES [event_type]([ID])
 
 ALTER TABLE [payment_detail] 
-ADD CONSTRAINT fk_payment_detail_payment_typeID FOREIGN KEY(payment_typeID) REFERENCES payment_type(ID)
-
-ALTER TABLE [payment_detail] 
-ADD CONSTRAINT fk_payment_detail_card_typeID FOREIGN KEY(card_typeID) REFERENCES card_type(ID)
+ADD CONSTRAINT fk_payment_detail_payment_typeID FOREIGN KEY([payment_typeID]) REFERENCES [payment_type]([ID])
 
 ALTER TABLE [ticket_booking] 
-ADD CONSTRAINT fk_ticket_booking_ticketID FOREIGN KEY(ticketID) REFERENCES ticket(ticketID)
+ADD CONSTRAINT fk_ticket_booking_ticketID FOREIGN KEY([ticketID]) REFERENCES [ticket]([ID])
 
 ALTER TABLE [ticket_booking] 
-ADD CONSTRAINT fk_ticket_booking_username FOREIGN KEY(username) REFERENCES account(username)
+ADD CONSTRAINT fk_ticket_booking_username FOREIGN KEY([username]) REFERENCES [account]([username])
 
 ALTER TABLE [ticket_booking] 
-ADD CONSTRAINT fk_ticket_booking_usercheck FOREIGN KEY(usercheck) REFERENCES account(username)
+ADD CONSTRAINT fk_ticket_booking_usercheck FOREIGN KEY([admin]) REFERENCES [account]([username])
 
 ALTER TABLE [ticket_booking] 
-ADD CONSTRAINT fk_ticket_booking_payment_detailID FOREIGN KEY(payment_detailID) REFERENCES payment_detail(ID)
+ADD CONSTRAINT fk_ticket_booking_payment_detailID FOREIGN KEY([payment_detailID]) REFERENCES [payment_detail]([ID])
 
-ALTER TABLE [category] 
-ADD CONSTRAINT fk_category_ticket_typeID FOREIGN KEY(ticket_typeID) REFERENCES ticket_type(ID)
 
 -----------------------------------------------------------------------------------------------
