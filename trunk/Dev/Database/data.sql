@@ -1,8 +1,8 @@
 --dbo.ticket_type
-INSERT INTO ticket_type([name]) VALUES('Movie')
-INSERT INTO ticket_type([name]) VALUES('Music')
-INSERT INTO ticket_type([name]) VALUES('Drama')
-INSERT INTO ticket_type([name]) VALUES('Sport')
+INSERT INTO event_type([name]) VALUES('Movie')
+INSERT INTO event_type([name]) VALUES('Music')
+INSERT INTO event_type([name]) VALUES('Drama')
+INSERT INTO event_type([name]) VALUES('Sport')
 
 
 --dbo.city ------------------------------- 
@@ -14,11 +14,6 @@ INSERT INTO city([name]) VALUES('Ha Noi')
 INSERT INTO city([name]) VALUES('New York')
 INSERT INTO city([name]) VALUES('London')
 
-
---dbo.card_type
-
-INSERT INTO card_type([name]) VALUES('Visa Card')
-INSERT INTO card_type([name]) VALUES('Master Card')
 
 
 --dbo.payment_type
