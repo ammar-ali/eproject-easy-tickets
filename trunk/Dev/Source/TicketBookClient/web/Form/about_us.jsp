@@ -13,7 +13,7 @@
 <%@page import="ticketbook.util.Config" %>
 <%@page import="javax.rmi.PortableRemoteObject" %>
 <%@page import="java.util.Enumeration" %>
-
+ 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
