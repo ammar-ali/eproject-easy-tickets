@@ -339,11 +339,9 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${reference.TicketBookUtil_EJB.dist}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.sqljdbc4.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.TicketBookUtil_EJB.dist}" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.sqljdbc4.jar}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">

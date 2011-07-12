@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ejb-jar version="2.1" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
-  <enterprise-beans>
+    <enterprise-beans>
         <entity>
             <display-name>UserEB</display-name>
             <ejb-name>User</ejb-name>
             <home>ticketbook.ejb.bmp.UserRemoteHome</home>
             <remote>ticketbook.ejb.bmp.UserRemote</remote>
             <ejb-class>ticketbook.ejb.bmp.User</ejb-class>
+            <persistence-type>Bean</persistence-type>
+            <prim-key-class>java.lang.Integer</prim-key-class>
+            <reentrant>false</reentrant>
+        </entity>
+        
+        <entity>
+            <display-name>EventTypeEB</display-name>
+            <ejb-name>EventType</ejb-name>
+            <home>ticketbook.ejb.bmp.EventTypeRemoteHome</home>
+            <remote>ticketbook.ejb.bmp.EventTypeRemote</remote>
+            <ejb-class>ticketbook.ejb.bmp.EventType</ejb-class>
             <persistence-type>Bean</persistence-type>
             <prim-key-class>java.lang.Integer</prim-key-class>
             <reentrant>false</reentrant>
@@ -20,5 +31,13 @@
             </method>
             <trans-attribute>Required</trans-attribute>
         </container-transaction>
+        
+        <container-transaction>
+            <method>
+                <ejb-name>EventType</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
         </assembly-descriptor>
-    </ejb-jar>
+</ejb-jar>
