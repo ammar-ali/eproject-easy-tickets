@@ -1,0 +1,98 @@
+/* 
+    Document   : tag_def
+    Created on : Jul 12, 2011, 1:36:33 PM
+    Author     : Tam Hong Pham
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+body
+{
+	font-family:tahoma;
+	font-size:11px;
+	margin:0 auto;
+	text-align:center;
+	background-color:#e8ecef;
+	line-height:2;
+}
+
+/*
+    Define img tag for _div_menu_3_left class
+*/
+._div_menu_3_left img
+{
+	float:left;
+	padding-top:15px;
+	padding-left:10px;
+}
+
+/*
+    Define img tag for _div_menu_3_rigt class
+*/
+._div_menu_3_right img
+{
+	float:right;
+	margin-left:3px;
+	border:0px;
+	height:50px;
+}
+
+/*
+    Define a tag for _div_menu_4 class
+*/
+._div_menu_4 a
+{
+	color:white;
+	text-decoration:none;
+}
+
+/*
+    Define img tag for _div_content_1 class
+*/
+._div_content_1 img
+{
+	margin:3px;
+	float:left;
+}
+
+/*
+    Define a tag for _div_content_3 class
+*/
+._div_content_3 a
+{
+	color:gray;
+	text-decoration:none;
+	font-size:12px;
+}
+
+/*
+    Define move to a tag for _div_header_3 class
+*/
+._div_header_3 a{
+    	color:white;
+	text-decoration:none;
+}
+
+/*
+    Define move to a tag for _div_header_3 class
+*/
+._div_header_3 a:hover{
+    	color:white;
+	text-decoration:none;
+}
+
+
+/*
+    Define move to a tag for _div_content_3 class
+*/
+._div_content_3 a:hover
+{
+	color:silver;
+	text-decoration:none;
+	font-size:12px;
+}
+

@@ -1,0 +1,181 @@
+/*
+    Document   :  layout
+    Created on : Jul 12, 2011, 1:36:33 PM
+    Author     : Tam Hong Pham
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*
+    Header layout
+*/
+._div_header_1
+{
+	width:100%;
+	height:auto;
+	background-color:#282b34;
+	float:left;
+}
+
+._div_header_2
+{
+	width:800px;
+	height:auto;
+	color:white;
+	background-color:#282b34;
+}
+
+._div_header_3
+{
+	width:780px;
+	height:auto;
+	text-align:right;
+	padding-right:10px;
+	padding-left:10px;
+	padding-top:2px;
+	padding-bottom:2px;
+	float:right;
+}
+
+
+/*
+    Menu layout
+*/
+._div_menu_1
+{
+	width:100%;
+	float:left;
+	background-image:url('../Images/template_02.gif');
+	background-repeat:repeat;
+	height:auto;
+}
+
+
+._div_menu_2
+{
+	width:800px;
+	height:auto;
+}
+
+._div_line_vertical_1
+{
+	float:left;
+	width:0px;
+	height:122px;
+}
+
+._div_menu_3
+{
+	width:800px;
+	height:83px;
+	float:left;
+}
+
+._div_menu_3_left
+{
+	float:left;
+	width:400px;
+	text-align:left;
+}
+
+
+
+._div_menu_3_right
+{
+	float:right;
+}
+
+
+._div_menu_4
+{
+	width:800px;
+	height:auto;
+	float:left;
+	color:white;
+	font-weight:bold;
+	background-color:#323232;
+}
+
+
+
+._div_menu_5
+{
+	float:left;
+	padding-left:20px;
+	padding-right:20px;
+	padding-top:8px;
+	padding-bottom:8px;
+	margin-right:20px;
+}
+
+/*
+    Content layout
+*/
+
+._div_line_vertical_2
+{
+	float:left;
+	height:39px;
+	width:0px;
+}
+
+._div_content_1
+{
+	width:800px;
+	height:auto;
+}
+
+
+
+._div_content_2
+{
+	width:800px;
+	float:left;
+	margin:3px;
+	background-color:white;
+	height:auto;
+}
+
+._div_line_vertical_3
+{
+	float:left;
+	height:300px;
+	width:0px;
+}
+
+._div_content_3
+{
+	float:left;
+	width:720px;
+	padding-left:40px;
+	padding-right:40px;
+	background-color:white;
+	height:auto;
+	padding-top:20px;
+	padding-bottom:30px;
+	text-align:justify;
+        color:#323232;
+}
+
+/*
+    Footer layout
+*/
+._div_footer_1
+{
+	width:100%;
+	float:left;
+	height:auto;
+	background-color:#282b34;
+}
+
+._div_footer_2
+{
+	width:780px;
+	height:56px;
+	color:#808080;
+	padding-right:10px;
+	padding-left:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+	
+}
