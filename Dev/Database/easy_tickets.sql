@@ -70,7 +70,7 @@ CREATE TABLE [ticket]
 	[eventID] INT --fk
 )
 
-CREATE TABLE Venue
+CREATE TABLE [venue]
 (
 	[ID] INT IDENTITY (1,1) PRIMARY KEY,
 	[name] NVARCHAR(100) NOT NULL,
