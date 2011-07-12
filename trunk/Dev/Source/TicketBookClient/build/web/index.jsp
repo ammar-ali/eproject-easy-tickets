@@ -7,12 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="javax.naming.*" %>
-<%@page import="ticketbook.transfer.UserTransferData" %>
-<%@page import="ticketbook.exception.ConfigException" %>
-<%@page import="ticketbook.util.Config" %>
-<%@page import="javax.rmi.PortableRemoteObject" %>
-<%@page import="java.util.Enumeration" %>
 
 <html>
 <head>
@@ -26,6 +20,8 @@
 <body>
     
 <jsp:include page="Block/block1.jsp"/>
+
+
 
 <jsp:include page="Block/block2.jsp"/>
 </body>
