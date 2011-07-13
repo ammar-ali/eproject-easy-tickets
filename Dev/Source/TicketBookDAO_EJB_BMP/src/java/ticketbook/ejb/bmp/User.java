@@ -5,10 +5,6 @@
 
 package ticketbook.ejb.bmp;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Vector;
-import javax.ejb.CreateException;
 import javax.ejb.EntityBean;
 import javax.ejb.EntityContext;
 import javax.ejb.FinderException;
@@ -24,6 +20,7 @@ import ticketbook.transfer.UserTransferData;
 public class User extends UserTransferData implements EntityBean {
 
     private EntityContext context;
+    
     // <editor-fold defaultstate="collapsed" desc="EJB infrastructure methods. Click the + sign on the left to edit the code.">
 
     // TODO Add code to acquire and use other enterprise resources (DataSource, JMS, enterprise beans, Web services)
@@ -41,25 +38,21 @@ public class User extends UserTransferData implements EntityBean {
      * @see javax.ejb.EntityBean#ejbActivate()
      */
     public void ejbActivate() {
-        this.setID((Integer)context.getPrimaryKey());
+        
     }
     
     /**
      * @see javax.ejb.EntityBean#ejbPassivate()
      */
     public void ejbPassivate() {
-        this.setID(null);
+        
     }
     
     /**
      * @see javax.ejb.EntityBean#ejbRemove()
      */
     public void ejbRemove() {
-        try {
-            UserDAO.getInstance(SQLTicketBookConnection.getInstance()).deleteByUserID(this.getID());
-        } catch (SQLTicketBookException ex) {
-            ex.printStackTrace();
-        }
+        
     }
     
     /**
@@ -72,14 +65,23 @@ public class User extends UserTransferData implements EntityBean {
     /**
      * @see javax.ejb.EntityBean#ejbLoad()
      */
-    public void ejbLoad() {
+    public void ejbLoad() throws IllegalArgumentException{
+        // TODO add code to retrieve data
         try {
-            // TODO add code to retrieve data
-            UserTransferData userTrans = UserDAO.getInstance(SQLTicketBookConnection.getInstance()).getUserByID(this.getID());
-            this.setID(userTrans.getID());
-            this.setName(userTrans.getName());
-            this.setPassword(userTrans.getPassword());
-            this.setRole(userTrans.getRole());
+            UserTransferData data = UserDAO.getInstance(SQLTicketBookConnection.getInstance()).getUserByUsername(this.getUsername());
+            if(data!=null){
+                this.setUsername(data.getUsername());
+                this.setPassword(data.getPassword());
+                this.setAddress(data.getAddress());
+                this.setPhone(data.getPhone());
+                this.setBirthDate(data.getBirthDate());
+                this.setPersonCardNumber(data.getPersonCardNumber());
+                this.setFullname(data.getFullname());
+                this.setEmail(data.getEmail());
+                this.setCreateDate(data.getCreateDate());
+                this.setRoleID(data.getRoleID());
+            }
+            else throw new IllegalArgumentException("Account doesn't correct");
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }
@@ -89,52 +91,30 @@ public class User extends UserTransferData implements EntityBean {
      * @see javax.ejb.EntityBean#ejbStore()
      */
     public void ejbStore() {
-        try {
-            // TODO add code to persist data
-            UserDAO.getInstance(SQLTicketBookConnection.getInstance()).update(this);
-        } catch (SQLTicketBookException ex) {
-            ex.printStackTrace();
-        }
+        // TODO add code to persist data
     }
+
     // </editor-fold>
     
     /**
      * See EJB 2.0 and EJB 2.1 section 12.2.5
      */
-    public java.lang.Integer ejbFindByPrimaryKey(java.lang.Integer aKey) throws FinderException {
-       this.setID(aKey);     
+    public java.lang.String ejbFindByPrimaryKey(java.lang.String aKey) throws FinderException {
+        // TODO add code to locate aKey from persistent storage
+        // throw javax.ejb.ObjectNotFoundException if aKey is not in
+        // persistent storage.
+        this.setUsername(aKey);
         return aKey;
     }
 
-    public Enumeration ejbFindAll() throws FinderException {
+    public java.lang.String ejbFindByUsernameAndPassword(String username,String password){
         try {
-            Vector lst = new Vector();
-            ArrayList lstUser = UserDAO.getInstance(SQLTicketBookConnection.getInstance()).getUsers();
-            for (int i = 0; i < lstUser.size(); i++) {
-                lst.add(((UserTransferData) lstUser.get(i)).getID());
-            }
-            return  lst.elements();
+            UserTransferData data = UserDAO.getInstance(SQLTicketBookConnection.getInstance()).getUserByUsernameAndPassword(username, password);
+            this.setUsername(data.getUsername());
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }
-        return null;
+        return username;
     }
-
-    public java.lang.Integer ejbCreate(UserTransferData user) throws CreateException{
-        try {
-            SQLTicketBookConnection conn=SQLTicketBookConnection.getInstance();
-            UserDAO.getInstance(conn).insert(user);
-            this.setID(user.getID());
-        } catch (SQLTicketBookException ex) {
-            ex.printStackTrace();
-        }
-        return this.getID();
-    }
-
-    public void ejbPostCreate(UserTransferData user){
-        
-    }
-
-
 
 }

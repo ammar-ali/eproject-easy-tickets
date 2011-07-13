@@ -5,14 +5,15 @@
 
 package ticketbook.ejb.bmp.dao;
 
-import com.arjuna.ats.internal.arjuna.recovery.Connection;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.transfer.UserTransferData;
+import ticketbook.util.StringUtil;
 
 /**
  *
@@ -32,72 +33,17 @@ public class UserDAO implements Serializable{
     }
 
     public void insert(UserTransferData user) throws SQLTicketBookException{    
-        try{
-           String sql="INSERT INTO [user]([id],[name],[password],[role]) VALUES(?,?,?,?)";
-           PreparedStatement preparedStatement=connection.getConnection().prepareStatement(sql);
-           preparedStatement.setInt(1,user.getID().intValue());
-           preparedStatement.setString(2,user.getName());
-           preparedStatement.setString(3,user.getName());
-           preparedStatement.setInt(4,user.getRole().intValue());
-
-           preparedStatement.execute();
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-        }
-        finally{
-            connection.closeConnection();
-        }
     }
 
-    public void update(UserTransferData user) throws SQLTicketBookException{
+    public UserTransferData getUserByUsername(String username) throws SQLTicketBookException{
+        UserTransferData user=new UserTransferData();
         try{
-           String sql="UPDATE [user] SET [name]=?,[password]=?,[role]=? WHERE id=?";
-          
+           String sql="SELECT * FROM [account] WHERE username=?";
            PreparedStatement preparedStatement=connection.getConnection().prepareStatement(sql);
-           preparedStatement.setString(1,user.getName());
-           preparedStatement.setString(2,user.getPassword());
-           preparedStatement.setInt(3,user.getRole().intValue());
-           preparedStatement.setInt(4,user.getID().intValue());
-           
-           preparedStatement.execute();
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-        }
-        finally{
-            connection.closeConnection();
-        }
-    }
-
-    public void deleteByUserID(Integer userID) throws SQLTicketBookException{
-        try{
-           String sql="DELETE [user] WHERE id="+userID;
-           PreparedStatement preparedStatement=connection.getConnection().prepareStatement(sql);
-           preparedStatement.execute();
-        }
-        catch(Exception ex){
-            ex.printStackTrace();
-        }
-        finally{
-            connection.closeConnection();
-        }
-    }
-
-    public UserTransferData getUserByID(Integer userID) throws SQLTicketBookException{
-        try{
-           String sql="SELECT * FROM [user] WHERE id="+userID;
-           PreparedStatement preparedStatement=connection.getConnection().prepareStatement(sql);
-
+           preparedStatement.setString(1,username);
            ResultSet rs=preparedStatement.executeQuery();
-
             while(rs.next()){
-                UserTransferData user=new UserTransferData();
-                user.setID(new Integer(rs.getInt("id")));
-                user.setName(rs.getNString("name"));
-                user.setPassword(rs.getNString("password"));
-                user.setRole(new Integer(rs.getInt("role")));
-                return user;
+                user=this.mapping(rs);
             }
 
         }
@@ -107,7 +53,29 @@ public class UserDAO implements Serializable{
         finally{
             connection.closeConnection();
         }
-        return null;
+        return user;
+    }
+
+    public UserTransferData getUserByUsernameAndPassword(String username,String password) throws SQLTicketBookException{
+        UserTransferData user=new UserTransferData();
+        try{
+           String sql="SELECT * FROM [account] WHERE username=? and password=?";
+           PreparedStatement preparedStatement=connection.getConnection().prepareStatement(sql);
+           preparedStatement.setString(1,username);
+           preparedStatement.setString(2,password);
+           ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                user=this.mapping(rs);
+            }
+
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+        finally{
+            connection.closeConnection();
+        }
+        return user;
     }
 
     public ArrayList getUsers() throws SQLTicketBookException{
@@ -119,12 +87,7 @@ public class UserDAO implements Serializable{
            ResultSet rs=preparedStatement.executeQuery();
 
             while(rs.next()){
-                UserTransferData user=new UserTransferData();
-                user.setID(new Integer(rs.getInt("id")));
-                user.setName(rs.getNString("name"));
-                user.setPassword(rs.getNString("password"));
-                user.setRole(new Integer(rs.getInt("role")));
-                users.add(user);
+                users.add(this.mapping(rs));
             }
 
         }
@@ -135,5 +98,24 @@ public class UserDAO implements Serializable{
             connection.closeConnection();
         }
         return users;
+    }
+
+    private UserTransferData mapping(ResultSet rs){
+        UserTransferData user = new UserTransferData();
+        try {
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setPhone(rs.getString("phone"));
+            user.setFullname(StringUtil.convertToUTF8(rs.getString("fullname")));
+            user.setAddress(StringUtil.convertToUTF8(rs.getString("address")));
+            user.setEmail(rs.getString("email"));
+            user.setBirthDate(rs.getString("birth_date"));
+            user.setCreateDate(rs.getString("create_date"));
+            user.setPersonCardNumber(rs.getString("person_card_number"));
+            user.setRoleID(new Integer(rs.getInt("roleID")));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
     }
 }
