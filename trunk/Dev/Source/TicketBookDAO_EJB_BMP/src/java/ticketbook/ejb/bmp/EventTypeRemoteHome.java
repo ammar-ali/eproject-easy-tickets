@@ -6,7 +6,8 @@
 package ticketbook.ejb.bmp;
 
 import java.rmi.RemoteException;
-import java.util.Enumeration;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.ejb.EJBHome;
 import javax.ejb.FinderException;
 
@@ -15,7 +16,6 @@ import javax.ejb.FinderException;
  * @author Admin
  */
 public interface EventTypeRemoteHome extends EJBHome {
-
     ticketbook.ejb.bmp.EventTypeRemote findByPrimaryKey(java.lang.Integer key)  throws FinderException, RemoteException;
-    Enumeration findAll() throws FinderException,RemoteException;
+    Collection findAll() throws FinderException,RemoteException;
 }
