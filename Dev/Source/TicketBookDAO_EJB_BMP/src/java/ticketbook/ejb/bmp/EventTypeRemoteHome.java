@@ -6,7 +6,6 @@
 package ticketbook.ejb.bmp;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Collection;
 import javax.ejb.EJBHome;
 import javax.ejb.FinderException;
