@@ -7,13 +7,21 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ticketbook.model.EventType"%>
+<%@page import="ticketbook.util.TicketBookSession"%>
+<%@page import="ticketbook.util.TicketBookConvert"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<c:set var="roleID" value='<%=TicketBookConvert.castSessionIsNull(request.getSession(),TicketBookSession.ROLEID_USER_LOGIN,new Integer(0))%>'/>
 <center>
 	<div class="_div_header_1">
 		<div class="_div_header_2">
 			<div class="_div_header_3">
-                            <a href="<%=request.getContextPath()%>/Form/login.jsp">L<font color="#62b7e5">ogin</font></a> | <a href="<%=request.getContextPath()%>/Form/register.jsp">R<font color="#62b7e5">egister</font></a>
-			</div>
+                            <c:if test="${roleID == 0}">
+                                <a href="<%=request.getContextPath()%>/Form/login.jsp">L<font color="#62b7e5">ogin</font></a> | <a href="<%=request.getContextPath()%>/Form/register.jsp">R<font color="#62b7e5">egister</font></a>
+                            </c:if>
+                            <c:if test="${roleID != 0}">
+                                <a href="<%=request.getContextPath()%>/Form/logout.jsp">L<font color="#62b7e5">ogout</font></a>
+                            </c:if>
+                        </div>
 		</div>
 	</div>
 	<div class="_div_menu_1">
