@@ -9,6 +9,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import ticketbook.ejb.bmp.EventTypeRemoteHome;
+import ticketbook.ejb.bmp.UserRemoteHome;
 import ticketbook.exception.ConfigException;
 
 /**
@@ -27,6 +28,23 @@ public class TicketBookLookUpJNDI {
             EventTypeRemoteHome home=(EventTypeRemoteHome)
                             javax.rmi.PortableRemoteObject.narrow(
                              ref,EventTypeRemoteHome.class);
+            return home;
+        } catch (ConfigException ex) {
+            ex.printStackTrace();
+        }catch(NamingException namingException){
+            namingException.printStackTrace();
+        }
+        return null;
+    }
+
+    public static UserRemoteHome getUserRemoteHome(){
+        try{
+            Config.settingSystemPropertiesForEntityBean();
+            Context ctx=new InitialContext();
+            Object ref=ctx.lookup("User");
+            UserRemoteHome home=(UserRemoteHome)
+                            javax.rmi.PortableRemoteObject.narrow(
+                             ref,UserRemoteHome.class);
             return home;
         } catch (ConfigException ex) {
             ex.printStackTrace();
