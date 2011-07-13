@@ -22,3 +22,22 @@
     display:block;
     padding-bottom: 10px;
 }
+
+
+._alert_error{
+    color:red;
+    font-weight: bold;
+}
+
+._textbox{
+    width:150px;
+}
+
+._div_alert{
+    height:auto;
+    width:640px;
+    padding-left:30px;
+    padding-right:30px;
+    font-weight:bold;
+    color:red;
+}
