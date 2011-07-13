@@ -5,8 +5,8 @@
 
 package ticketbook.ejb.bmp;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.ejb.EntityBean;
 import javax.ejb.EntityContext;
 import javax.ejb.FinderException;
@@ -98,18 +98,19 @@ public class EventType extends EventTypeTransferData implements EntityBean {
         return aKey;
     }
 
-    public Enumeration ejbFindAll() throws FinderException {
-        Vector v=new Vector();
+    public Collection ejbFindAll() throws FinderException {
+        
+        Collection lst=new ArrayList();
         try {
-           Enumeration e=EventTypeDAO.getInstance(SQLTicketBookConnection.getInstance()).getEventTypes();
-           while(e.hasMoreElements()){
-               EventTypeTransferData event=(EventTypeTransferData) e.nextElement();
-               v.add(event.getID());
-           }
+           ArrayList eventTypes=new ArrayList();
+           lst=new ArrayList();
+           eventTypes=EventTypeDAO.getInstance(SQLTicketBookConnection.getInstance()).getEventTypes();
+           for(int i=0;i<eventTypes.size();i++)
+               lst.add(((EventTypeTransferData)eventTypes.get(i)).getID());
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }
-        return v.elements();
+        return lst;
     }
 
 }

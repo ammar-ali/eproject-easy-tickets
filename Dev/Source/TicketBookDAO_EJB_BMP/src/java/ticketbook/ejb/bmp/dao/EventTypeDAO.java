@@ -7,8 +7,7 @@ package ticketbook.ejb.bmp.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.ArrayList;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.EventTypeTransferData;
 
@@ -29,12 +28,11 @@ public class EventTypeDAO {
         return eventTypeDAO;
     }
 
-    public Enumeration getEventTypes(){
-        Vector v=new Vector();
+    public ArrayList getEventTypes(){
+        ArrayList v=new ArrayList();
         try{
            String sql="SELECT * FROM [event_type]";
            PreparedStatement preparedStatement=connection.getConnection().prepareStatement(sql);
-
            ResultSet rs=preparedStatement.executeQuery();
 
             while(rs.next()){
@@ -52,7 +50,7 @@ public class EventTypeDAO {
             connection.closeConnection();
         }
         
-        return v.elements();
+        return v;
     }
 
     public EventTypeTransferData getEventTypeByID(Integer ID){
