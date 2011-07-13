@@ -6,10 +6,7 @@
 package ticketbook.model;
 
 import java.util.ArrayList;
-import javax.naming.NamingException;
-import ticketbook.ejb.session.GUIBusinessRemote;
-import ticketbook.ejb.session.GUIBusinessRemoteHome;
-import ticketbook.exception.ConfigException;
+import ticketbook.ejb.bmp.EventTypeRemoteHome;
 import ticketbook.util.TicketBookLookUpJNDI;
 
 
@@ -24,18 +21,16 @@ public class EventType {
     private EventType() {
     }
 
-    
-
+   
     public static ArrayList values(){
         ArrayList eventTypes=new ArrayList();
         try {
-            GUIBusinessRemoteHome home = TicketBookLookUpJNDI.getGUIBusinessRemoteHome();
-            GUIBusinessRemote remote = home.create();
-            eventTypes = remote.getEventTypes();
+            EventTypeRemoteHome home = TicketBookLookUpJNDI.getEventTypeRemoteHome();
+            eventTypes=(ArrayList) home.findAll();
 
         } catch (Exception ex) {
             ex.printStackTrace();
-        } 
+        }
         return eventTypes;
     }
 

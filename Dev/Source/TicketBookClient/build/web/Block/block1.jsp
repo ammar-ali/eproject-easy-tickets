@@ -24,9 +24,11 @@
 					<img src="<%=request.getContextPath()%>/Images/template_11.png" alt="logo"/>
 				</div>
 				<div class="_div_menu_3_right">
-					<a href="<%=request.getContextPath()%>/Form/contact_us.jsp"><img src="<%=request.getContextPath()%>/Images/template_08.gif" alt="ContactUs" /></a>
+
+                                        <a href="<%=request.getContextPath()%>/Form/contact_us.jsp"><img src="<%=request.getContextPath()%>/Images/template_04.gif" alt="Contact"/></a>
 					<a href="<%=request.getContextPath()%>/Form/about_us.jsp"><img src="<%=request.getContextPath()%>/Images/template_06.gif" alt="AboutUs"/></a>
-					<a href="<%=request.getContextPath()%>/Form/faq.jsp"><img src="<%=request.getContextPath()%>/Images/template_04.gif" alt="FAQ"/></a>
+					<a href="<%=request.getContextPath()%>/Form/faq.jsp"><img src="<%=request.getContextPath()%>/Images/template_08.gif" alt="FAQ'S" /></a>
+				
 				</div>
 
 
