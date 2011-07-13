@@ -8,7 +8,7 @@ package ticketbook.util;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import ticketbook.ejb.session.GUIBusinessRemoteHome;
+import ticketbook.ejb.bmp.EventTypeRemoteHome;
 import ticketbook.exception.ConfigException;
 
 /**
@@ -17,12 +17,23 @@ import ticketbook.exception.ConfigException;
  */
 public class TicketBookLookUpJNDI {
     
-    public static GUIBusinessRemoteHome getGUIBusinessRemoteHome() throws ConfigException, NamingException{
-        Config.settingSystemPropertiesForSessionBean();
-        Context context=new InitialContext();
-        Object ref=context.lookup("GUIBusiness");
-        GUIBusinessRemoteHome home=(GUIBusinessRemoteHome)ref;
-        return home;
+    
+
+    public static EventTypeRemoteHome getEventTypeRemoteHome(){
+        try{
+            Config.settingSystemPropertiesForEntityBean();
+            Context ctx=new InitialContext();
+            Object ref=ctx.lookup("EventType");
+            EventTypeRemoteHome home=(EventTypeRemoteHome)
+                            javax.rmi.PortableRemoteObject.narrow(
+                             ref,EventTypeRemoteHome.class);
+            return home;
+        } catch (ConfigException ex) {
+            ex.printStackTrace();
+        }catch(NamingException namingException){
+            namingException.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -391,12 +391,12 @@ exists or setup the property manually. For example like this:
                 COMPILATION SECTION
             -->
     <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
-        <ant antfile="${project.TicketBookBusiness_EJB_Stateless}/build.xml" inheritall="false" target="dist"/>
+        <ant antfile="${project.TicketBookDAO_EJB_BMP}/build.xml" inheritall="false" target="dist"/>
         <ant antfile="${project.TicketBookDAO_EJB_CMP}/build.xml" inheritall="false" target="dist"/>
         <ant antfile="${project.TicketBookUtil_EJB}/build.xml" inheritall="false" target="dist"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.TicketBookBusiness_EJB_Stateless}/build.xml" inheritall="false" target="dist-ear">
+        <ant antfile="${project.TicketBookDAO_EJB_BMP}/build.xml" inheritall="false" target="dist-ear">
             <property location="${build.dir}" name="dist.ear.dir"/>
         </ant>
         <ant antfile="${project.TicketBookDAO_EJB_CMP}/build.xml" inheritall="false" target="dist-ear">
@@ -543,52 +543,28 @@ exists or setup the property manually. For example like this:
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.TicketBookUtil_EJB.dist}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.TicketBookDAO_EJB_CMP.dist}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.TicketBookBusiness_EJB_Stateless.dist}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.concurrent.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jboss-client.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jboss-common-core.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jboss-integration.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jboss-javaee.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jboss-logging-spi.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jboss-remoting.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jboss-security-spi.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jboss-serialization.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jbossall-client.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jbosssx-client.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jnp-client.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jnpserver.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.JBoss.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.jstl.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.servlet-api.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.sqljdbc4.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.standard.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.libkth.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.weblib.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.sqljdbc4.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${reference.TicketBookDAO_EJB_BMP.dist}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${reference.TicketBookUtil_EJB.dist}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.TicketBookDAO_EJB_CMP.dist}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.TicketBookBusiness_EJB_Stateless.dist}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.concurrent.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jboss-client.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jboss-common-core.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jboss-integration.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jboss-javaee.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jboss-logging-spi.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jboss-remoting.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jboss-security-spi.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jboss-serialization.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jbossall-client.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jbosssx-client.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jnp-client.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.jnpserver.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${libs.JBoss.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.jstl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.servlet-api.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.sqljdbc4.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.standard.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.libkth.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.weblib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.sqljdbc4.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.TicketBookDAO_EJB_BMP.dist}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-clean-webinf-lib">
         <delete dir="${build.web.dir}/WEB-INF/lib"/>
@@ -886,7 +862,7 @@ exists or setup the property manually. For example like this:
                 CLEANUP SECTION
             -->
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.TicketBookBusiness_EJB_Stateless}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.TicketBookDAO_EJB_BMP}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.TicketBookDAO_EJB_CMP}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.TicketBookUtil_EJB}/build.xml" inheritall="false" target="clean"/>
     </target>
