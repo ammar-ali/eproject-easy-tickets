@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jbosscmp-jdbc PUBLIC
+      "-//JBoss//DTD JBOSSCMP-JDBC 4.0//EN"
+      "http://www.jboss.org/j2ee/dtd/jbosscmp-jdbc_4_0.dtd">
+<!--
+    Document   : jbosscmp-jdbc.xml
+    Created on : July 13, 2011, 7:26 PM
+    Author     : QuocHai
+    Description:
+        Purpose of the document follows.
+-->
+<jbosscmp-jdbc>
+    <defaults>
+        <datasource>java:EasyTicketsDBDS</datasource>
+        <datasource-mapping>MS SQLSERVER</datasource-mapping>
+        <create-table>False</create-table>
+    </defaults>
+    <enterprise-beans>
+        <entity>
+            <ejb-name>Faq</ejb-name>
+            <table-name>FAQ</table-name>
+            <cmp-field>
+                <field-name>id</field-name>
+                <column-name>ID</column-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>answer</field-name>
+                <column-name>answer</column-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>question</field-name>
+                <column-name>question</column-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>createDate</field-name>
+                <column-name>create_date</column-name>
+            </cmp-field>
+        </entity>
+    </enterprise-beans>
+</jbosscmp-jdbc>
