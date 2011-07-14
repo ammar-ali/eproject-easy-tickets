@@ -22,7 +22,7 @@
     function clickBtnSubmit(){
         if(validateLogin()){
 		document.getElementById("actionType").value="<%=UserController.ACTIONTYPE_VALUE_LOGIN%>";
-		document.forms("frmLogin").submit();
+		document.forms["frmLogin"].submit();
         }
     }
 
