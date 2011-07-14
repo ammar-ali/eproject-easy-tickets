@@ -45,7 +45,7 @@
 				<div class="_div_line_vertical_2"></div>
 				<div class="_div_menu_5"><a href="<%=request.getContextPath()%>/index.jsp">Home</a></div>
 				
-          <c:set var="event_types" value='<%=EventType.values()%>'></c:set>
+          <c:set var="event_types" value='<%=EventType.getInstanceValue()%>'></c:set>
           <c:forEach items="${event_types}" var="obj">
                 <div class="_div_menu_5"><a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?id=${obj.ID}">${obj.name}</a></div>
           </c:forEach>
