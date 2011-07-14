@@ -64,7 +64,7 @@
 
     <br/>
     <input type="hidden" name="<%=UserController.ACTIONTYPE_NAME%>" id="actionType"/>
-    <table cellpadding="5px" width="430px" style="margin-left: 200px;float:left">
+    <table cellpadding="5px" width="430px" style="margin-left: 230px;float:left">
         <tr>
             <td width="50px">Username</td>
             <td width="180px"><input class="_textbox" type="text" name="<%=UserController.USERNAME_CONTROL_NAME%>" id="txtUsername" value="${txtUsername}"/></td>
