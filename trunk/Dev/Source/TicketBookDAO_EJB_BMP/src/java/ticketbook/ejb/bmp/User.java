@@ -116,5 +116,20 @@ public class User extends UserTransferData implements EntityBean {
         }
         return username;
     }
+    public String ejbCreate(UserTransferData user)
+    {
+        try
+        {
+            UserDAO.getInstance(SQLTicketBookConnection.getInstance()).insert(user);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return user.getUsername();
+    }
+    public void ejbPostCreate(UserTransferData user)
+    {
 
+    }
 }

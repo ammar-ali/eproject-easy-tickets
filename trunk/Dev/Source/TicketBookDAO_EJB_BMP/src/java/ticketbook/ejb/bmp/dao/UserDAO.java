@@ -33,6 +33,27 @@ public class UserDAO implements Serializable{
     }
 
     public void insert(UserTransferData user) throws SQLTicketBookException{    
+        UserTransferData data=new UserTransferData();
+        try
+        {
+            String sql="INSERT INTO account(username,[password],fullname,phone,[address],email,create_date,birth_date,person_card_number,roleID) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement str=connection.getConnection().prepareCall(sql);
+            str.setString(1, user.getUsername());
+            str.setString(2, user.getPassword());
+            str.setString(3, StringUtil.convertToUTF8(user.getFullname()));
+            str.setString(4, user.getPhone());
+            str.setString(5, StringUtil.convertToUTF8(user.getAddress()));
+            str.setString(6, user.getEmail());
+            str.setString(7, user.getCreateDate());
+            str.setString(8, user.getBirthDate());
+            str.setString(9, user.getPersonCardNumber());
+            str.setInt(10, user.getRoleID().intValue());
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
     }
 
     public UserTransferData getUserByUsername(String username) throws SQLTicketBookException{
@@ -118,4 +139,5 @@ public class UserDAO implements Serializable{
         }
         return user;
     }
+    
 }
