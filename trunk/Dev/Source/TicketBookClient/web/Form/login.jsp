@@ -66,12 +66,12 @@
     <input type="hidden" name="<%=UserController.ACTIONTYPE_NAME%>" id="actionType"/>
     <table cellpadding="5px" width="430px" style="margin-left: 230px;float:left">
         <tr>
-            <td width="50px">Username</td>
+            <td class="_title_form" width="50px">Username</td>
             <td width="180px"><input class="_textbox" type="text" name="<%=UserController.USERNAME_CONTROL_NAME%>" id="txtUsername" value="${txtUsername}"/></td>
             <td width="180px" class="_alert_error" id="alertUsername"></td>
         </tr>
         <tr>
-            <td width="50px">Password</td>
+            <td class="_title_form" width="50px">Password</td>
             <td width="180px"><input class="_textbox" type="password" name="<%=UserController.PASSWORD_CONTROL_NAME%>" id="txtPassword" value="${txtPassword}"/></td>
             <td width="180px" class="_alert_error" id="alertPassword"></td>
         </tr>
