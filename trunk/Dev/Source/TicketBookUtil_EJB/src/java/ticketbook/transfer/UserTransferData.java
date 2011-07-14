@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ticketbook.transfer;
 
 import java.io.Serializable;
@@ -12,7 +11,7 @@ import ticketbook.util.Constant;
  *
  * @author Admin
  */
-public class UserTransferData implements Serializable{
+public class UserTransferData implements Serializable {
 
     private String username;
     private String password;
@@ -26,18 +25,18 @@ public class UserTransferData implements Serializable{
     private Integer roleID;
     private String roleName;
 
-    public UserTransferData(){
-        this.username=Constant.ID_FALSE_STRING;
-        this.password=Constant.DEFAULT_VALUE_STRING;
-        this.fullname=Constant.DEFAULT_VALUE_STRING;
-        this.phone=Constant.DEFAULT_VALUE_STRING;
-        this.address=Constant.DEFAULT_VALUE_STRING;
-        this.email=Constant.DEFAULT_VALUE_STRING;
-        this.createDate=Constant.DEFAULT_VALUE_STRING;
-        this.birthDate=Constant.DEFAULT_VALUE_STRING;
-        this.personCardNumber=Constant.DEFAULT_VALUE_STRING;
-        this.roleID=Constant.ID_FALSE_INTETER;
-        this.roleName=Constant.DEFAULT_VALUE_STRING;
+    public UserTransferData() {
+        this.username = Constant.ID_FALSE_STRING;
+        this.password = Constant.DEFAULT_VALUE_STRING;
+        this.fullname = Constant.DEFAULT_VALUE_STRING;
+        this.phone = Constant.DEFAULT_VALUE_STRING;
+        this.address = Constant.DEFAULT_VALUE_STRING;
+        this.email = Constant.DEFAULT_VALUE_STRING;
+        this.createDate = Constant.DEFAULT_VALUE_STRING;
+        this.birthDate = Constant.DEFAULT_VALUE_STRING;
+        this.personCardNumber = Constant.DEFAULT_VALUE_STRING;
+        this.roleID = Constant.ID_FALSE_INTETER;
+        this.roleName = Constant.DEFAULT_VALUE_STRING;
     }
 
     public String getAddress() {
@@ -127,5 +126,4 @@ public class UserTransferData implements Serializable{
     public void setUsername(String username) {
         this.username = username;
     }
-
 }
