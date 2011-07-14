@@ -33,10 +33,12 @@
             document.getElementById("alertUsername").innerHTML=" can't empty";
             stt=false;
         }
+        else document.getElementById("alertUsername").innerHTML="";
         if(document.getElementById("txtPassword").value==""){
             document.getElementById("alertPassword").innerHTML=" can't empty";
             stt=false;
         }
+        else document.getElementById("alertPassword").innerHTML="";
 
         return stt;
     }
