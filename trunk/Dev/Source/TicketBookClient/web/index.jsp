@@ -21,8 +21,6 @@
     
 <jsp:include page="Block/block1.jsp"/>
 
-
-
 <jsp:include page="Block/block2.jsp"/>
 </body>
 </html>	
