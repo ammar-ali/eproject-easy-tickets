@@ -19,7 +19,7 @@ public class User {
 
     private User(){}
 
-    public static UserRemote getByUsernameAndpassword(String username,String password) throws FinderException, RemoteException{
+    public static UserRemote getByUsernameAndPassword(String username,String password) throws FinderException, RemoteException{
         UserRemoteHome home=TicketBookLookUpJNDI.getUserRemoteHome();
         return home.findByUsernameAndPassword(username, password);
     }
