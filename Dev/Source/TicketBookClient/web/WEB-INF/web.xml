@@ -4,9 +4,25 @@
         <servlet-name>UserController</servlet-name>
         <servlet-class>ticketbook.controller.UserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FormController</servlet-name>
+        <servlet-class>ticketbook.controller.FormController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ContactController</servlet-name>
+        <servlet-class>ticketbook.controller.ContactController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
         <url-pattern>/UserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FormController</servlet-name>
+        <url-pattern>/FormController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ContactController</servlet-name>
+        <url-pattern>/ContactController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -16,4 +32,8 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <taglib>
+        <taglib-uri>/sf</taglib-uri>
+        <taglib-location>/WEB-INF/tlds/StringFunction.tld</taglib-location>
+    </taglib>
 </web-app>
