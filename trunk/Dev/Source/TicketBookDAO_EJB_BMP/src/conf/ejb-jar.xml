@@ -22,6 +22,16 @@
             <prim-key-class>java.lang.String</prim-key-class>
             <reentrant>false</reentrant>
         </entity>
+        <entity>
+            <display-name>TicketEB</display-name>
+            <ejb-name>Ticket</ejb-name>
+            <home>ticketbook.ejb.bmp.TicketRemoteHome</home>
+            <remote>ticketbook.ejb.bmp.TicketRemote</remote>
+            <ejb-class>ticketbook.ejb.bmp.Ticket</ejb-class>
+            <persistence-type>Bean</persistence-type>
+            <prim-key-class>java.lang.Integer</prim-key-class>
+            <reentrant>false</reentrant>
+        </entity>
         </enterprise-beans>
     <assembly-descriptor>
         
@@ -35,6 +45,13 @@
         <container-transaction>
             <method>
                 <ejb-name>User</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+        <container-transaction>
+            <method>
+                <ejb-name>Ticket</ejb-name>
                 <method-name>*</method-name>
             </method>
             <trans-attribute>Required</trans-attribute>
