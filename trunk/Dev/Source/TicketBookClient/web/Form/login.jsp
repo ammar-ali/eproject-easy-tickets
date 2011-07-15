@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="ticketbook.util.TicketBookConvert"%>
 <%@page import="ticketbook.controller.UserController"%>
+<%@page import="ticketbook.controller.FormController"%>
+<%@page import="ticketbook.controller.HandlerController"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -21,7 +23,7 @@
 <script type="text/javascript">
     function clickBtnSubmit(){
         if(validateLogin()){
-		document.getElementById("actionType").value="<%=UserController.ACTIONTYPE_VALUE_LOGIN%>";
+		document.getElementById("actionType").value="<%=HandlerController.ACTIONTYPE_VALUE_LOGIN%>";
 		document.forms["frmLogin"].submit();
         }
     }
@@ -50,7 +52,7 @@
 <font class="_content_title">Login</font>
 
 
-<form method="post" action="<%=request.getContextPath()%>/UserController" name="frmLogin">
+<form method="post" action="<%=request.getContextPath()%>/FormController" name="frmLogin">
 
     <c:set var="alertLogin" value='<%=TicketBookConvert.castAttributeRequestIsNull(request,"alert_login","")%>'></c:set>
     <c:set var="txtUsername" value='<%=TicketBookConvert.castParameterRequestIsNull(request,UserController.USERNAME_CONTROL_NAME,"")%>'></c:set>
@@ -63,7 +65,7 @@
     <!--------------------->
 
     <br/>
-    <input type="hidden" name="<%=UserController.ACTIONTYPE_NAME%>" id="actionType"/>
+    <input type="hidden" name="<%=FormController.ACTIONTYPE_NAME%>" id="actionType"/>
     <table cellpadding="5px" width="430px" style="margin-left: 230px;float:left">
         <tr>
             <td class="_title_form" width="50px">Username</td>
