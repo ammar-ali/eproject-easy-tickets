@@ -45,3 +45,26 @@
 ._title_form{
     color:#176c9c;
 }
+
+
+._block_event_item{
+    float:left;
+    border-bottom-style: outset;
+    border-bottom-width:1px;
+    border-bottom-color:silver;
+    padding-bottom: 10px;
+    padding-top:10px;
+    width:720px;
+}
+
+._block_event_item_image{
+    float:left;
+    padding-left:20px;
+    width:320px;
+}
+
+._block_event_item_detail{
+    float:left;
+    width:360px;
+    padding-right:20px;
+}
