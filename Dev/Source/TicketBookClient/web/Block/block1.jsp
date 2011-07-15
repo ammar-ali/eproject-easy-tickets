@@ -9,6 +9,7 @@
 <%@page import="ticketbook.model.EventType"%>
 <%@page import="ticketbook.util.TicketBookSession"%>
 <%@page import="ticketbook.util.TicketBookConvert"%>
+<%@ taglib uri="/WEB-INF/TLD/elfticketbook" prefix="ticketbookELF" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <c:set var="roleID" value='<%=TicketBookConvert.castSessionIsNull(request.getSession(),TicketBookSession.ROLEID_USER_LOGIN,new Integer(0))%>'/>
 <center>
@@ -47,7 +48,7 @@
 				
           <c:set var="event_types" value='<%=EventType.getInstanceValue()%>'></c:set>
           <c:forEach items="${event_types}" var="obj">
-                <div class="_div_menu_5"><a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?id=${obj.ID}">${obj.name}</a></div>
+              <div class="_div_menu_5"><a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${ticketbookELF:getIndexEventTypesByID(obj.ID)}">${obj.name}</a></div>
           </c:forEach>
 			</div>
 		</div>
