@@ -1,0 +1,18 @@
+﻿@CHARSET "UTF-8";
+/*print pdf*/
+
+.div_body {
+	font-family: Tahoma, Geneva, sans-serif; 
+	font-size: 12px; 
+	margin:0px; 
+	padding:0px; 
+	background-position: center; 
+	background-repeat :repeat-y;
+	background-image: url("../images/background_print.jpg");
+	width : 100%;
+}
+
+/*text*/
+
+.div_textprintleft{text-align: left;}
+
