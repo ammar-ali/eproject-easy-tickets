@@ -30,4 +30,26 @@ public class TicketBookELF {
         return new Integer(-1);
     }
 
+
+    public static String filterTicketBookDate(String date){
+        if(date!=null){
+            String[] str=date.split(" ");
+            if(str.length>0){
+                String[] strs=str[0].split("-");
+                if(strs.length==3){
+                    return strs[1]+"/"+strs[2]+"/"+strs[0];
+                }
+            }
+        }
+        return date;
+    }
+
+    public static String filterTicketBookMoney(String money){
+        if(money!=null){
+            String str=money.toString().subSequence(0,money.length()-5).toString();
+            return str;
+        }
+        return money;
+    }
+
 }
