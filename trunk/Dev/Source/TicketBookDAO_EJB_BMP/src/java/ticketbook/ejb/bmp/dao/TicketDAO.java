@@ -75,7 +75,7 @@ public class TicketDAO {
     private TicketTransferData mapping(ResultSet rs) throws SQLException {
         TicketTransferData ticket = new TicketTransferData();
         ticket.setID(new Integer(rs.getInt("ID")));
-        ticket.setPromotion(StringUtil.convertToUTF8(rs.getString("promotion")));
+        ticket.setPromotion(rs.getNString("promotion"));
         ticket.setPrice(rs.getString("price"));
         ticket.setTicketTotal(new Integer(rs.getInt("ticket_total")));
         ticket.setCreateDate(rs.getString("create_date"));
@@ -83,16 +83,16 @@ public class TicketDAO {
         ticket.setViewTime(rs.getString("view_time"));
         ticket.setCreateUsername(rs.getString("create_username"));
         ticket.setEventID(new Integer(rs.getInt("eventID")));
-        ticket.setTitle(StringUtil.convertToUTF8(rs.getString("title")));
-        ticket.setContent(StringUtil.convertToUTF8(rs.getString("content")));
-        ticket.setArtist(StringUtil.convertToUTF8(rs.getString("artist")));
+        ticket.setTitle(rs.getNString("title"));
+        ticket.setContent(rs.getNString("content"));
+        ticket.setArtist(rs.getNString("artist"));
         ticket.setImage(rs.getString("image"));
         ticket.setEventTypeID(new Integer(rs.getInt("event_typeID")));
         ticket.setVenueID(new Integer(rs.getInt("venueID")));
         ticket.setCityID(new Integer(rs.getInt("cityID")));
-        ticket.setCityName(StringUtil.convertToUTF8(rs.getString("city_name")));
-        ticket.setVenueAddress(StringUtil.convertToUTF8(rs.getString("venue_address")));
-        ticket.setVenueName(StringUtil.convertToUTF8(rs.getString("venue_name")));
+        ticket.setCityName(rs.getNString("city_name"));
+        ticket.setVenueAddress(rs.getNString("venue_address"));
+        ticket.setVenueName(rs.getNString("venue_name"));
         return ticket;
     }
 }
