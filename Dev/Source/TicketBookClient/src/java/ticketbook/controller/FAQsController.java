@@ -32,6 +32,8 @@ public class FAQsController extends HttpServlet {
     public static final String ANSWER = "txtAnswer";
     public static final String QUESTION = "txtQuestion";
     public static final String CREATE_DATE = "txtCreate_Date";
+    public static final String ID = "txtId";
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -53,7 +55,22 @@ public class FAQsController extends HttpServlet {
                remote.insertFAQs(answer, question, create_date);
                RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
                rd.forward(request, response);
-           }}catch(Exception ex){
+           } else if(act.equals("update")){
+               String answer = request.getParameter(ANSWER);
+               String question = request.getParameter(QUESTION);
+               Integer id = Integer.getInteger(ID);
+               FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+               remote.updateFAQs(id, answer, question);
+               RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+               rd.forward(request, response);
+           } else {
+               Integer id = Integer.getInteger(ID);
+               FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+               remote.remove();
+               RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+               rd.forward(request, response);
+           }
+        }catch(Exception ex){
                ex.printStackTrace();
         } finally { 
             out.close();
