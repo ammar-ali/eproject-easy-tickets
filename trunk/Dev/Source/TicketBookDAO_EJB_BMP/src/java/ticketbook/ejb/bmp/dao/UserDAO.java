@@ -33,7 +33,6 @@ public class UserDAO implements Serializable{
     }
 
     public void insert(UserTransferData user) throws SQLTicketBookException{    
-        UserTransferData data=new UserTransferData();
         try
         {
             String sql="INSERT INTO account(username,[password],fullname,phone,[address],email,create_date,birth_date,person_card_number,roleID) VALUES(?,?,?,?,?,?,?,?,?,?)";
