@@ -60,11 +60,15 @@
 ._block_event_item_image{
     float:left;
     padding-left:20px;
-    width:320px;
+    width:200px;
+}
+
+._block_event_item_image img{
+    width:150px;
 }
 
 ._block_event_item_detail{
     float:left;
-    width:360px;
+    width:480px;
     padding-right:20px;
 }
