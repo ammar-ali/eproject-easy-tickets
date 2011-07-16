@@ -9,17 +9,20 @@
 <%@page import="ticketbook.model.EventType"%>
 <%@page import="ticketbook.util.TicketBookSession"%>
 <%@page import="ticketbook.util.TicketBookConvert"%>
+<%@page import="ticketbook.util.Constant"%>
 <%@ taglib uri="/WEB-INF/TLD/elfticketbook" prefix="ticketbookELF" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <c:set var="roleID" value='<%=TicketBookConvert.castSessionIsNull(request.getSession(),TicketBookSession.ROLEID_USER_LOGIN,new Integer(0))%>'/>
+<c:set var="ID_FALSE_INTEGER" value='<%=Constant.ID_FALSE_INTETER%>'/>
+
 <center>
 	<div class="_div_header_1">
 		<div class="_div_header_2">
 			<div class="_div_header_3">
-                            <c:if test="${roleID == 0}">
+                            <c:if test="${roleID eq ID_FALSE_INTEGER}">
                                 <a href="<%=request.getContextPath()%>/Form/login.jsp">L<font color="#62b7e5">ogin</font></a> | <a href="<%=request.getContextPath()%>/Form/register.jsp">R<font color="#62b7e5">egister</font></a>
                             </c:if>
-                            <c:if test="${roleID != 0}">
+                            <c:if test="${roleID ne ID_FALSE_INTEGER}">
                                 <a href="<%=request.getContextPath()%>/Form/logout.jsp">L<font color="#62b7e5">ogout</font></a>
                             </c:if>
                         </div>
@@ -54,8 +57,7 @@
 		</div>
 	</div>
 	<div class="_div_content_1">
-		<img src="<%=request.getContextPath()%>/Images/template_19.gif" alt="banner"/>
-
+            <img width="796px" src="<%=request.getContextPath()%>/Images/template_19.gif" alt="banner"/>
 		<div class="_div_content_2">
 			<div class="_div_line_vertical_3"></div>
 
