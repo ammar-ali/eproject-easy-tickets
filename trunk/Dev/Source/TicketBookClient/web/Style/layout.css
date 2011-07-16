@@ -83,6 +83,7 @@
 ._div_menu_3_right
 {
 	float:right;
+        width:400px;
 }
 
 
@@ -131,7 +132,7 @@
 {
 	width:800px;
 	float:left;
-	margin:3px;
+	margin-top:3px;
 	background-color:white;
 	height:auto;
 }
@@ -160,6 +161,14 @@
 /*
     Footer layout
 */
+
+._div_line_vertical_4
+{
+	float:left;
+	height:56px;
+	width:0px;
+}
+
 ._div_footer_1
 {
 	width:100%;
@@ -171,7 +180,7 @@
 ._div_footer_2
 {
 	width:780px;
-	height:56px;
+	height:auto;
 	color:#808080;
 	padding-right:10px;
 	padding-left:10px;
