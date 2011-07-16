@@ -12,6 +12,10 @@
         <servlet-name>ContactController</servlet-name>
         <servlet-class>ticketbook.controller.ContactController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FormBackController</servlet-name>
+        <servlet-class>ticketbook.controller.FormBackController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
         <url-pattern>/UserController</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ContactController</servlet-name>
         <url-pattern>/ContactController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FormBackController</servlet-name>
+        <url-pattern>/FormBackController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
