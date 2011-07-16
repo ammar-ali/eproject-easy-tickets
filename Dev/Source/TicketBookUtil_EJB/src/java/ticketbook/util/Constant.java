@@ -21,6 +21,5 @@ public class Constant implements Serializable {
     public static final ResourceBundle QUERY_DAO=PropertiesBundle.getSQLQuery();
     public static final ResourceBundle SETTING_DB_DAO=PropertiesBundle.getSQLSettingDatabase();
     public static final ResourceBundle ERROR_UTIL_EXCEPTION=PropertiesBundle.getErrorUtilException();
-    public static final Integer RECORD_NUMBER_NEED_SHOW=new Integer(10);
-    public static final Integer PAGE_NUMBER_NEED_SHOW=new Integer(5);
+
 }
