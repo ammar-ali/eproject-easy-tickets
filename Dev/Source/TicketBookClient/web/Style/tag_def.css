@@ -1,15 +1,9 @@
 /* 
     Document   : tag_def
-    Created on : Jul 12, 2011, 1:36:33 PM
     Author     : Tam Hong Pham
-    Description:
-        Purpose of the stylesheet follows.
+    Description: Define HTML tag
 */
 
-/* 
-   TODO customize this sample style
-   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
-*/
 body
 {
 	font-family:tahoma;
@@ -21,7 +15,7 @@ body
 }
 
 /*
-    Define img tag for _div_menu_3_left class
+    Define img tag in _div_menu_3_left class
 */
 ._div_menu_3_left img
 {
@@ -31,7 +25,7 @@ body
 }
 
 /*
-    Define img tag for _div_menu_3_rigt class
+    Define img tag in _div_menu_3_rigt class
 */
 ._div_menu_3_right img
 {
@@ -42,7 +36,7 @@ body
 }
 
 /*
-    Define a tag for _div_menu_4 class
+    Define a tag in _div_menu_4 class
 */
 ._div_menu_4 a
 {
@@ -51,7 +45,7 @@ body
 }
 
 /*
-    Define img tag for _div_content_1 class
+    Define img tag in _div_content_1 class
 */
 ._div_content_1 img
 {
@@ -60,7 +54,7 @@ body
 }
 
 /*
-    Define a tag for _div_content_3 class
+    Define a tag in _div_content_3 class
 */
 ._div_content_3 a
 {
@@ -70,7 +64,7 @@ body
 }
 
 /*
-    Define move to a tag for _div_header_3 class
+    Define move to a tag in _div_header_3 class
 */
 ._div_header_3 a{
     	color:white;
@@ -78,16 +72,15 @@ body
 }
 
 /*
-    Define move to a tag for _div_header_3 class
+    Define move to a tag in _div_header_3 class
 */
 ._div_header_3 a:hover{
     	color:white;
 	text-decoration:none;
 }
 
-
 /*
-    Define move to a tag for _div_content_3 class
+    Define move to a tag in _div_content_3 class
 */
 ._div_content_3 a:hover
 {
@@ -95,4 +88,3 @@ body
 	text-decoration:none;
 	font-size:12px;
 }
-
