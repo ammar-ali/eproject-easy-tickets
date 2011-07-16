@@ -9,6 +9,7 @@
 		</div>
 	</div>
 	<div class="_div_footer_1">
+            <div class="_div_line_vertical_4"></div>
 		<div class="_div_footer_2">
 			Copyright 2011 - Showbiz<br/>
 			Address: 1/1 Indian	- Phone number: (09)00000000 <br/>
