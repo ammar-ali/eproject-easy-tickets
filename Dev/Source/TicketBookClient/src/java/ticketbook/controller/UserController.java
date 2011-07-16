@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import ticketbook.ejb.bmp.UserRemote;
 import ticketbook.model.User;
 import ticketbook.util.Constant;
+import ticketbook.util.TicketBookContextPath;
 import ticketbook.util.TicketBookSession;
 
 /**
@@ -57,7 +58,12 @@ public class UserController extends HandlerController {
             if (userRemote != null && userRemote.getRoleID() != Constant.ID_FALSE_INTETER) {
                 request.getSession().setAttribute(TicketBookSession.USER_LOGIN, userRemote);
                 request.getSession().setAttribute(TicketBookSession.ROLEID_USER_LOGIN, userRemote.getRoleID());
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                if(request.getSession().getAttribute(FormBackController.CONTEXTPATH_ATTRIBUTE_NAME)!=null){
+                    ((TicketBookContextPath)request.getSession().getAttribute(FormBackController.CONTEXTPATH_ATTRIBUTE_NAME)).response(response);
+                }
+                else{
+                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                }
             } else {
                 request.setAttribute("alert_login", "Invalid Account");
                 request.getRequestDispatcher("/Form/login.jsp").forward(request, response);
