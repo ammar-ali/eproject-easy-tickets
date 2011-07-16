@@ -10,10 +10,14 @@
 <%@page import="ticketbook.model.EventType"%>
 <%@page import="ticketbook.transfer.EventTypeTransferData"%>
 <%@page import="ticketbook.util.TicketBookConvert"%>
+<%@page import="ticketbook.util.TicketBookSession"%>
 <%@page import="ticketbook.model.Ticket"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ticketbook.ejb.bmp.EventTypeRemote"%>
+<%@page import="ticketbook.util.TicketBookParameter"%>
+<%@page import="ticketbook.controller.FormBackController"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ page import="ticketbook.util.Constant"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -26,7 +30,10 @@
         <link rel='stylesheet' href='<%=request.getContextPath()%>/Style/component.css'/>
     </head>
     <body onload="loadFocus();">
-        
+<c:set var="ROLEID_SESSION" value='<%=TicketBookConvert.castSessionIsNull(request.getSession(),TicketBookSession.ROLEID_USER_LOGIN,new Integer(0))%>'/>
+<c:set var="ID_FALSE_INTEGER" value='<%=Constant.ID_FALSE_INTETER%>'/>
+<c:set var="SYSTEM_PARAM" value='<%=new TicketBookParameter()%>'/>
+
 <jsp:include page="../Block/block1.jsp"/>
 
 <c:if test="${ stringELF:validatePositiveNumber(param.index) eq 1}">
@@ -42,12 +49,13 @@
             <div class="_block_event_item">
                 <c:set var="index_row" value='<%=count%>'></c:set>
                 <div class="_block_event_item_image">
-                    <c:if test="${obj.image ne '' and obj.image ne null}">
-                        <img src="${obj.image}" alt="image${obj.ID}"/>
-                    </c:if>
-                    <c:if test="${obj.image eq null or obj.image eq ''}">
-                        <img src="<%=request.getContextPath()%>/Images/error_image.jpg" width="150px" alt="image${obj.ID}"/>
-                    </c:if>
+                    
+                        <c:if test="${obj.image ne '' and obj.image ne null}">
+                            <img src="<%=request.getContextPath()%>${SYSTEM_PARAM.pathImageEvent}/${obj.image}" alt="image${obj.ID}"/>
+                        </c:if>
+                        <c:if test="${obj.image eq null or obj.image eq ''}">
+                            <img src="<%=request.getContextPath()%>/Images/error_image.jpg" width="150px" alt="image${obj.ID}"/>
+                        </c:if>
                    
                 </div>
                 <div class="_block_event_item_detail">
@@ -68,6 +76,21 @@
                         <tr>
                             <td style="font-weight:bold">Address</td><td>:</td><td style="width:360px">${obj.cityName} City, ${obj.venueName} Theatre ,${obj.venueAddress} Street</td>
                         </tr>
+                        <tr>
+                            <td colspan="3">
+
+                                <c:if test="${ROLEID_SESSION eq ID_FALSE_INTEGER}">
+                                    
+                                    <a onclick="submitFormBack('/Form/login.jsp')" style="cursor:pointer" >[You must be registered and logged in to book the ticket.]</a>
+                                </c:if>
+
+                                <c:if test="${ROLEID_SESSION ne ID_FALSE_INTEGER}">
+                                  
+                                    <input onclick="submitFormBack('/Form/Booking/ticket_book.jsp')" type="button" onclick="submitFormBack()"  value="Book"/>
+                                </c:if>
+
+                            </td>
+                        </tr>
                     </table>
 
                     
@@ -78,7 +101,7 @@
 
                 <c:if test="${index_row eq param.view and param.stt eq 'more'}">
  
-                    <div style="width:600px">
+                    <div style="width:600px;padding-left:60px;padding-right:20px">
                         <div><b>Artist</b>: ${obj.artist}</div>
                         <div style="font-weight:bold">Introduction:</div>
                         <div style="padding-left:20px;padding-right:20px">${obj.content}</div>
@@ -108,7 +131,18 @@
                     obj.style.visibility="hidden";
                 }
             }
+
+            function submitFormBack(pathTo){
+                document.getElementById("txtPathBack").value=window.location;
+                document.getElementById("txtPathTo").value=pathTo;
+                document.forms["frmFormBack"].submit();
+            }
         </script>
+
+        <form name="frmFormBack" action="<%=request.getContextPath()%>/FormBackController" method="post">
+            <input type="hidden" value="" name="<%=FormBackController.PATH_BACK_CONTROL_NAME%>" id="txtPathBack"/>
+            <input type="hidden" id="txtPathTo" value="" name="<%=FormBackController.PATH_TO_CONTROL_NAME%>"/>
+        </form>
     </c:if>
 </c:if>
 <jsp:include page="../Block/block2.jsp"/>
