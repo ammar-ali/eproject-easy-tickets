@@ -51,15 +51,42 @@ public class TicketDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        finally{
+            connection.closeConnection();
+        }
         return lst;
     }
 
+    
+
+    public ArrayList getTopTicketIDsByEventTypeID(Integer eventTypeID, Integer top) throws SQLTicketBookException {
+        ArrayList lst = new ArrayList();
+        try {
+            String sql="SELECT TOP "+top+" ticket.ID FROM ticket,event WHERE ticket.eventID=[event].ID AND [event].event_typeID=? ORDER BY ticket.ID DESC";
+            PreparedStatement pre = connection.getConnection().prepareStatement(sql);
+            pre.setInt(1,top.intValue());
+            pre.setInt(1,eventTypeID.intValue());
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                Integer ticketID = new Integer(rs.getInt("ID"));
+                lst.add(ticketID);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally{
+            connection.closeConnection();
+        }
+        return lst;
+    }
+
+    
     public TicketTransferData getTicketByID(Integer ticketID) throws SQLTicketBookException {
         TicketTransferData ticket = new TicketTransferData();
         try {
             String sql = "SELECT ticket.ID AS ID,promotion,discount,price,ticket_total,create_date,view_date,view_time,create_username,[ticket].eventID "
-                          +  " ,title,[content], artist,[image],event_typeID,venueID,cityID,city.name AS city_name,venue.name AS venue_name,venue.address AS venue_address "
-                    +" FROM [ticket],[event],[city],[venue] WHERE [ticket].eventID=[event].ID AND ticket.ID=? AND event.cityID=city.ID AND event.venueID=venue.ID";
+                          +  " ,title,[content], artist,[image],event_typeID,venueID,cityID,city.name AS city_name,venue.name AS venue_name,venue.address AS venue_address,'view_status' = CASE WHEN DATEDIFF(dd,GETDATE(),ticket.view_date) > 0 THEN 'New' ELSE 'Old' END "
+                    +" FROM [ticket],[event],[city],[venue] WHERE [ticket].eventID=[event].ID AND ticket.ID=? AND cityID=city.ID AND venueID=venue.ID";
             PreparedStatement pre = connection.getConnection().prepareStatement(sql);
             pre.setInt(1, ticketID.intValue());
             ResultSet rs = pre.executeQuery();
@@ -68,8 +95,30 @@ public class TicketDAO {
             
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally{
+            connection.closeConnection();
         }
         return ticket;
+    }
+
+     public Integer countRecordFindByEventTypeID(Integer eventTypeID) throws SQLTicketBookException {
+       
+        try {
+            String sql = "SELECT COUNT(ticket.ID) AS TOTAL"
+                    +" FROM [ticket],[event] WHERE [ticket].eventID=[event].ID AND [event].event_typeID = ?";
+            PreparedStatement pre = connection.getConnection().prepareStatement(sql);
+            pre.setInt(1, eventTypeID.intValue());
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()){
+                return new Integer(rs.getInt("Total"));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }finally{
+            connection.closeConnection();
+        }
+        return new Integer(0);
     }
 
     private TicketTransferData mapping(ResultSet rs) throws SQLException {
@@ -93,6 +142,8 @@ public class TicketDAO {
         ticket.setCityName(rs.getNString("city_name"));
         ticket.setVenueAddress(rs.getNString("venue_address"));
         ticket.setVenueName(rs.getNString("venue_name"));
+        if(rs.getString("view_status")!=null)
+            ticket.setViewStatus(rs.getString("view_status"));
         return ticket;
     }
 }
