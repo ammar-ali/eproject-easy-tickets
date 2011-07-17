@@ -14,6 +14,11 @@
 	  	<function-signature>java.util.ArrayList getTicketsByEventTypeID(java.lang.Integer,java.lang.Integer,java.lang.Integer)</function-signature>
 	</function>
         <function>
+	  	<name>getTopTicketsByEventTypeID</name>
+	  	<function-class>ticketbook.model.Ticket</function-class>
+	  	<function-signature>java.util.ArrayList getTopTicketsByEventTypeID(java.lang.Integer,java.lang.Integer)</function-signature>
+	</function>
+        <function>
 	  	<name>filterTicketBookDate</name>
 	  	<function-class>ticketbook.util.TicketBookELF</function-class>
 	  	<function-signature>java.lang.String filterTicketBookDate(java.lang.String)</function-signature>

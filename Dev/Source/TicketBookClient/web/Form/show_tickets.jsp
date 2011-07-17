@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/TLD/elfstring" prefix="stringELF" %>
 <%@ taglib uri="/WEB-INF/TLD/elfticketbook" prefix="ticketbookELF" %>
+<%@ taglib uri="/WEB-INF/TLD/taglib.tld" prefix="w" %>
+
 <%@page import="ticketbook.model.EventType"%>
 <%@page import="ticketbook.transfer.EventTypeTransferData"%>
 <%@page import="ticketbook.util.TicketBookConvert"%>
@@ -16,6 +18,8 @@
 <%@page import="ticketbook.ejb.bmp.EventTypeRemote"%>
 <%@page import="ticketbook.util.TicketBookParameter"%>
 <%@page import="ticketbook.controller.FormBackController"%>
+<%@page import="ticketbook.ejb.bmp.TicketRemote"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ page import="ticketbook.util.Constant"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -32,18 +36,54 @@
     <body onload="loadFocus();">
 <c:set var="ROLEID_SESSION" value='<%=TicketBookConvert.castSessionIsNull(request.getSession(),TicketBookSession.ROLEID_USER_LOGIN,new Integer(0))%>'/>
 <c:set var="ID_FALSE_INTEGER" value='<%=Constant.ID_FALSE_INTETER%>'/>
-<c:set var="SYSTEM_PARAM" value='<%=new TicketBookParameter()%>'/>
+<% TicketBookParameter systemParam=new TicketBookParameter();%>
+<c:set var="SYSTEM_PARAM" value='<%=systemParam%>'/>
 
 <jsp:include page="../Block/block1.jsp"/>
 
 <c:if test="${ stringELF:validatePositiveNumber(param.index) eq 1}">
     <c:set var="lengthEventType" value='<%=EventType.getInstanceValue().size()%>'></c:set>
-    <c:set var="eventType" value='<%=((EventTypeRemote)EventType.getInstanceValue().get(Integer.parseInt(request.getParameter("index"))))%>'></c:set>
-    <c:if test="${param.index<lengthEventType}">
-        <font class="_content_title">${eventType.name} Events</font>
 
-        <c:set var="eventTypeID" value='${eventType.ID}'></c:set>
-        <c:set var="tickets" value='${ticketbookELF:getTicketsByEventTypeID(eventTypeID,1,20)}'></c:set>
+    <c:if test="${param.index<lengthEventType}">
+        <% EventTypeRemote eventType=((EventTypeRemote)EventType.getInstanceValue().get(Integer.parseInt(request.getParameter("index"))));%>
+        <% Integer eventTypeID= eventType.getID();%>
+        <font class="_content_title"><%=eventType.getName()%> Events</font>
+        <c:set var="TOTAL_RECORD_SHOW" value='${SYSTEM_PARAM.recordNumberNeedShow}'></c:set>
+        <c:set var="TOTAL_PAGE_SHOW" value='${SYSTEM_PARAM.pageNumberNeedShow}'></c:set>
+        <% Integer indexPage=new Integer(0);%>
+     
+        <c:if test="${param.pindex ne '' and  stringELF:validatePositiveNumber(param.pindex) eq 1}">
+           <% indexPage=new Integer(Integer.parseInt(TicketBookConvert.castParameterRequestIsNull(request, "pindex","0")));%>
+        </c:if>
+        <c:set var="indexPage" value='<%=indexPage%>'></c:set>
+        <% ArrayList tickets=Ticket.getTicketsByEventTypeID(eventTypeID,indexPage,new Integer(systemParam.getRecordNumberNeedShow())); %>
+        <c:set var="tickets" value='<%=tickets%>'></c:set>
+        <c:set var="sizeTicketFind" value='<%=tickets.size()%>'></c:set>
+        <% Integer totalRecord=new Integer(0);%>
+        <c:if test="${sizeTicketFind ge 0}">
+            <% totalRecord=((TicketRemote)tickets.get(0)).countByEventTypeID(eventTypeID);%>
+        </c:if>
+        <c:set var="totalRecord" value="<%=totalRecord%>"></c:set>
+        
+        <!--PAGING-->
+        <div style="width:inherit;text-align:right">
+            <c:if test="${totalRecord gt TOTAL_RECORD_SHOW}">
+                <w:paging pathName="show_tickets.jsp"
+                          enableFirstPage="true"
+                enableLastPage="true"
+                enableIndexChoose="true"
+                styleIndexChoose="color:blue"
+                index="${indexPage}"
+                totalRecord="${totalRecord}"
+                numPageDivide="${TOTAL_PAGE_SHOW}"
+                numRecordDivide="${TOTAL_RECORD_SHOW}"
+                style="cursor:pointer"
+                pageName="pindex">
+                    <w:parameter name="index">${param.index}</w:parameter>
+                </w:paging>
+            </c:if>
+        </div>
+        <!---------->
         <% int count=1; %>
         <c:forEach var="obj" items="${tickets}">
             <div class="_block_event_item">
@@ -95,7 +135,7 @@
 
                     
                     <c:if test="${index_row ne param.view or (index_row eq param.view and param.stt eq 'close')}">
-                        <div style="float:right"><a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=more">More...</a></div>
+                        <div style="float:right"><a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=more&pindex=${param.pindex}">More...</a></div>
                     </c:if>
                 </div>
 
@@ -112,7 +152,7 @@
                             <div style="color:green;padding-left:20px;padding-right:20px"><b>Discount</b>: <font>${obj.discount}</font></div>
                         </c:if>
                        
-                        <div style="float:right"><a  href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=close">Close</a></div>
+                        <div style="float:right"><a  href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=close&pindex=${param.pindex}">Close</a></div>
                         
                     </div>
                </c:if>
@@ -122,6 +162,26 @@
             </div>
                 <% count++; %>
         </c:forEach>
+
+        <!--PAGING-->
+        <div style="width:inherit;text-align:right">
+            <c:if test="${totalRecord gt TOTAL_RECORD_SHOW}">
+                <w:paging pathName="show_tickets.jsp"
+                          enableFirstPage="true"
+                enableLastPage="true"
+                enableIndexChoose="true"
+                styleIndexChoose="color:blue"
+                index="${indexPage}"
+                totalRecord="${totalRecord}"
+                numPageDivide="${TOTAL_PAGE_SHOW}"
+                numRecordDivide="${TOTAL_RECORD_SHOW}"
+                style="cursor:pointer"
+                pageName="pindex">
+                    <w:parameter name="index">${param.index}</w:parameter>
+                </w:paging>
+            </c:if>
+        </div>
+        <!---------->
 
         <script type="text/javascript">
             function loadFocus(){
@@ -145,6 +205,7 @@
         </form>
     </c:if>
 </c:if>
+        
 <jsp:include page="../Block/block2.jsp"/>
     </body>
 </html>
