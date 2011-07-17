@@ -31,4 +31,16 @@ public class Ticket {
         return new ArrayList();
     }
 
+    public static ArrayList getTopTicketsByEventTypeID(Integer eventTypeID,Integer top){
+        TicketRemoteHome home=TicketBookLookUpJNDI.getTicketRemoteHome();
+        try {
+            return (ArrayList) home.findTopByEventTypeID(eventTypeID,top.intValue());
+        } catch (FinderException ex) {
+            ex.printStackTrace();
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+        return new ArrayList();
+    }
+
 }
