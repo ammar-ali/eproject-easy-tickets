@@ -54,4 +54,8 @@ public interface TicketRemote extends EJBObject {
     public void setViewDate(String viewDate) throws RemoteException;
     public String getViewTime() throws RemoteException;
     public void setViewTime(String viewTime) throws RemoteException;
+    public String getViewStatus() throws RemoteException;
+    public void setViewStatus(String viewStatus) throws RemoteException;
+
+    public Integer countByEventTypeID(Integer eventTypeID) throws RemoteException;
 }

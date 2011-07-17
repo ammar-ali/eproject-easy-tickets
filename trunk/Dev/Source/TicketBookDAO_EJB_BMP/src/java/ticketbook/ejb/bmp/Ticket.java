@@ -94,6 +94,7 @@ public class Ticket extends TicketTransferData implements EntityBean {
                 this.setVenueName(data.getVenueName());
                 this.setViewDate(data.getViewDate());
                 this.setViewTime(data.getViewTime());
+                this.setViewStatus(data.getViewStatus());
             }
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
@@ -128,5 +129,23 @@ public class Ticket extends TicketTransferData implements EntityBean {
             ex.printStackTrace();
         }
         return lst;
+    }
+
+    public Integer countByEventTypeID(Integer eventTypeID){
+        try {
+            return TicketDAO.getInstance(SQLTicketBookConnection.getInstance()).countRecordFindByEventTypeID(eventTypeID);
+        } catch (SQLTicketBookException ex) {
+            ex.printStackTrace();
+        }
+        return new Integer(0);
+    }
+
+    public Collection ejbFindTopByEventTypeID(Integer eventTypeID,int top){
+        try {
+            return TicketDAO.getInstance(SQLTicketBookConnection.getInstance()).getTopTicketIDsByEventTypeID(eventTypeID, new Integer(top));
+        } catch (SQLTicketBookException ex) {
+            ex.printStackTrace();
+        }
+        return new ArrayList();
     }
 }
