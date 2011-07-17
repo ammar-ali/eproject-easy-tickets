@@ -5,6 +5,7 @@
 
 package ticketbook.util;
 
+
 /**
  *
  * @author Admin
@@ -31,5 +32,7 @@ public class StringELF {
         }
         return new Integer(1);
     }
+
+   
 
 }
