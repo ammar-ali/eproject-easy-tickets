@@ -29,11 +29,14 @@ public class TicketTransferData implements  Serializable{
     private String artist;
     private String image;
     private Integer eventTypeID;
+    private String viewStatus;
 
+  
     private Integer venueID;
     private Integer cityID;
     private String cityName;
     private String venueAddress;
+
     private String venueName;
 
     public TicketTransferData(){
@@ -54,6 +57,16 @@ public class TicketTransferData implements  Serializable{
         this.title=Constant.DEFAULT_VALUE_STRING;
         this.venueAddress=Constant.DEFAULT_VALUE_STRING;
         this.venueID=Constant.ID_FALSE_INTETER;
+        this.viewStatus=Constant.DEFAULT_VALUE_STRING;
+
+    }
+
+    public String getViewStatus() {
+        return viewStatus;
+    }
+
+    public void setViewStatus(String viewStatus) {
+        this.viewStatus = viewStatus;
     }
 
     public Integer getID() {
