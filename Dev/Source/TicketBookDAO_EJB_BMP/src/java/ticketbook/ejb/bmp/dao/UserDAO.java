@@ -51,6 +51,8 @@ public class UserDAO implements Serializable{
         catch(Exception ex)
         {
             ex.printStackTrace();
+        }finally{
+            connection.closeConnection();
         }
 
     }
@@ -136,6 +138,7 @@ public class UserDAO implements Serializable{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        
         return user;
     }
     
