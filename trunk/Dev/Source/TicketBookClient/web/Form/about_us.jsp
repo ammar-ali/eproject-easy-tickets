@@ -31,7 +31,6 @@
    <b style="font-size:14px"> 'Showbiz' </b> is the company is principally into ticket sales, marketing and distribution of event tickets. The services include providing information on multiple event categories, providing ticketing facilities for several leading multiplexes, arenas and stadiums. They are thinking of the concept of developing a web portal, where a customer can book movie tickets in theatres that are made available in the site. They wish to launch the website by the name 'www.easytickets.com' where they can provide convenient, secure, and fair access to the best possible tickets offered by the clients. Showbiz aims at making events happening across the city more accessible-just a click away. Booking tickets can now an effortless, fun and exciting experience for every showbiz customer.
 
 <br/>
-<a href="">More</a>
 
 <jsp:include page="../Block/block2.jsp"/>
 </body>
