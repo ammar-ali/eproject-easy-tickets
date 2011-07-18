@@ -38,7 +38,7 @@ public class User extends UserTransferData implements EntityBean {
      * @see javax.ejb.EntityBean#ejbActivate()
      */
     public void ejbActivate() {
-        
+        this.setUsername((String)context.getPrimaryKey());
     }
     
     /**

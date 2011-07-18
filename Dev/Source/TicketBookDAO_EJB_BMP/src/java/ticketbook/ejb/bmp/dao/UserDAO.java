@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.hibernate.sql.Insert;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.transfer.UserTransferData;
@@ -35,7 +36,7 @@ public class UserDAO implements Serializable{
     public void insert(UserTransferData user) throws SQLTicketBookException{    
         try
         {
-            String sql="INSERT INTO account(username,[password],fullname,phone,[address],email,create_date,birth_date,person_card_number,roleID) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            String sql="INSERT INTO account(username,[password],fullname,phone,[address],email,birth_date,person_card_number,roleID) VALUES(?,?,?,?,?,?,?,?,?)";
             PreparedStatement str=connection.getConnection().prepareCall(sql);
             str.setString(1, user.getUsername());
             str.setString(2, user.getPassword());
@@ -43,10 +44,10 @@ public class UserDAO implements Serializable{
             str.setString(4, user.getPhone());
             str.setString(5, StringUtil.convertToUTF8(user.getAddress()));
             str.setString(6, user.getEmail());
-            str.setString(7, user.getCreateDate());
-            str.setString(8, user.getBirthDate());
-            str.setString(9, user.getPersonCardNumber());
-            str.setInt(10, user.getRoleID().intValue());
+            str.setString(7, user.getBirthDate());
+            str.setString(8, user.getPersonCardNumber());
+            str.setInt(9, user.getRoleID().intValue());
+            str.execute();
         }
         catch(Exception ex)
         {
@@ -141,5 +142,4 @@ public class UserDAO implements Serializable{
         
         return user;
     }
-    
 }
