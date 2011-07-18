@@ -43,4 +43,16 @@ public class Ticket {
         return new ArrayList();
     }
 
+    public static ArrayList getAvailableReferenceTicketByTitle(String title){
+        TicketRemoteHome home=TicketBookLookUpJNDI.getTicketRemoteHome();
+        try {
+            return (ArrayList) home.findAvailableReferenceTicketByTitle(title);
+        } catch (FinderException ex) {
+            ex.printStackTrace();
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+        return new ArrayList();
+    }
+
 }
