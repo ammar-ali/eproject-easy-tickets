@@ -19,6 +19,7 @@
 
         <link rel="stylesheet" href="<%=request.getContextPath()%>/Style/general.css" />
         <link rel="stylesheet" href="<%=request.getContextPath()%>/Style/aqua.css" />
+        
         <script type="text/javascript" src="<%=request.getContextPath()%>/Script/General.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/Script/jquery-1.3.2.min.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/Script/zapatec.js"></script>
@@ -26,65 +27,72 @@
         <script type="text/javascript" src="<%=request.getContextPath()%>/Script/Calendar-en.js"></script>
         <script src="<%=request.getContextPath()%>/Script/jquery.js" type="text/javascript"></script>
         <script src="<%=request.getContextPath()%>/Script/interface.js" type="text/javascript"></script>
+
     </head>
     <body>
 
         <jsp:include page="../Block/block1.jsp"/>
         <font class="_content_title">Register</font>
+        <br/>
         <form action="post">
-            <table style="width:500px; float: left;margin-left:200px" >
+            <table cellspacing="4px" style="width:550px; float: left;margin-left:200px" >
                 <tr>
                     <td style="text-align:left" width="150px" class="_title_form">Username</td>
-                    <td width="100px"><input type="text" class="_textbox" id="txtUsername"/></td>
+                    <td width="150px"><input type="text" class="_textbox" id="txtUsername"/></td>
                     <td width="250px" class="_alert_error" id="txtAlertUsername"></td>
                 </tr>
                 <tr>
-                    <td style="text-align:left" width="150px"  class="_title_form">Password</td>
-                    <td width="100px"><input type="password" class="_textbox" id="txtPassword"/></td>
-                    <td width="250px"  class="_alert_error" id="txtAlertPassword"></td>
+                    <td style="text-align:left"  class="_title_form">Password</td>
+                    <td><input type="password" class="_textbox" id="txtPassword"/></td>
+                    <td  class="_alert_error" id="txtAlertPassword"></td>
                 </tr>
                 <tr>
-                    <td style="text-align:left" width="150px" class="_title_form">Re-Password</td>
-                    <td width="100px"><input type="password" class="_textbox" id="txtRePassword"/></td>
-                    <td width="250px" class="_alert_error" id="txtAlertRePassword"></td>
+                    <td style="text-align:left"  class="_title_form">Re-Password</td>
+                    <td ><input type="password" class="_textbox" id="txtRePassword"/></td>
+                    <td class="_alert_error" id="txtAlertRePassword"></td>
                 </tr>
                 <tr>
-                    <td width="150px" style="text-align:left" class="_title_form">Fullname</td>
-                    <td width="100px"><input type="text" class="_textbox" id="txtFullname"/></td>
-                    <td width="250px" class="_alert_error" id="txtAlertFullname"></td>
+                    <td style="text-align:left" class="_title_form">Fullname</td>
+                    <td><input type="text" class="_textbox" id="txtFullname"/></td>
+                    <td class="_alert_error" id="txtAlertFullname"></td>
                 </tr>
                 <tr>
-                    <td width="150px" style="text-align:left" class="_title_form">Phone</td>
-                    <td width="100px"><input type="text" class="_textbox" id="txtPhone"/></td>
-                    <td width="250px" class="_alert_error" id="txtAlertPhone"></td>
+                    <td  style="text-align:left" class="_title_form">Phone</td>
+                    <td><input type="text" class="_textbox" id="txtPhone"/></td>
+                    <td class="_alert_error" id="txtAlertPhone"></td>
                 </tr>
                 <tr>
-                    <td width="150px" style="text-align:left" class="_title_form">Address</td>
-                    <td width="100px"><input type="text" class="_textbox" id="txtAddress"/></td>
-                    <td width="250px" class="_alert_error" id="txtAlertAddress"></td>
+                    <td style="text-align:left" class="_title_form">Address</td>
+                    <td><input type="text" class="_textbox" id="txtAddress"/></td>
+                    <td class="_alert_error" id="txtAlertAddress"></td>
                 </tr>
                 <tr>
-                    <td width="150px" style="text-align:left" class="_title_form">Email</td>
-                    <td width="100px"><input type="text" class="_textbox" id="txtEmail"/></td>
-                    <td width="250px" class="_alert_error" id="txtAlertEmail"></td>
+                    <td style="text-align:left" class="_title_form">Email</td>
+                    <td><input type="text" class="_textbox" id="txtEmail"/></td>
+                    <td class="_alert_error" id="txtAlertEmail"></td>
                 </tr>
 
                 <tr>
-                    <td width="150px" style="text-align:left" class="_title_form">Birthday</td>
-                    <td width="100px">
-                        <input type="text" class="_textbox"  id="txtBirthday" readonly="readonly"/></td>
-                    <td width="250px" class="_alert_error" id="txtAlertBirthday"></td>
+                    <td style="text-align:left" class="_title_form">Birthday</td>
+                    <td>
+                        <input type="text" class="_textbox" id="txtBirthday" name="txtBirthday" />
+                        
+                    </td>
+                    
+                    <td class="_alert_error" id="txtAlertBirthday"></td>
                 </tr>
                 <tr>
-                    <td width="150px" style="text-align:left" class="_title_form">Person Card Number</td>
-                    <td width="100px"><input type="text" class="_textbox" id="txtPersonCarNumber"/></td>
-                    <td width="250px" class="_alert_error" id="txtAlertPersonCardNumber"></td>
+                    <td style="text-align:left" class="_title_form">Person Card Number</td>
+                    <td><input type="text" class="_textbox" id="txtPersonCarNumber"/></td>
+                    <td class="_alert_error" id="txtAlertPersonCardNumber"></td>
                 </tr>
-                <tr><td colspan ="2" align="center"> <input type="button" value="Register" onclick="register()"/></td><td></td></tr>
+                <tr><td colspan ="2" align="center"> <input type="button" value="Submit" onclick="register()"/></td><td></td></tr>
             </table>
 
         </form>
         <script type="text/javascript">
+/*
+            
             function register(){
                 if(validate()){
             
@@ -160,6 +168,22 @@
                 else
                     return false;
             }
+
+            */
+        </script>
+        <script type="text/javascript">
+            //<![CDATA[
+              Zapatec.Calendar.setup({
+                    firstDay          : 1,
+                    weekNumbers       : false,
+                    range             : [2010.01, 2020.12],
+                    electric          : false,
+                    inputField        : "txtBirthday",
+                    button            : "Calendar",
+                    ifFormat          : "%d-%m-%Y"
+              });
+            //]]>
+
         </script>
         <jsp:include page="../Block/block2.jsp"/>
     </body>
