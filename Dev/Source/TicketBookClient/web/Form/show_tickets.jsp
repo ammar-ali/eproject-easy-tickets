@@ -182,7 +182,23 @@
                         <c:if test="${obj.discount ne '' and obj.discount ne null and obj.discount ne 0}">
                             <div style="color:green;padding-left:20px;padding-right:20px"><b>Discount</b>: <font>${obj.discount}</font></div>
                         </c:if>
-                       
+                            <div style="font-weight:bold">Reference:</div>
+                            <div style="">
+                                <c:set var="referenceTickets" value="${ticketbookELF:getAvailableReferenceTicketByTitle(obj.title)}"></c:set>
+                                <c:forEach items="${referenceTickets}" var="objReferenceTicket">
+                                    <c:if test="${obj.ID ne objReferenceTicket.ID and obj.eventTypeID eq objReferenceTicket.eventTypeID}">
+                                       <div style="padding-left:20px;padding-right:20px">
+                            
+                                           <c:if test="${objReferenceTicket.viewStatus eq 'New'}">
+                                               <a href="">${objReferenceTicket.cityName} City, ${objReferenceTicket.venueName} Theatre ,${objReferenceTicket.venueAddress} Street </a> <font color="red" style="font-style: italic">${objReferenceTicket.viewStatus}</font>
+                                           </c:if>
+                                           <c:if test="${objReferenceTicket.viewStatus ne 'New'}">
+                                               <a>${objReferenceTicket.cityName} City, ${objReferenceTicket.venueName} Theatre ,${objReferenceTicket.venueAddress} Street </a> <font color="red" style="font-style: italic">Release</font>
+                                           </c:if>
+                                       </div>
+                                   </c:if>
+                                </c:forEach>
+                            </div>
                         <div style="float:right"><a  href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=close&pindex=${param.pindex}&indexCity=${param.indexCity}">Close</a></div>
                         
                     </div>
