@@ -11,7 +11,7 @@
         <function>
 	  	<name>getTicketsByEventTypeID</name>
 	  	<function-class>ticketbook.model.Ticket</function-class>
-	  	<function-signature>java.util.ArrayList getTicketsByEventTypeID(java.lang.Integer,java.lang.Integer,java.lang.Integer)</function-signature>
+	  	<function-signature>java.util.ArrayList getTicketsByEventTypeID(java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Integer)</function-signature>
 	</function>
         <function>
 	  	<name>getTopTicketsByEventTypeID</name>

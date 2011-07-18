@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<authorize>
+	<session_role>roleID_login</session_role>
+	<page>
+		<page_name>/Form/Booking/ticket_book.jsp</page_name>
+		<role>1</role>
+		<role>2</role>
+	</page>
+	
+	<alert>You couldn't view this page</alert>
+	<error>/TicketBookClient/Form/error.jsp?stt=0</error>
+</authorize>
+

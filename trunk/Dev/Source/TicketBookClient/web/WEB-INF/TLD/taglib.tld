@@ -3,7 +3,32 @@
 	  <tlib-version>1.0</tlib-version> 
 	  <short-name>taglib</short-name> 
 	  <uri>http://weblib.kth.taglib</uri>
-	  
+
+          	  <tag>
+	  	<name>authorize_role</name>
+	  	<tag-class>ticketbook.taglib.AuthorizeTag</tag-class>
+	  	<body-content>JSP</body-content>
+	  	<attribute>
+	  		<name>pathTo</name>
+	  		<required>true</required>
+	  		<rtexprvalue>true</rtexprvalue>
+	  		<type>java.lang.String</type>
+	  	</attribute>
+	  	<attribute>
+	  		<name>request</name>
+	  		<rtexprvalue>true</rtexprvalue>
+	  		<required>true</required>
+	  		<type>javax.servlet.http.HttpServletRequest</type>
+	  	</attribute>
+	  	<attribute>
+	  		<name>response</name>
+	  		<required>true</required>
+	  		<rtexprvalue>true</rtexprvalue>
+	  		<type>javax.servlet.http.HttpServletResponse</type>
+	  	</attribute>
+
+	  </tag>
+
 	  
 	  <tag>
 	  	<name>parameter</name>
