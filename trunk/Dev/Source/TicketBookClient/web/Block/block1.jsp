@@ -12,9 +12,11 @@
 <%@page import="ticketbook.util.Constant"%>
 <%@ taglib uri="/WEB-INF/TLD/elfticketbook" prefix="ticketbookELF" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib uri="/WEB-INF/TLD/taglib.tld" prefix="w" %>
+
 <c:set var="roleID" value='<%=TicketBookConvert.castSessionIsNull(request.getSession(),TicketBookSession.ROLEID_USER_LOGIN,new Integer(0))%>'/>
 <c:set var="ID_FALSE_INTEGER" value='<%=Constant.ID_FALSE_INTETER%>'/>
-
+<w:authorize_role pathTo="/WEB-INF/authorize.xml" request="${pageContext.request}" response="${pageContext.response}"></w:authorize_role>
 <center>
 	<div class="_div_header_1">
 		<div class="_div_header_2">
