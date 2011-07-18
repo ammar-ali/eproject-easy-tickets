@@ -8,6 +8,7 @@ package ticketbook.util;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import ticketbook.ejb.bmp.CityRemoteHome;
 import ticketbook.ejb.bmp.EventTypeRemoteHome;
 import ticketbook.ejb.bmp.TicketRemoteHome;
 import ticketbook.ejb.bmp.UserRemoteHome;
@@ -63,6 +64,23 @@ public class TicketBookLookUpJNDI {
             TicketRemoteHome home=(TicketRemoteHome)
                             javax.rmi.PortableRemoteObject.narrow(
                              ref,TicketRemoteHome.class);
+            return home;
+        } catch (ConfigException ex) {
+            ex.printStackTrace();
+        }catch(NamingException namingException){
+            namingException.printStackTrace();
+        }
+        return null;
+    }
+
+    public static CityRemoteHome getCityRemoteHome(){
+        try{
+            Config.settingSystemPropertiesForEntityBean();
+            Context ctx=new InitialContext();
+            Object ref=ctx.lookup("City");
+            CityRemoteHome home=(CityRemoteHome)
+                            javax.rmi.PortableRemoteObject.narrow(
+                             ref,CityRemoteHome.class);
             return home;
         } catch (ConfigException ex) {
             ex.printStackTrace();
