@@ -17,16 +17,12 @@
         <link rel='stylesheet' href='<%=request.getContextPath()%>/Style/tag_def.css'/>
         <link rel='stylesheet' href='<%=request.getContextPath()%>/Style/component.css'/>
 
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/Style/general.css" />
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/Style/aqua.css" />
-        
-        <script type="text/javascript" src="<%=request.getContextPath()%>/Script/General.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/Script/jquery-1.3.2.min.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/Script/zapatec.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/Script/calendar.js"></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/Script/Calendar-en.js"></script>
-        <script src="<%=request.getContextPath()%>/Script/jquery.js" type="text/javascript"></script>
-        <script src="<%=request.getContextPath()%>/Script/interface.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/Style/calendar-blue.css"  />
+
+                <script type="text/javascript" src="<%=request.getContextPath()%>/Script/jquery_min.js"></script>
+
+		<script type="text/javascript" src="<%=request.getContextPath()%>/Script/jquery.dynDateTime.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/Script/calendar-en.js"></script>
 
     </head>
     <body>
@@ -75,8 +71,8 @@
                 <tr>
                     <td style="text-align:left" class="_title_form">Birthday</td>
                     <td>
-                        <input type="text" class="_textbox" id="txtBirthday" name="txtBirthday" />
-                        
+                        <input  type="text" class="_textbox" id="txtBirthday" name="txtBirthday" />
+                       
                     </td>
                     
                     <td class="_alert_error" id="txtAlertBirthday"></td>
@@ -91,7 +87,7 @@
 
         </form>
         <script type="text/javascript">
-/*
+
             
             function register(){
                 if(validate()){
@@ -169,22 +165,13 @@
                     return false;
             }
 
-            */
+            
         </script>
-        <script type="text/javascript">
-            //<![CDATA[
-              Zapatec.Calendar.setup({
-                    firstDay          : 1,
-                    weekNumbers       : false,
-                    range             : [2010.01, 2020.12],
-                    electric          : false,
-                    inputField        : "txtBirthday",
-                    button            : "Calendar",
-                    ifFormat          : "%d-%m-%Y"
-              });
-            //]]>
-
-        </script>
+        			<script type="text/javascript">
+					jQuery(document).ready(function() {
+						jQuery("#txtBirthday").dynDateTime(); //defaults
+					});
+				</script>
         <jsp:include page="../Block/block2.jsp"/>
     </body>
 </html>	
