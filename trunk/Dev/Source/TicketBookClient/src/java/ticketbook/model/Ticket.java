@@ -19,10 +19,10 @@ public class Ticket {
 
     private Ticket(){}
 
-    public static ArrayList getTicketsByEventTypeID(Integer eventTypeID,Integer indexRecord,Integer totalRecord){
+    public static ArrayList getTicketsByEventTypeID(Integer eventTypeID,Integer cityID,Integer indexRecord,Integer totalRecord){
         TicketRemoteHome home=TicketBookLookUpJNDI.getTicketRemoteHome();
         try {
-            return (ArrayList) home.findByEventTypeID(eventTypeID, indexRecord.intValue(), totalRecord.intValue());
+            return (ArrayList) home.findByEventTypeID(eventTypeID,cityID,indexRecord.intValue(), totalRecord.intValue());
         } catch (FinderException ex) {
             ex.printStackTrace();
         } catch (RemoteException ex) {
