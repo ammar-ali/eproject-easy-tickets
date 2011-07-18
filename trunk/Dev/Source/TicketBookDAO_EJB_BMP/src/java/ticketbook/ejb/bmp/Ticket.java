@@ -121,19 +121,19 @@ public class Ticket extends TicketTransferData implements EntityBean {
         return aKey;
     }
 
-    public Collection ejbFindByEventTypeID(Integer eventTypeID,int indexRecord,int totalRecord){
+    public Collection ejbFindByEventTypeID(Integer eventTypeID,Integer cityID,int indexRecord,int totalRecord){
         ArrayList lst=new ArrayList();
         try {
-            lst= TicketDAO.getInstance(SQLTicketBookConnection.getInstance()).getTicketIDsByEventTypeID(eventTypeID, indexRecord, totalRecord);
+            lst= TicketDAO.getInstance(SQLTicketBookConnection.getInstance()).getTicketIDsByEventTypeID(eventTypeID, cityID,indexRecord, totalRecord);
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }
         return lst;
     }
 
-    public Integer countByEventTypeID(Integer eventTypeID){
+    public Integer countByEventTypeID(Integer eventTypeID,Integer cityID){
         try {
-            return TicketDAO.getInstance(SQLTicketBookConnection.getInstance()).countRecordFindByEventTypeID(eventTypeID);
+            return TicketDAO.getInstance(SQLTicketBookConnection.getInstance()).countRecordFindByEventTypeID(eventTypeID,cityID);
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }

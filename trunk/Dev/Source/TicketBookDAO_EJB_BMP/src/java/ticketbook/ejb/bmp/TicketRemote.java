@@ -57,5 +57,5 @@ public interface TicketRemote extends EJBObject {
     public String getViewStatus() throws RemoteException;
     public void setViewStatus(String viewStatus) throws RemoteException;
 
-    public Integer countByEventTypeID(Integer eventTypeID) throws RemoteException;
+    public Integer countByEventTypeID(Integer eventTypeID,Integer cityID) throws RemoteException;
 }

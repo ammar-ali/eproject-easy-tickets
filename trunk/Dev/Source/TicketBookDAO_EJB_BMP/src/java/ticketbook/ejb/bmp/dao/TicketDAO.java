@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.TicketTransferData;
-import ticketbook.util.StringUtil;
 
 /**
  *
@@ -34,13 +33,14 @@ public class TicketDAO {
         return ticketDAO;
     }
 
-    public ArrayList getTicketIDsByEventTypeID(Integer eventTypeID, int indexRecord, int totalRecord) throws SQLTicketBookException {
+    public ArrayList getTicketIDsByEventTypeID(Integer eventTypeID,Integer cityID, int indexRecord, int totalRecord) throws SQLTicketBookException {
         ArrayList lst = new ArrayList();
         try {
 
-            CallableStatement csmt = connection.getConnection().prepareCall("{call sp_get_ticket(?,?,?)}");
+            CallableStatement csmt = connection.getConnection().prepareCall("{call sp_get_ticket(?,?,?,?)}");
 
             csmt.setInt("event_typeID", eventTypeID.intValue());
+            csmt.setInt("cityID",cityID.intValue());
             csmt.setInt("index_start", indexRecord);
             csmt.setInt("total_record", totalRecord);
             ResultSet rs = csmt.executeQuery();
@@ -101,13 +101,18 @@ public class TicketDAO {
         return ticket;
     }
 
-     public Integer countRecordFindByEventTypeID(Integer eventTypeID) throws SQLTicketBookException {
+     public Integer countRecordFindByEventTypeID(Integer eventTypeID,Integer cityID) throws SQLTicketBookException {
        
         try {
             String sql = "SELECT COUNT(ticket.ID) AS TOTAL"
                     +" FROM [ticket],[event] WHERE [ticket].eventID=[event].ID AND [event].event_typeID = ?";
+            Integer o=new Integer(0);
+            if(!cityID.equals(o))
+                    sql=sql+" "+" AND event.cityID=? ";
             PreparedStatement pre = connection.getConnection().prepareStatement(sql);
             pre.setInt(1, eventTypeID.intValue());
+            if(!cityID.equals(o))
+                 pre.setInt(2, cityID.intValue());
             ResultSet rs = pre.executeQuery();
             while (rs.next()){
                 return new Integer(rs.getInt("Total"));
@@ -146,4 +151,14 @@ public class TicketDAO {
             ticket.setViewStatus(rs.getString("view_status"));
         return ticket;
     }
+//
+//
+//    public static void main(String[] arg){
+//        try {
+//            Integer c = TicketDAO.getInstance(SQLTicketBookConnection.getInstance()).countRecordFindByEventTypeID(new Integer(1),new Integer(0));
+//            System.out.print(c);
+//        } catch (SQLTicketBookException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 }
