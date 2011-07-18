@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.TicketTransferData;
+import ticketbook.util.StringUtil;
 
 /**
  *
@@ -80,6 +81,29 @@ public class TicketDAO {
         return lst;
     }
 
+    public ArrayList getAvailableReferenceTicketIDsByTitle(String title) throws SQLTicketBookException {
+        ArrayList lst = new ArrayList();
+        try {
+            String sql="SELECT ticket.ID FROM ticket,[event] "
+                    +" WHERE [event].title = ? AND ticket.eventID=event.ID "
+                    + " AND ticket_total !=0 AND  view_date>GETDATE() "
+                    +" ORDER BY ticket.ID DESC ";
+            PreparedStatement pre = connection.getConnection().prepareStatement(sql);
+            pre.setString(1,"%"+StringUtil.convertToUTF8(title)+"%");
+           
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                Integer ticketID = new Integer(rs.getInt("ID"));
+                lst.add(ticketID);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally{
+            connection.closeConnection();
+        }
+        return lst;
+    }
     
     public TicketTransferData getTicketByID(Integer ticketID) throws SQLTicketBookException {
         TicketTransferData ticket = new TicketTransferData();

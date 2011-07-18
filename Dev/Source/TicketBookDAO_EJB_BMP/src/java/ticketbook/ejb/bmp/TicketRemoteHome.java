@@ -18,4 +18,5 @@ public interface TicketRemoteHome extends EJBHome {
     ticketbook.ejb.bmp.TicketRemote findByPrimaryKey(java.lang.Integer key)  throws FinderException, RemoteException;
     java.util.Collection findByEventTypeID(Integer eventTypeID,Integer cityID,int indexRecord,int totalRecord) throws FinderException,RemoteException;
     java.util.Collection findTopByEventTypeID(Integer eventTypeID,int top) throws FinderException,RemoteException;
+    java.util.Collection findAvailableReferenceTicketByTitle(String title) throws FinderException,RemoteException;
 }
