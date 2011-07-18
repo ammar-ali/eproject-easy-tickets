@@ -8,7 +8,6 @@
 <%@ taglib uri="/WEB-INF/TLD/elfstring" prefix="stringELF" %>
 <%@ taglib uri="/WEB-INF/TLD/elfticketbook" prefix="ticketbookELF" %>
 <%@ taglib uri="/WEB-INF/TLD/taglib.tld" prefix="w" %>
-
 <%@page import="ticketbook.model.EventType"%>
 <%@page import="ticketbook.transfer.EventTypeTransferData"%>
 <%@page import="ticketbook.util.TicketBookConvert"%>
@@ -19,6 +18,8 @@
 <%@page import="ticketbook.util.TicketBookParameter"%>
 <%@page import="ticketbook.controller.FormBackController"%>
 <%@page import="ticketbook.ejb.bmp.TicketRemote"%>
+<%@page import="ticketbook.model.City"%>
+<%@page import="ticketbook.ejb.bmp.CityRemote"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ page import="ticketbook.util.Constant"%>
@@ -40,6 +41,35 @@
 <c:set var="SYSTEM_PARAM" value='<%=systemParam%>'/>
 
 <jsp:include page="../Block/block1.jsp"/>
+<%
+    int indexCity=-1;
+    Integer cityID=new Integer(0);
+    ArrayList lstCity=City.getInstanceValue();
+    
+%>
+<c:set var="lengthCityItem" value='<%=lstCity.size()%>'></c:set>
+<c:if test="${param.indexCity ne ''}">
+<c:if test="${ stringELF:validatePositiveNumber(param.indexCity) eq 1 and lengthCityItem ge param.indexCity and param.indexCity ge 0}">
+    <% indexCity=Integer.parseInt(request.getParameter("indexCity"));%>
+    <%cityID=((CityRemote)lstCity.get(indexCity)).getID();%>
+</c:if>
+</c:if>
+<div style="width:640px;text-align: right">
+    Choose City: <select id="selCity" onchange="changeCity()">
+    <% int countCity=0; %>
+    <option value="-1">--All--</option>
+    <c:forEach var="objCity" items='<%=lstCity%>'>
+        <c:set var="countCity" value='<%=countCity%>'></c:set>
+         <c:set var="selected" value=''></c:set>
+        <c:if test="${param.indexCity eq countCity}">
+            <c:set var="selected" value='selected'></c:set>
+        </c:if>
+        
+        <option value="<%=countCity%>" ${selected}>${objCity.name}</option>
+        <% countCity++;%>
+    </c:forEach>
+</select>
+</div>
 
 <c:if test="${ stringELF:validatePositiveNumber(param.index) eq 1}">
     <c:set var="lengthEventType" value='<%=EventType.getInstanceValue().size()%>'></c:set>
@@ -56,12 +86,12 @@
            <% indexPage=new Integer(Integer.parseInt(TicketBookConvert.castParameterRequestIsNull(request, "pindex","0")));%>
         </c:if>
         <c:set var="indexPage" value='<%=indexPage%>'></c:set>
-        <% ArrayList tickets=Ticket.getTicketsByEventTypeID(eventTypeID,indexPage,new Integer(systemParam.getRecordNumberNeedShow())); %>
+        <% ArrayList tickets=Ticket.getTicketsByEventTypeID(eventTypeID,cityID,indexPage,new Integer(systemParam.getRecordNumberNeedShow())); %>
         <c:set var="tickets" value='<%=tickets%>'></c:set>
         <c:set var="sizeTicketFind" value='<%=tickets.size()%>'></c:set>
         <% Integer totalRecord=new Integer(0);%>
-        <c:if test="${sizeTicketFind ge 0}">
-            <% totalRecord=((TicketRemote)tickets.get(0)).countByEventTypeID(eventTypeID);%>
+        <c:if test="${sizeTicketFind gt 0}">
+            <% totalRecord=((TicketRemote)tickets.get(0)).countByEventTypeID(eventTypeID,cityID);%>
         </c:if>
         <c:set var="totalRecord" value="<%=totalRecord%>"></c:set>
         
@@ -80,6 +110,7 @@
                 style="cursor:pointer"
                 pageName="pindex">
                     <w:parameter name="index">${param.index}</w:parameter>
+                    <w:parameter name="indexCity">${param.indexCity}</w:parameter>
                 </w:paging>
             </c:if>
         </div>
@@ -135,7 +166,7 @@
 
                     
                     <c:if test="${index_row ne param.view or (index_row eq param.view and param.stt eq 'close')}">
-                        <div style="float:right"><a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=more&pindex=${param.pindex}">More...</a></div>
+                        <div style="float:right"><a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=more&pindex=${param.pindex}&indexCity=${param.indexCity}">More...</a></div>
                     </c:if>
                 </div>
 
@@ -152,7 +183,7 @@
                             <div style="color:green;padding-left:20px;padding-right:20px"><b>Discount</b>: <font>${obj.discount}</font></div>
                         </c:if>
                        
-                        <div style="float:right"><a  href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=close&pindex=${param.pindex}">Close</a></div>
+                        <div style="float:right"><a  href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=close&pindex=${param.pindex}&indexCity=${param.indexCity}">Close</a></div>
                         
                     </div>
                </c:if>
@@ -178,6 +209,7 @@
                 style="cursor:pointer"
                 pageName="pindex">
                     <w:parameter name="index">${param.index}</w:parameter>
+                    <w:parameter name="indexCity">${param.indexCity}</w:parameter>
                 </w:paging>
             </c:if>
         </div>
@@ -197,6 +229,12 @@
                 document.getElementById("txtPathTo").value=pathTo;
                 document.forms["frmFormBack"].submit();
             }
+
+            function changeCity(){
+                var valueCity=document.getElementById("selCity").value;
+                location.href=("<%=request.getContextPath()%>"+"/Form/show_tickets.jsp?index=<%=request.getParameter("index")%>&indexCity="+valueCity);
+            }
+
         </script>
 
         <form name="frmFormBack" action="<%=request.getContextPath()%>/FormBackController" method="post">
