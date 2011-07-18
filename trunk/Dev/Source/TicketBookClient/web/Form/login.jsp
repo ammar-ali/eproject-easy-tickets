@@ -57,7 +57,7 @@
 <font class="_content_title">Login</font>
 
 
-<form method="post" action="<%=request.getContextPath()%>/FormController" name="frmLogin">
+<form method="post" action="<%=request.getContextPath()%>/UserController" name="frmLogin">
 
     <c:set var="alertLogin" value='<%=TicketBookConvert.castAttributeRequestIsNull(request,"alert_login","")%>'></c:set>
     <c:set var="txtUsername" value='<%=TicketBookConvert.castParameterRequestIsNull(request,UserController.USERNAME_CONTROL_NAME,"")%>'></c:set>
