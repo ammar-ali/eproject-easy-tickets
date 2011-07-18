@@ -6,14 +6,20 @@ package ticketbook.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.rmi.RemoteException;
+import javax.ejb.CreateException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ticketbook.ejb.bmp.UserRemote;
+import ticketbook.ejb.bmp.UserRemoteHome;
 import ticketbook.model.User;
+import ticketbook.transfer.UserTransferData;
 import ticketbook.util.Constant;
 import ticketbook.util.TicketBookContextPath;
+import ticketbook.util.TicketBookLookUpJNDI;
+import ticketbook.util.TicketBookParameter;
 import ticketbook.util.TicketBookSession;
 
 /**
@@ -25,6 +31,12 @@ public class UserController extends HandlerController {
 
     public static final String USERNAME_CONTROL_NAME = "txtUsername";
     public static final String PASSWORD_CONTROL_NAME = "txtPassword";
+    public static final String FULLNAME_CONTROL_NAME="txtFullName";
+    public static final String PHONE_CONTROL_NAME="txtPhone";
+    public static final String ADDRESS_CONTROL_NAME="txtAddress";
+    public static final String EMAIL_CONTROL_NAME="txtEmail";
+    public static final String BIRTHDAY_CONTROL_NAME="txtBirthday";
+    public static final String PERSONCARDNUMBER_CONTROL_NAME="txtPersonCardNumber";
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,6 +53,9 @@ public class UserController extends HandlerController {
             if (request.getParameter(FormController.ACTIONTYPE_NAME) != null) {
                 if (request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_LOGIN)) {
                     this.processLogin(request, response);
+                }
+                else if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_REGISTER_MEMBER)){
+                    this.registerMember(request, response);
                 }
                 else{
                     if(this.handlerController!=null)
@@ -90,6 +105,49 @@ public class UserController extends HandlerController {
         }
 
         return remote;
+    }
+    public void registerMember(HttpServletRequest request, HttpServletResponse response){
+      UserTransferData data=new UserTransferData();
+        if(request.getParameter(USERNAME_CONTROL_NAME)!=null){
+           data.setUsername(request.getParameter(USERNAME_CONTROL_NAME));
+        }
+       if(request.getParameter(PASSWORD_CONTROL_NAME)!=null){
+            data.setPassword(request.getParameter(PASSWORD_CONTROL_NAME));
+       }
+       if(request.getParameter(FULLNAME_CONTROL_NAME)!=null){
+        data.setFullname(request.getParameter(FULLNAME_CONTROL_NAME));
+       }
+       if(request.getParameter(PHONE_CONTROL_NAME)!=null){
+        data.setPhone(request.getParameter(PHONE_CONTROL_NAME));
+       }
+       if(request.getParameter(PERSONCARDNUMBER_CONTROL_NAME)!=null){
+        data.setPersonCardNumber(request.getParameter(PERSONCARDNUMBER_CONTROL_NAME));
+       }
+       if(request.getParameter(ADDRESS_CONTROL_NAME)!=null){
+        data.setAddress(request.getParameter(ADDRESS_CONTROL_NAME));
+       }
+       if(request.getParameter(BIRTHDAY_CONTROL_NAME)!=null){
+        data.setBirthDate(request.getParameter(BIRTHDAY_CONTROL_NAME));
+       }
+       if(request.getParameter(EMAIL_CONTROL_NAME)!=null){
+        data.setEmail(request.getParameter(EMAIL_CONTROL_NAME));
+       }
+      data.setRoleID(new Integer(new TicketBookParameter().getCustomerRoleID()));
+      UserRemoteHome home=TicketBookLookUpJNDI.getUserRemoteHome();
+        try {
+            home.create(data);
+            response.sendRedirect(request.getContextPath()+"/Form/login.jsp");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            try {
+                request.getRequestDispatcher("/Form/register.jsp").forward(request, response);
+            } catch (ServletException ex1) {
+                ex1.printStackTrace();
+            } catch (IOException ex1) {
+                ex1.printStackTrace();
+            }
+        } 
+      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
