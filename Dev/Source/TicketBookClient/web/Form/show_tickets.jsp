@@ -94,9 +94,8 @@
             <% totalRecord=((TicketRemote)tickets.get(0)).countByEventTypeID(eventTypeID,cityID);%>
         </c:if>
         <c:set var="totalRecord" value="<%=totalRecord%>"></c:set>
-        
-        <!--PAGING-->
-        <div style="width:inherit;text-align:right">
+
+                <div style="width:inherit;text-align:right">
             <c:if test="${totalRecord gt TOTAL_RECORD_SHOW}">
                 <w:paging pathName="show_tickets.jsp"
                           enableFirstPage="true"
@@ -114,7 +113,7 @@
                 </w:paging>
             </c:if>
         </div>
-        <!---------->
+
         <% int count=1; %>
         <c:forEach var="obj" items="${tickets}">
             <div class="_block_event_item">
@@ -148,17 +147,24 @@
                             <td style="font-weight:bold">Address</td><td>:</td><td style="width:360px">${obj.cityName} City, ${obj.venueName} Theatre ,${obj.venueAddress} Street</td>
                         </tr>
                         <tr>
-                            <td colspan="3">
+                            <td></td>
+                            <td colspan="2">
 
                                 <c:if test="${ROLEID_SESSION eq ID_FALSE_INTEGER}">
-                                    
                                     <a onclick="submitFormBack('/Form/login.jsp')" style="cursor:pointer" >[You must be registered and logged in to book the ticket.]</a>
                                 </c:if>
 
                                 <c:if test="${ROLEID_SESSION ne ID_FALSE_INTEGER}">
-                                  
-                                    <input onclick="submitFormBack('/Form/Booking/ticket_book.jsp')" type="button" onclick="submitFormBack()"  value="Book"/>
-                                </c:if>
+                                    <c:if test="${obj.viewStatus eq 'New'}">
+                                        <input onclick="submitFormBack('/Form/Booking/ticket_book.jsp?ticketID=${obj.ID}')" type="button"  value="Book"/>
+                                    </c:if>
+                                    <c:if test="${obj.viewStatus ne 'New'}">
+                                        <input onclick="location.href='<%=request.getContextPath()%>/Form/show_tickets.jsp?sttView=Old&index=${param.index}&pindex=${param.pindex}&indexCity=${param.indexCity}&stt=more&view=<%=count%>';" value="Book" type="button"/>
+                                        <c:if test="${param.sttView eq 'Old'}">
+                                            <font color="red">Ticket is not available, you can view reference</font>
+                                        </c:if>
+                                    </c:if>
+                               </c:if>
 
                             </td>
                         </tr>
@@ -171,8 +177,9 @@
                 </div>
 
                 <c:if test="${index_row eq param.view and param.stt eq 'more'}">
- 
+
                     <div style="width:600px;padding-left:60px;padding-right:20px">
+                        
                         <div><b>Artist</b>: ${obj.artist}</div>
                         <div style="font-weight:bold">Introduction:</div>
                         <div style="padding-left:20px;padding-right:20px">${obj.content}</div>
@@ -182,23 +189,25 @@
                         <c:if test="${obj.discount ne '' and obj.discount ne null and obj.discount ne 0}">
                             <div style="color:green;padding-left:20px;padding-right:20px"><b>Discount</b>: <font>${obj.discount}</font></div>
                         </c:if>
-                            <div style="font-weight:bold">Reference:</div>
-                            <div style="">
-                                <c:set var="referenceTickets" value="${ticketbookELF:getAvailableReferenceTicketByTitle(obj.title)}"></c:set>
-                                <c:forEach items="${referenceTickets}" var="objReferenceTicket">
-                                    <c:if test="${obj.ID ne objReferenceTicket.ID and obj.eventTypeID eq objReferenceTicket.eventTypeID}">
-                                       <div style="padding-left:20px;padding-right:20px">
-                            
-                                           <c:if test="${objReferenceTicket.viewStatus eq 'New'}">
-                                               <a href="">${objReferenceTicket.cityName} City, ${objReferenceTicket.venueName} Theatre ,${objReferenceTicket.venueAddress} Street </a> <font color="red" style="font-style: italic">${objReferenceTicket.viewStatus}</font>
-                                           </c:if>
-                                           <c:if test="${objReferenceTicket.viewStatus ne 'New'}">
-                                               <a>${objReferenceTicket.cityName} City, ${objReferenceTicket.venueName} Theatre ,${objReferenceTicket.venueAddress} Street </a> <font color="red" style="font-style: italic">Release</font>
-                                           </c:if>
-                                       </div>
-                                   </c:if>
-                                </c:forEach>
+                        <c:if test="${ROLEID_SESSION ne ID_FALSE_INTEGER and param.sttView eq 'Old' and obj.viewStatus ne 'New'}">
+                            <div style="font-weight:bold;color:red">Reference:</div>
+                            <div style="border-style: inset;border-width: 1px">
+                                    <c:set var="referenceTickets" value="${ticketbookELF:getAvailableReferenceTicketByTitle(obj.title)}"></c:set>
+                                    <c:forEach items="${referenceTickets}" var="objReferenceTicket">
+                                        <c:if test="${obj.ID ne objReferenceTicket.ID and obj.eventTypeID eq objReferenceTicket.eventTypeID}">
+                                           <div style="padding-left:20px;padding-right:20px">
+
+                                               <c:if test="${objReferenceTicket.viewStatus eq 'New'}">
+                                                   <a onclick="submitFormBack('/Form/Booking/ticket_book.jsp')" style="cursor:pointer" >${objReferenceTicket.cityName} City, ${objReferenceTicket.venueName} Theatre ,${objReferenceTicket.venueAddress} Street </a> <font color="red" style="font-style: italic">${objReferenceTicket.viewStatus}</font>
+                                               </c:if>
+                                               <c:if test="${objReferenceTicket.viewStatus ne 'New'}">
+                                                   <a>${objReferenceTicket.cityName} City, ${objReferenceTicket.venueName} Theatre ,${objReferenceTicket.venueAddress} Street </a> <font color="red" style="font-style: italic">Release</font>
+                                               </c:if>
+                                           </div>
+                                       </c:if>
+                                    </c:forEach>
                             </div>
+                        </c:if>
                         <div style="float:right"><a  href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=close&pindex=${param.pindex}&indexCity=${param.indexCity}">Close</a></div>
                         
                     </div>
@@ -210,7 +219,7 @@
                 <% count++; %>
         </c:forEach>
 
-        <!--PAGING-->
+
         <div style="width:inherit;text-align:right">
             <c:if test="${totalRecord gt TOTAL_RECORD_SHOW}">
                 <w:paging pathName="show_tickets.jsp"
@@ -229,7 +238,6 @@
                 </w:paging>
             </c:if>
         </div>
-        <!---------->
 
         <script type="text/javascript">
             function loadFocus(){
