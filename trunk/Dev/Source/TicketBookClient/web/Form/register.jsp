@@ -75,7 +75,7 @@
                 <tr>
                     <td style="text-align:left" class="_title_form">Birthday</td>
                     <td>
-                        <input  type="text" class="_textbox" id="txtBirthday" name="<%=UserController.BIRTHDAY_CONTROL_NAME%>" value="<%=TicketBookConvert.castParameterRequestIsNull(request, UserController.BIRTHDAY_CONTROL_NAME,"")%>"/>
+                        <input  type="text" readonly="readOnly" class="_textbox" id="txtBirthday" name="<%=UserController.BIRTHDAY_CONTROL_NAME%>" value="<%=TicketBookConvert.castParameterRequestIsNull(request, UserController.BIRTHDAY_CONTROL_NAME,"")%>"/>
                        
                     </td>
                     
