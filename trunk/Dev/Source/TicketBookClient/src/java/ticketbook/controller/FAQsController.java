@@ -8,31 +8,34 @@ package ticketbook.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.CreateException;
+import javax.ejb.RemoveException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.rmi.PortableRemoteObject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ticketbook.ejb.cmp.FaqSessionBeanRemote;
 import ticketbook.ejb.cmp.FaqSessionBeanRemoteHome;
+import ticketbook.util.StringELF;
 
 /**
  *
  * @author QuocHai
  */
-public class FAQsController extends HttpServlet {
+public class FAQsController extends HandlerController {
 
-    public static final String ANSWER = "txtAnswer";
-    public static final String QUESTION = "txtQuestion";
-    public static final String CREATE_DATE = "txtCreate_Date";
-    public static final String ID = "txtId";
+    public static final String ANSWER_CONTROL_NAME = "txtAnswer";
+    public static final String QUESTION_CONTROL_NAME = "txtQuestion";
+    public static final String CREATE_DATE_CONTROL_NAME = "txtCreate_Date";
+    public static final String ID_CONTROL_NAME = "txtId";
+
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,35 +44,22 @@ public class FAQsController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
-           String act = request.getParameter("act");
-           if(act.equals("insert")){
-               String answer = request.getParameter(ANSWER);
-               String question = request.getParameter(QUESTION);
-               String create_date = request.getParameter(CREATE_DATE);
-               FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-               remote.insertFAQs(answer, question, create_date);
-               RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
-               rd.forward(request, response);
-           } else if(act.equals("update")){
-               String answer = request.getParameter(ANSWER);
-               String question = request.getParameter(QUESTION);
-               Integer id = Integer.getInteger(ID);
-               FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-               remote.updateFAQs(id, answer, question);
-               RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
-               rd.forward(request, response);
-           } else {
-               Integer id = Integer.getInteger(ID);
-               FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-               remote.remove();
-               RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
-               rd.forward(request, response);
-           }
+        try {          
+            if(request.getParameter(FormController.ACTIONTYPE_NAME)!=null){
+                if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_INSERT_FAQ)){
+                    this.insertFAQs(request, response);
+                }else if (request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_UPDATE_FAQ)){
+                    this.updateFAQs(request, response);
+                }else if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_DELETE_FAQ)){
+                    this.deleteFAQs(request, response);
+                }else if(handlerController!=null){
+                    handlerController.processRequest(request, response);
+                }
+            }
         }catch(Exception ex){
                ex.printStackTrace();
         } finally { 
@@ -77,6 +67,42 @@ public class FAQsController extends HttpServlet {
         }
     } 
 
+    public void insertFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_INSERT_FAQ)){
+            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+            if(remote!=null){
+               String answer = request.getParameter(ANSWER_CONTROL_NAME);
+               String question = request.getParameter(QUESTION_CONTROL_NAME);
+               String get_create_date = request.getParameter(CREATE_DATE_CONTROL_NAME);
+               Timestamp create_date = StringELF.convertStringToTimestamp(get_create_date, "mm-dd-yyyy");
+               remote.insertFAQs(answer, question, create_date);
+               RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+               rd.forward(request, response);
+            }
+        }
+    }
+
+    public void updateFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        if(request.getAttribute(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_UPDATE_FAQ)){
+            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+            String answer = request.getParameter(ANSWER_CONTROL_NAME);
+            String question = request.getParameter(QUESTION_CONTROL_NAME);
+            Integer id = Integer.getInteger(ID_CONTROL_NAME);
+            remote.updateFAQs(id, answer, question);
+            RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+            rd.forward(request, response);
+        }
+    }
+
+    public void deleteFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, RemoveException{
+        if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_DELETE_FAQ)){
+            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+            Integer id = Integer.getInteger(ID_CONTROL_NAME);
+            remote.remove();
+            RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+            rd.forward(request, response);
+        }
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -127,5 +153,4 @@ public class FAQsController extends HttpServlet {
             throw new RuntimeException(re);
         }
     }
-
 }
