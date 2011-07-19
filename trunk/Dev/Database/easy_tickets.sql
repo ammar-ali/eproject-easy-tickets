@@ -65,7 +65,7 @@ CREATE TABLE [ticket]
 	[ticket_total] INT DEFAULT 1 NOT NULL,
 	[create_date] DATETIME NOT NULL,
 	[view_date] DATETIME NOT NULL,
-	[view_time] TIMESTAMP NOT NULL,
+	[view_time] VARCHAR(5) NOT NULL,
 	[create_username] VARCHAR(50),	
 	[eventID] INT --fk
 )
