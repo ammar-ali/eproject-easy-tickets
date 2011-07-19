@@ -89,7 +89,7 @@ public class TicketDAO {
                     + " AND ticket_total !=0 AND  view_date>GETDATE() "
                     +" ORDER BY ticket.ID DESC ";
             PreparedStatement pre = connection.getConnection().prepareStatement(sql);
-            pre.setString(1,"%"+StringUtil.convertToUTF8(title)+"%");
+            pre.setString(1,StringUtil.convertToUTF8(title));
            
             ResultSet rs = pre.executeQuery();
             while (rs.next()) {
@@ -109,7 +109,7 @@ public class TicketDAO {
         TicketTransferData ticket = new TicketTransferData();
         try {
             String sql = "SELECT ticket.ID AS ID,promotion,discount,price,ticket_total,create_date,view_date,view_time,create_username,[ticket].eventID "
-                          +  " ,title,[content], artist,[image],event_typeID,venueID,cityID,city.name AS city_name,venue.name AS venue_name,venue.address AS venue_address,'view_status' = CASE WHEN DATEDIFF(dd,GETDATE(),ticket.view_date) > 0 THEN 'New' ELSE 'Old' END "
+                          +  " ,title,[content], artist,[image],event_typeID,venueID,cityID,city.name AS city_name,venue.name AS venue_name,venue.address AS venue_address,'view_status' = CASE WHEN DATEDIFF(dd,GETDATE(),ticket.view_date) > 0 AND ticket_total >0 THEN 'New' ELSE 'Old' END "
                     +" FROM [ticket],[event],[city],[venue] WHERE [ticket].eventID=[event].ID AND ticket.ID=? AND cityID=city.ID AND venueID=venue.ID";
             PreparedStatement pre = connection.getConnection().prepareStatement(sql);
             pre.setInt(1, ticketID.intValue());

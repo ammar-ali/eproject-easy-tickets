@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import org.hibernate.sql.Insert;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.transfer.UserTransferData;
@@ -36,17 +35,18 @@ public class UserDAO implements Serializable{
     public void insert(UserTransferData user) throws SQLTicketBookException{    
         try
         {
-            String sql="INSERT INTO account(username,[password],fullname,phone,[address],email,birth_date,person_card_number,roleID) VALUES(?,?,?,?,?,?,?,?,?)";
+            String sql="INSERT INTO account(username,[password],fullname,phone,[address],email,birth_date,person_card_number,roleID,create_date) VALUES(?,?,?,?,?,?,?,?,?,GETDATE())";
             PreparedStatement str=connection.getConnection().prepareCall(sql);
-            str.setString(1, user.getUsername());
-            str.setString(2, user.getPassword());
-            str.setString(3, StringUtil.convertToUTF8(user.getFullname()));
-            str.setString(4, user.getPhone());
-            str.setString(5, StringUtil.convertToUTF8(user.getAddress()));
-            str.setString(6, user.getEmail());
-            str.setString(7, user.getBirthDate());
-            str.setString(8, user.getPersonCardNumber());
+            str.setString(1, user.getUsername().trim());
+            str.setString(2, user.getPassword().trim());
+            str.setString(3, StringUtil.convertToUTF8(user.getFullname().trim()));
+            str.setString(4, user.getPhone().trim());
+            str.setString(5, StringUtil.convertToUTF8(user.getAddress().trim()));
+            str.setString(6, user.getEmail().trim());
+            str.setString(7, user.getBirthDate().trim());
+            str.setString(8, user.getPersonCardNumber().trim());
             str.setInt(9, user.getRoleID().intValue());
+           
             str.execute();
         }
         catch(Exception ex)
@@ -82,7 +82,7 @@ public class UserDAO implements Serializable{
     public UserTransferData getUserByUsernameAndPassword(String username,String password) throws SQLTicketBookException{
         UserTransferData user=new UserTransferData();
         try{
-           String sql="SELECT * FROM [account] WHERE username=? and password=?";
+           String sql="SELECT * FROM [account] WHERE username=? AND password=?";
            PreparedStatement preparedStatement=connection.getConnection().prepareStatement(sql);
            preparedStatement.setString(1,username);
            preparedStatement.setString(2,password);
@@ -142,4 +142,6 @@ public class UserDAO implements Serializable{
         
         return user;
     }
+
+   
 }
