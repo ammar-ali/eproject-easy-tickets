@@ -8,6 +8,7 @@ package ticketbook.model;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import javax.ejb.FinderException;
+import ticketbook.ejb.bmp.TicketRemote;
 import ticketbook.ejb.bmp.TicketRemoteHome;
 import ticketbook.util.TicketBookLookUpJNDI;
 
@@ -55,4 +56,15 @@ public class Ticket {
         return new ArrayList();
     }
 
+    public static TicketRemote getTicketByID(Integer ID){
+        TicketRemoteHome home=TicketBookLookUpJNDI.getTicketRemoteHome();
+        try {
+            return home.findByPrimaryKey(ID);
+        } catch (FinderException ex) {
+            ex.printStackTrace();
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }
