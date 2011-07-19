@@ -19,6 +19,11 @@
 	  	<function-signature>java.util.ArrayList getTopTicketsByEventTypeID(java.lang.Integer,java.lang.Integer)</function-signature>
 	</function>
         <function>
+	  	<name>getTicketByID</name>
+	  	<function-class>ticketbook.model.Ticket</function-class>
+	  	<function-signature>ticketbook.ejb.bmp.TicketRemote getTicketByID(java.lang.Integer)</function-signature>
+	</function>
+        <function>
 	  	<name>getAvailableReferenceTicketByTitle</name>
 	  	<function-class>ticketbook.model.Ticket</function-class>
 	  	<function-signature>java.util.ArrayList getAvailableReferenceTicketByTitle(java.lang.String)</function-signature>
