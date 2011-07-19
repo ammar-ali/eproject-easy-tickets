@@ -42,6 +42,16 @@
             <prim-key-class>java.lang.Integer</prim-key-class>
             <reentrant>false</reentrant>
         </entity>
+        <entity>
+            <display-name>PaymentTypeEB</display-name>
+            <ejb-name>PaymentType</ejb-name>
+            <home>ticketbook.ejb.bmp.PaymentTypeRemoteHome</home>
+            <remote>ticketbook.ejb.bmp.PaymentTypeRemote</remote>
+            <ejb-class>ticketbook.ejb.bmp.PaymentType</ejb-class>
+            <persistence-type>Bean</persistence-type>
+            <prim-key-class>java.lang.Integer</prim-key-class>
+            <reentrant>false</reentrant>
+        </entity>
         </enterprise-beans>
     <assembly-descriptor>
         
@@ -69,6 +79,13 @@
         <container-transaction>
             <method>
                 <ejb-name>City</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+        <container-transaction>
+            <method>
+                <ejb-name>PaymentType</ejb-name>
                 <method-name>*</method-name>
             </method>
             <trans-attribute>Required</trans-attribute>
