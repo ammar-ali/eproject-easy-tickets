@@ -53,7 +53,7 @@
                                     </c:if>
                                 <br/>
                                 
-                                <a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=<%=indexEventTypes%>&view=<%=indexItemEvent%>&stt=more">${objEvent.title} <c:if test="${status ne 'OLD'}"><font color="red" style="font-style: italic">${status}</font></c:if></a>
+                                <a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=<%=indexEventTypes%>&view=<%=indexItemEvent%>&stt=more">${objEvent.title} <c:if test="${status ne 'Old'}"><font color="red" style="font-style: italic">${status}</font></c:if></a>
                             </td>
                        </c:if>
                       
@@ -86,7 +86,7 @@
                         <c:set var="status" value="${objEvent.viewStatus}"></c:set>
                         <td align="center" width="250px"><font style='font-size: 14px;font-weight:bold'>${objEvent.title}</font> </td>
                         <td width="360px"  style="border-left:none;border-right:none;padding-left:10px">${objEvent.cityName} City, ${objEvent.venueName} Theatre ,${objEvent.venueAddress} Street</td>
-                        <td width="40px"  style="border-left:none;border-right:none" align="center"><c:if test="${status ne 'OLD'}"><font color="red" style="font-style: italic">${status}</font></c:if></td>
+                        <td width="40px"  style="border-left:none;border-right:none" align="center"><c:if test="${status ne 'Old'}"><font color="red" style="font-style: italic">${status}</font></c:if></td>
                         <td width="40px" style="border-left:none;" align="center"><a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=<%=indexEventTypes%>&view=<%=indexItemEvent%>&stt=more">Detail</a></td>
                     </tr>
                     <% indexItemEvent++; %>
