@@ -100,7 +100,7 @@
                     <td><input type="text" class="_textbox" id="txtPersonCardNumber" name="<%=UserController.PERSONCARDNUMBER_CONTROL_NAME%>" value="<%=TicketBookConvert.castParameterRequestIsNull(request, UserController.PERSONCARDNUMBER_CONTROL_NAME,"")%>"/></td>
                     <td class="_alert_error" id="txtAlertPersonCardNumber"></td>
                 </tr>
-                <tr><td colspan ="2" align="center"> <input type="button" value="Submit" onclick="register()"/></td><td></td></tr>
+                <tr><td colspan ="2" align="center;padding-top:10px"> <input type="button" value="Submit" onclick="register()"/></td><td></td></tr>
             </table>
 
         </form>
@@ -149,12 +149,12 @@
                 }
                 else document.getElementById("txtAlertBirthday").innerHTML="";
                 if(document.getElementById("txtPersonCardNumber").value=="" || isAllSpace(document.getElementById("txtPersonCardNumber").value)|| !isNumber(document.getElementById("txtPersonCardNumber").value)){
-                    document.getElementById("txtAlertPersonCardNumber").innerHTML="must enter to be number";
+                    document.getElementById("txtAlertPersonCardNumber").innerHTML="You have just entered the number";
                     stt=false;
                 }
                 else document.getElementById("txtAlertPersonCardNumber").innerHTML="";
                 if(document.getElementById("txtPhone").value!="" && !isNumber(document.getElementById("txtPhone").value)){
-                    document.getElementById("txtAlertPhone").innerHTML="You just enter the number";
+                    document.getElementById("txtAlertPhone").innerHTML="You have just entered the number";
                     stt=false;
                 }
                 else document.getElementById("txtAlertPhone").innerHTML="";
