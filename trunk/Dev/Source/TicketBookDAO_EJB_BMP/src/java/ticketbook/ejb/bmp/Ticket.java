@@ -158,4 +158,14 @@ public class Ticket extends TicketTransferData implements EntityBean {
         }
         return new ArrayList();
     }
+
+    public Collection ejbFindAvailableReferenceTicketIDsByEventID(Integer eventID){
+        try{
+            return TicketDAO.getInstance(SQLTicketBookConnection.getInstance()).getAvailableReferenceTicketIDsByEventID(eventID);
+        }
+        catch(SQLTicketBookException ex){
+           ex.printStackTrace();
+        }
+        return new ArrayList();
+    }
 }
