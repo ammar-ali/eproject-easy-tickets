@@ -186,27 +186,43 @@
                         <c:if test="${obj.promotion ne '' and obj.promotion ne null}">
                             <div style="color:green;"><b>Promotion</b>: <font>${obj.promotion}</font></div>
                         </c:if>
-                        <c:if test="${obj.discount ne '' and obj.discount ne null and obj.discount ne 0}">
-                            <div style="color:green;padding-left:20px;padding-right:20px"><b>Discount</b>: <font>${obj.discount}</font></div>
+                        <c:if test="${obj.discount ne '' and obj.discount ne '0' and obj.discount != null}">
+                            <div style="color:green;"><b>Discount</b>: <font>${ticketbookELF:filterTicketBookMoney(obj.discount)} USD</font></div>
                         </c:if>
                         <c:if test="${ROLEID_SESSION ne ID_FALSE_INTEGER and param.sttView eq 'Old' and obj.viewStatus ne 'New'}">
                             <div style="font-weight:bold;color:red">Reference:</div>
-                            <div style="border-style: inset;border-width: 1px">
-                                    <c:set var="referenceTickets" value="${ticketbookELF:getAvailableReferenceTicketByTitle(obj.title)}"></c:set>
+                            <c:set var="TEMP_ROW_REFERENCE" value="0"></c:set>
+                            <table style="border-style: inset;border-width: 1px;width:500px">
+                                <tr style="font-weight:bold"><td width="200px">Time</td><td width="300px">Information</td></tr>
+                                <c:set var="referenceTickets" value="${ticketbookELF:getAvailableReferenceTicketByEventID(obj.eventID)}"></c:set>
                                     <c:forEach items="${referenceTickets}" var="objReferenceTicket">
+                                        
                                         <c:if test="${obj.ID ne objReferenceTicket.ID and obj.eventTypeID eq objReferenceTicket.eventTypeID}">
-                                           <div style="padding-left:20px;padding-right:20px">
-
+                                            <tr>
+                                            <td style="padding-left:20px;padding-right:20px;border-width:1px;border-bottom: black;border-style: inset">
                                                <c:if test="${objReferenceTicket.viewStatus eq 'New'}">
-                                                   <a onclick="submitFormBack('/Form/Booking/ticket_book.jsp')" style="cursor:pointer" >${objReferenceTicket.cityName} City, ${objReferenceTicket.venueName} Theatre ,${objReferenceTicket.venueAddress} Street </a> <font color="red" style="font-style: italic">${objReferenceTicket.viewStatus}</font>
+                                                   <a onclick="submitFormBack('/Form/Booking/ticket_book.jsp?ticketID=${objReferenceTicket.ID}')" style="cursor:pointer" >Time: ${ticketbookELF:filterTicketBookDate(objReferenceTicket.viewDate)} ${objReferenceTicket.viewTime}</a> <font color="red" style="font-style: italic">${objReferenceTicket.viewStatus}</font>
                                                </c:if>
                                                <c:if test="${objReferenceTicket.viewStatus ne 'New'}">
-                                                   <a>${objReferenceTicket.cityName} City, ${objReferenceTicket.venueName} Theatre ,${objReferenceTicket.venueAddress} Street </a> <font color="red" style="font-style: italic">Release</font>
+                                                   <a>Time: ${ticketbookELF:filterTicketBookDate(objReferenceTicket.viewDate)} ${objReferenceTicket.viewTime} </a> <font color="red" style="font-style: italic"></font>
                                                </c:if>
-                                           </div>
+                                           </td>
+                                           <td style="border-width:1px;border-bottom: black;border-style: inset">
+                                                <c:if test="${objReferenceTicket.promotion ne '' and objReferenceTicket.promotion ne null}">
+                                                     <font style="color:green;"> <b style="color:green;">Promotion</b>: ${objReferenceTicket.promotion}</font><br/>
+                                                </c:if>
+                                                     
+                                                <c:if test="${objReferenceTicket.discount ne '' and objReferenceTicket.discount ne '0' and objReferenceTicket.discount != null}">
+                                                    <font style="color:green;"> <b style="color:green;">Discount</b>: ${ticketbookELF:filterTicketBookMoney(objReferenceTicket.discount)} USD</font>
+                                                </c:if>
+                                           </td>
+                                           </tr>
+                                           <c:set var="TEMP_ROW_REFERENCE" value="1"></c:set>
                                        </c:if>
+                                    
                                     </c:forEach>
-                            </div>
+                                           <c:if test="${TEMP_ROW_REFERENCE eq 0}"><td colspan="2" align="center" style="color:red"> No data, please choose other sections </td></c:if>
+                            </table>
                         </c:if>
                         <div style="float:right"><a  href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=close&pindex=${param.pindex}&indexCity=${param.indexCity}">Close</a></div>
                         
