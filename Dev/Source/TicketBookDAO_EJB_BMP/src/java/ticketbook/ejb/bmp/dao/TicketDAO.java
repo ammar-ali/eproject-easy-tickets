@@ -104,6 +104,30 @@ public class TicketDAO {
         }
         return lst;
     }
+
+    public ArrayList getAvailableReferenceTicketIDsByEventID(Integer eventID) throws SQLTicketBookException {
+        ArrayList lst = new ArrayList();
+        try {
+            String sql="SELECT ticket.ID FROM ticket,[event] "
+                    +" WHERE [event].ID = ? AND ticket.eventID=event.ID "
+                    + " AND ticket_total !=0 AND  view_date>GETDATE() "
+                    +" ORDER BY ticket.ID DESC ";
+            PreparedStatement pre = connection.getConnection().prepareStatement(sql);
+            pre.setInt(1,eventID.intValue());
+
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                Integer ticketID = new Integer(rs.getInt("ID"));
+                lst.add(ticketID);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally{
+            connection.closeConnection();
+        }
+        return lst;
+    }
     
     public TicketTransferData getTicketByID(Integer ticketID) throws SQLTicketBookException {
         TicketTransferData ticket = new TicketTransferData();
@@ -154,6 +178,7 @@ public class TicketDAO {
         TicketTransferData ticket = new TicketTransferData();
         ticket.setID(new Integer(rs.getInt("ID")));
         ticket.setPromotion(rs.getNString("promotion"));
+        ticket.setDiscount(rs.getString("discount"));
         ticket.setPrice(rs.getString("price"));
         ticket.setTicketTotal(new Integer(rs.getInt("ticket_total")));
         ticket.setCreateDate(rs.getString("create_date"));
@@ -175,14 +200,5 @@ public class TicketDAO {
             ticket.setViewStatus(rs.getString("view_status"));
         return ticket;
     }
-//
-//
-//    public static void main(String[] arg){
-//        try {
-//            Integer c = TicketDAO.getInstance(SQLTicketBookConnection.getInstance()).countRecordFindByEventTypeID(new Integer(1),new Integer(0));
-//            System.out.print(c);
-//        } catch (SQLTicketBookException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
+
 }

@@ -143,5 +143,28 @@ public class UserDAO implements Serializable{
         return user;
     }
 
-   
+    public void update(UserTransferData user){
+        try
+        {
+            String sql="UPDATE account SET [password]=?,fullname=?,phone=?,[address]=?,email=?,birth_date=?,person_card_number=? WHERE username=?";
+            PreparedStatement str=connection.getConnection().prepareCall(sql);
+            
+            str.setString(1, user.getPassword().trim());
+            str.setString(2, StringUtil.convertToUTF8(user.getFullname().trim()));
+            str.setString(3, user.getPhone().trim());
+            str.setString(4, StringUtil.convertToUTF8(user.getAddress().trim()));
+            str.setString(5, user.getEmail().trim());
+            str.setString(6, user.getBirthDate().trim());
+            str.setString(7, user.getPersonCardNumber().trim());
+            str.setString(8, user.getUsername());
+            str.execute();
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }finally{
+            connection.closeConnection();
+        }
+    }
+
 }

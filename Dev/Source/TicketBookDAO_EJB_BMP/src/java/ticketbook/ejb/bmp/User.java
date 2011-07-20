@@ -92,6 +92,12 @@ public class User extends UserTransferData implements EntityBean {
      */
     public void ejbStore() {
         // TODO add code to persist data
+        try {
+            if(this!=null)
+                UserDAO.getInstance(SQLTicketBookConnection.getInstance()).update(this);
+        } catch (SQLTicketBookException ex) {
+            ex.printStackTrace();
+        }
     }
 
     // </editor-fold>
