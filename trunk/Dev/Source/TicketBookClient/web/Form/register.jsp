@@ -147,7 +147,7 @@
                 }
                 else document.getElementById("txtAlertBirthday").innerHTML="";
                 if(document.getElementById("txtPersonCardNumber").value=="" || isAllSpace(document.getElementById("txtPersonCardNumber").value)|| !isNumber(document.getElementById("txtPersonCardNumber").value)){
-                    document.getElementById("txtAlertPersonCardNumber").innerHTML="muts enter to be number";
+                    document.getElementById("txtAlertPersonCardNumber").innerHTML="must enter to be number";
                     stt=false;
                 }
                 else document.getElementById("txtAlertPersonCardNumber").innerHTML="";
