@@ -9,6 +9,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import ticketbook.ejb.bmp.CityRemoteHome;
+import ticketbook.ejb.bmp.DateRemoteHome;
 import ticketbook.ejb.bmp.EventTypeRemoteHome;
 import ticketbook.ejb.bmp.PaymentTypeRemoteHome;
 import ticketbook.ejb.bmp.TicketRemoteHome;
@@ -90,7 +91,22 @@ public class TicketBookLookUpJNDI {
         }
         return null;
     }
-
+ public static DateRemoteHome getDateRemoteHome(){
+        try{
+            Config.settingSystemPropertiesForEntityBean();
+            Context ctx=new InitialContext();
+            Object ref=ctx.lookup("Date");
+            DateRemoteHome home=(DateRemoteHome)
+                            javax.rmi.PortableRemoteObject.narrow(
+                             ref,DateRemoteHome.class);
+            return home;
+        } catch (ConfigException ex) {
+            ex.printStackTrace();
+        }catch(NamingException namingException){
+            namingException.printStackTrace();
+        }
+        return null;
+    }
     public static PaymentTypeRemoteHome getPaymentTypeRemoteHome(){
         try{
             Config.settingSystemPropertiesForEntityBean();
