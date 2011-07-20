@@ -20,5 +20,5 @@ public interface UserRemoteHome extends EJBHome {
     ticketbook.ejb.bmp.UserRemote findByPrimaryKey(java.lang.String key)  throws FinderException, RemoteException;
     ticketbook.ejb.bmp.UserRemote findByUsernameAndPassword(String username,String password) throws FinderException,RemoteException;
     UserRemote create(UserTransferData user) throws RemoteException,CreateException;
-
+    
 }

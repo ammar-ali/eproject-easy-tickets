@@ -8,16 +8,15 @@ package ticketbook.ejb.bmp;
 import javax.ejb.EntityBean;
 import javax.ejb.EntityContext;
 import javax.ejb.FinderException;
-import ticketbook.ejb.bmp.dao.UserDAO;
+import ticketbook.ejb.bmp.dao.DateDAO;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
-import ticketbook.transfer.UserTransferData;
 
 /**
  *
- * @author Admin
+ * @author vostro
  */
-public class User extends UserTransferData implements EntityBean {
+public class Date implements EntityBean {
 
     private EntityContext context;
     
@@ -38,7 +37,7 @@ public class User extends UserTransferData implements EntityBean {
      * @see javax.ejb.EntityBean#ejbActivate()
      */
     public void ejbActivate() {
-        this.setUsername((String)context.getPrimaryKey());
+        
     }
     
     /**
@@ -65,26 +64,8 @@ public class User extends UserTransferData implements EntityBean {
     /**
      * @see javax.ejb.EntityBean#ejbLoad()
      */
-    public void ejbLoad() throws IllegalArgumentException{
+    public void ejbLoad() {
         // TODO add code to retrieve data
-        try {
-            UserTransferData data = UserDAO.getInstance(SQLTicketBookConnection.getInstance()).getUserByUsername(this.getUsername());
-            if(data!=null){
-                this.setUsername(data.getUsername());
-                this.setPassword(data.getPassword());
-                this.setAddress(data.getAddress());
-                this.setPhone(data.getPhone());
-                this.setBirthDate(data.getBirthDate());
-                this.setPersonCardNumber(data.getPersonCardNumber());
-                this.setFullname(data.getFullname());
-                this.setEmail(data.getEmail());
-                this.setCreateDate(data.getCreateDate());
-                this.setRoleID(data.getRoleID());
-            }
-            else throw new IllegalArgumentException("Account doesn't correct");
-        } catch (SQLTicketBookException ex) {
-            ex.printStackTrace();
-        }
     }
     
     /**
@@ -103,35 +84,34 @@ public class User extends UserTransferData implements EntityBean {
         // TODO add code to locate aKey from persistent storage
         // throw javax.ejb.ObjectNotFoundException if aKey is not in
         // persistent storage.
-       
         return aKey;
     }
-    public java.lang.String ejbFindByUsernameAndPassword(String username,String password){
+
+    public String ejbCreate(){
+        return "";
+    }
+
+    public void ejbPostCreate(){
+       
+    }
+
+    public String getDateCurrent(){
         try {
-            UserTransferData data = UserDAO.getInstance(SQLTicketBookConnection.getInstance()).getUserByUsernameAndPassword(username, password);
-            this.setUsername(data.getUsername());
+            DateDAO date = DateDAO.getInstance(SQLTicketBookConnection.getInstance());
+            return  date.getDateCurrent();
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }
-        return username;
+        return "";
     }
-    public String ejbCreate(UserTransferData user)
-    {
-        try
-        {
-            UserDAO.getInstance(SQLTicketBookConnection.getInstance()).insert(user);
-        }
-        catch(Exception ex)
-        {
+    public int diffDate(String date1,String date2){
+        try {
+            DateDAO date = DateDAO.getInstance(SQLTicketBookConnection.getInstance());
+            return date.diffDate(date1, date2);
+        } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }
-        return user.getUsername();
-    }
-    public void ejbPostCreate(UserTransferData user)
-    {
+        return 0;
 
     }
-
-   
-
 }
