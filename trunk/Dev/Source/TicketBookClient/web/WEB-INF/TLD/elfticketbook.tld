@@ -29,6 +29,11 @@
 	  	<function-signature>java.util.ArrayList getAvailableReferenceTicketByTitle(java.lang.String)</function-signature>
 	</function>
         <function>
+	  	<name>getAvailableReferenceTicketByEventID</name>
+	  	<function-class>ticketbook.model.Ticket</function-class>
+	  	<function-signature>java.util.ArrayList getAvailableReferenceTicketByEventID(java.lang.Integer)</function-signature>
+	</function>
+        <function>
 	  	<name>filterTicketBookDate</name>
 	  	<function-class>ticketbook.util.TicketBookELF</function-class>
 	  	<function-signature>java.lang.String filterTicketBookDate(java.lang.String)</function-signature>

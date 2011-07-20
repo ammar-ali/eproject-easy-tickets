@@ -62,6 +62,7 @@
             <td> <c:set var="discount"   value="${objTicket.discount}"></c:set>
                 <c:if test="${discount ne '' and discount ne null }">
                     <c:set var="discount" value="${ticketbookELF:filterTicketBookMoney(objTicket.discount)}"></c:set>
+                    ${discount} 
                     <input type="hidden" value="${discount}" id="txtDiscount"/>
                 </c:if>
                 <c:if test="${discount eq '' or discount eq null }">
