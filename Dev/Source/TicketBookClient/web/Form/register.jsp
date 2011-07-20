@@ -34,13 +34,15 @@
         <font class="_content_title">Register</font>
          <c:set var="alertRegister" value='<%=request.getAttribute("alertRegister") %>'></c:set>
          <c:set var="alertRegisterBirth" value='<%=request.getAttribute("alertRegister_Birthday")%>'></c:set>
+             <!--ALERT LOGIN ERROR-->
+        <div class="_div_alert">
          <c:if test="${alertRegister ne null}">
-                <font color='red'>${alertRegister}</font>
+                ${alertRegister}
           </c:if>
            <c:if test="${alertRegisterBirth ne null}">
-                <font color='red'>${alertRegisterBirth}</font>
+                ${alertRegisterBirth}
           </c:if>
-                 
+        </div>
         <br/>
         <form action="<%=request.getContextPath()%>/FormController" method="post" name="frmRegister">
 
