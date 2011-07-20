@@ -56,6 +56,18 @@ public class Ticket {
         return new ArrayList();
     }
 
+    public static ArrayList getAvailableReferenceTicketByEventID(Integer eventID){
+        TicketRemoteHome home=TicketBookLookUpJNDI.getTicketRemoteHome();
+        try {
+            return (ArrayList) home.findAvailableReferenceTicketIDsByEventID(eventID);
+        } catch (FinderException ex) {
+            ex.printStackTrace();
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
+        return new ArrayList();
+    }
+
     public static TicketRemote getTicketByID(Integer ID){
         TicketRemoteHome home=TicketBookLookUpJNDI.getTicketRemoteHome();
         try {
