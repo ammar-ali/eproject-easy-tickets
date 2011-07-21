@@ -9,6 +9,8 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import ticketbook.ejb.bmp.TicketBooking;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.TicketBookingTransferData;
@@ -38,12 +40,35 @@ public class TicketBookingDAO {
        TicketBookingTransferData booking=new TicketBookingTransferData();
 
         try{
-           String sql="SELECT ticket_booking.ID,ticketID,username,[admin],ticket_total,price_total,discount,accept_status,payment_detailID,CONVERT(VARCHAR(20),delivery_date,101),card_number,payment_typeID FROM [ticket_booking],payment_detail WHERE ticket_booking.id=? AND ticket_booking.payment_detailID=payment_detail.ID";
+           String sql="SELECT ticket_booking.ID,ticketID,username,[admin],ticket_total,price_total,discount,accept_status,payment_detailID,CONVERT(VARCHAR(20),delivery_date,101) As delivery_date,card_number,payment_typeID FROM [ticket_booking],payment_detail WHERE ticket_booking.id=? AND ticket_booking.payment_detailID=payment_detail.ID";
            PreparedStatement preparedStatement=connection.getConnection().prepareStatement(sql);
            preparedStatement.setInt(1,ID.intValue());
            ResultSet rs=preparedStatement.executeQuery();
            while(rs.next()){
                 booking=this.mapping(rs);
+           }
+
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+        finally{
+            connection.closeConnection();
+        }
+
+        return booking;
+    }
+
+    public ArrayList getTicketBookingIDs(int indexStart,int totalRecord){
+       ArrayList booking=new ArrayList();
+
+        try{
+           CallableStatement csmt = connection.getConnection().prepareCall("{call sp_get_ticketbooking(?,?)}");
+           csmt.setInt("index_start", indexStart);
+           csmt.setInt("total_record", totalRecord);
+           ResultSet rs=csmt.executeQuery();
+           while(rs.next()){
+                booking.add(new Integer(rs.getInt("ID")));
            }
 
         }
@@ -101,28 +126,11 @@ public class TicketBookingDAO {
             data.setPaymentDetailID(new Integer(rs.getInt("payment_detailID")));
             data.setDeliveryDate(rs.getString("delivery_date"));
             data.setCardNumber(rs.getString("card_number"));
-            data.setPaymentTypeID(new Integer("payment_typeID"));
+            data.setPaymentTypeID(new Integer(rs.getString("payment_typeID")));
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return data;
     }
 
-//    public static void main(String[] args){
-//        try {
-//            TicketBookingTransferData ticketBooking = new TicketBookingTransferData();
-//            ticketBooking.setTicketID(new Integer(63));
-//            ticketBooking.setUsername("ketuhanh");
-//            ticketBooking.setTicketTotal(new Integer(5));
-//            int priceTotal = 50;
-//            int discountTotal = 0;
-//            ticketBooking.setPriceTotal("" + priceTotal);
-//            ticketBooking.setDiscount("" + discountTotal);
-//            ticketBooking.setCardNumber("123");
-//            ticketBooking.setPaymentTypeID(new Integer(1));
-//            TicketBookingDAO.getInstance(SQLTicketBookConnection.getInstance()).insert(ticketBooking);
-//        } catch (SQLTicketBookException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
 }
