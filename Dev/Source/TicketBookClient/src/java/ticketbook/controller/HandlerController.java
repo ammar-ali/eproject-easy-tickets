@@ -27,6 +27,7 @@ public abstract class HandlerController extends HttpServlet {
 
     public static final String ACTIONTYPE_VALUE_LOGIN = "login";
     public static final String ACTIONTYPE_VALUE_REGISTER_MEMBER="register_member";
+    public static final String ACTIONTYPE_VALUE_BOOKING="booking";
     public static final String ACTIONTYPE_VALUE_INSERT_FAQ = "insert_faq";
     public static final String ACTIONTYPE_VALUE_DELETE_FAQ = "delete_faq";
     public static final String ACTIONTYPE_VALUE_UPDATE_FAQ = "update_faq";
