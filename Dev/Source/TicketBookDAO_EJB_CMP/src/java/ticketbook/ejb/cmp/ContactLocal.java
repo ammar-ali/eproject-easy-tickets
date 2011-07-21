@@ -38,7 +38,7 @@ public interface ContactLocal extends EJBLocalObject {
 
     void setCreateDate(Timestamp createDate);
 
-    String username();
+    String getUsername();
 
     void setUsername(String username);
 }
