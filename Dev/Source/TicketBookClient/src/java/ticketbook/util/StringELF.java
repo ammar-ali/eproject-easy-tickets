@@ -5,6 +5,8 @@
 
 package ticketbook.util;
 
+import java.sql.Timestamp;
+
 
 /**
  *
@@ -33,6 +35,31 @@ public class StringELF {
         return new Integer(1);
     }
 
-   
+    public static Timestamp convertStringToTimestamp(String date,String format) throws IllegalArgumentException{
+        if(date!=null){
+            String[] dates = date.split("-");
+            if(dates.length==3){
+                boolean stt = true;
+                if(!StringUtil.validatePositiveNumber(dates[0])){
+                    stt=false;
+                }if(!StringUtil.validatePositiveNumber(dates[1])){
+                    stt=false;
+                }if(!StringUtil.validatePositiveNumber(dates[2])){
+                    stt=false;
+                }
+                if(stt==true){
+                    if(format.equals("mm-dd-yyyy")){
+                    return new Timestamp(Integer.parseInt(dates[2]),Integer.parseInt (dates[0]), Integer.parseInt(dates[1]), 0, 0, 0, 0);
+                    }
+                    else if(format.equals("yyyy-mm-dd")){
+                        return new Timestamp(Integer.parseInt(dates[0]), Integer.parseInt(dates[1]), Integer.parseInt(dates[2]), 0, 0, 0, 0);
+
+                    }
+                    else new IllegalArgumentException("Format of date is wrong ");
+                }
+            }
+        }
+        return new Timestamp(0);
+    }
 
 }
