@@ -18,24 +18,53 @@ public class TicketBookingTransferData implements  Serializable {
     Integer ticketID;
     String username;
     String admin;
-    String ticketTotal;
+    Integer ticketTotal;
     String priceTotal;
     String discount;
-    String acceptStatus;
-    Integer paymentDetailID;
+    String acceptStatus;    
     String deliveryDate;
+    
+    Integer paymentDetailID;
+    String cardNumber;
+    Integer paymentTypeID;
 
     public TicketBookingTransferData(){
         this.ID=Constant.ID_FALSE_INTETER;
         this.ticketID=Constant.ID_FALSE_INTETER;
         this.username=Constant.ID_FALSE_STRING;
         this.admin=Constant.ID_FALSE_STRING;
-        this.ticketTotal=Constant.DEFAULT_VALUE_STRING;
+        this.ticketTotal=Constant.DEFAULT_VALUE_INTEGER;
         this.priceTotal=Constant.DEFAULT_VALUE_STRING;
         this.discount=Constant.DEFAULT_VALUE_STRING;
         this.acceptStatus=Constant.DEFAULT_VALUE_STRING;
-        this.paymentDetailID=Constant.ID_FALSE_INTETER;
         this.deliveryDate=Constant.DEFAULT_VALUE_STRING;
+        this.paymentDetailID=Constant.ID_FALSE_INTETER;
+        this.cardNumber=Constant.DEFAULT_VALUE_STRING;
+        this.paymentTypeID=Constant.ID_FALSE_INTETER;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public Integer getPaymentDetailID() {
+        return paymentDetailID;
+    }
+
+    public void setPaymentDetailID(Integer paymentDetailID) {
+        this.paymentDetailID = paymentDetailID;
+    }
+
+    public Integer getPaymentTypeID() {
+        return paymentTypeID;
+    }
+
+    public void setPaymentTypeID(Integer paymentTypeID) {
+        this.paymentTypeID = paymentTypeID;
     }
 
     public Integer getID() {
@@ -87,6 +116,14 @@ public class TicketBookingTransferData implements  Serializable {
         this.priceTotal = priceTotal;
     }
 
+    public Integer getTicketTotal() {
+        return ticketTotal;
+    }
+
+    public void setTicketTotal(Integer ticketTotal) {
+        this.ticketTotal = ticketTotal;
+    }
+
     public Integer getTicketID() {
         return ticketID;
     }
@@ -95,13 +132,6 @@ public class TicketBookingTransferData implements  Serializable {
         this.ticketID = ticketID;
     }
 
-    public String getTicketTotal() {
-        return ticketTotal;
-    }
-
-    public void setTicketTotal(String ticketTotal) {
-        this.ticketTotal = ticketTotal;
-    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -110,15 +140,4 @@ public class TicketBookingTransferData implements  Serializable {
     public String getUsername() {
         return username;
     }
-
-    public Integer getPaymentDetailID() {
-        return paymentDetailID;
-    }
-
-    public void setPaymentDetailID(Integer paymentDetailID) {
-        this.paymentDetailID = paymentDetailID;
-    }
-
-    
-
 }
