@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import ticketbook.util.Constant;
 import ticketbook.util.TicketBookSession;
 
 /**
@@ -38,7 +39,7 @@ public class BookingController extends HttpServlet {
                HttpSession sessionRoleID=request.getSession();
                Object attributeRoleID=sessionRoleID.getAttribute(TicketBookSession.ROLEID_USER_LOGIN);
                if(attributeRoleID!=null){
-                   if(((Integer)attributeRoleID).intValue()!=0){
+                   if(!((Integer)attributeRoleID).equals(Constant.ID_FALSE_INTETER)){
                        TicketController ticketController=new TicketController();
                        ticketController.processRequest(request, response);
 

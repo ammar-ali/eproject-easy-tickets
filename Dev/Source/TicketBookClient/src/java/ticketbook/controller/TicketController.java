@@ -65,7 +65,7 @@ public class TicketController extends HandlerController {
         String ticketID=TicketBookConvert.castParameterRequestIsNull(request,TICKETID_CONTROL_NAME,"0");
            if(!ticketID.equals("")&&StringUtil.validatePositiveNumber(ticketID)){
                 TicketRemote ticketRemote=Ticket.getTicketByID(new Integer(ticketID));
-                if(ticketRemote.getViewStatus().equals("New")&&ticketRemote.getTicketTotal()!=new Integer(0)){
+                if(ticketRemote.getViewStatus().equals("New")&&ticketRemote.getTicketTotal().intValue()!=0){
                     String price=TicketBookConvert.castParameterRequestIsNull(request,TICKET__PRICE_CONTROL_NAME, "");
                     String discount=TicketBookConvert.castParameterRequestIsNull(request,TICKET_DISCOUNT_CONTROL_NAME,"");
                     String cardNumber=TicketBookConvert.castParameterRequestIsNull(request,CARD_NUMBER_CONTROL_NAME,"");
