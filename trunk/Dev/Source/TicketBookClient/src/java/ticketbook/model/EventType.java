@@ -6,6 +6,7 @@
 package ticketbook.model;
 
 import java.util.ArrayList;
+import ticketbook.ejb.bmp.EventTypeRemote;
 import ticketbook.ejb.bmp.EventTypeRemoteHome;
 import ticketbook.transfer.EventTypeTransferData;
 import ticketbook.util.TicketBookLookUpJNDI;
@@ -29,6 +30,23 @@ public class EventType {
         return eventTypes;
     }
 
+    public static String getEventTypeNameByID(Integer ID){
+        ArrayList events=getInstanceValue();
+        try{
+            for(int i=0;i<events.size();i++){
+                EventTypeRemote remote=(EventTypeRemote)events.get(i);
+                if(ID.equals(remote.getID())){
+                    return remote.getName();
+                }
+            }
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        return "";
+    }
+
     public static void add(EventTypeTransferData data){
         if(eventTypes!=null){
             eventTypes.add(data);
@@ -39,15 +57,15 @@ public class EventType {
     }
    
     private static ArrayList values(){
-        ArrayList eventTypes=new ArrayList();
+        ArrayList types=new ArrayList();
         try {
             EventTypeRemoteHome home = TicketBookLookUpJNDI.getEventTypeRemoteHome();
-            eventTypes=(ArrayList) home.findAll();
+            types=(ArrayList) home.findAll();
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return eventTypes;
+        return types;
     }
 
  

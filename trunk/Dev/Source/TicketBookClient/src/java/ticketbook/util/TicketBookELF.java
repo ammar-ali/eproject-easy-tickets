@@ -46,7 +46,9 @@ public class TicketBookELF {
 
     public static String filterTicketBookMoney(String money){
         if(money!=null){
-            String str=money.toString().subSequence(0,money.length()-5).toString();
+            String str="";
+            if(money.length()>=5)
+                str=money.toString().subSequence(0,money.length()-5).toString();
             return str;
         }
         return money;

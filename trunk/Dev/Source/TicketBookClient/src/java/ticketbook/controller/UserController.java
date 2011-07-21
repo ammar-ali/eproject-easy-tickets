@@ -75,7 +75,7 @@ public class UserController extends HandlerController {
     public void processLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_LOGIN)) {
             UserRemote userRemote = isAccount(request, response);
-            if (userRemote != null && userRemote.getRoleID() != Constant.ID_FALSE_INTETER) {
+            if (userRemote != null && !userRemote.getRoleID().equals(Constant.ID_FALSE_INTETER)) {
                 request.getSession().setAttribute(TicketBookSession.USER_LOGIN, userRemote);
                 request.getSession().setAttribute(TicketBookSession.ROLEID_USER_LOGIN, userRemote.getRoleID());
                 if (request.getSession().getAttribute(FormBackController.CONTEXTPATH_ATTRIBUTE_NAME) != null) {
@@ -120,10 +120,8 @@ public class UserController extends HandlerController {
 
         UserRemote user = User.getByUsername(username);
 
-        if (user.getRoleID() == Constant.ID_FALSE_INTETER && !username.equals("")) {
+        if (user.getRoleID().equals(Constant.ID_FALSE_INTETER) && !username.equals("")) {
             data.setRoleID(new Integer(new TicketBookParameter().getCustomerRoleID()));
-
-
             data.setUsername(request.getParameter(USERNAME_CONTROL_NAME));
             String birthday = "";
             if (request.getParameter(BIRTHDAY_CONTROL_NAME) != null) {
