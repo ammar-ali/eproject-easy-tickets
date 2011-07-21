@@ -6,6 +6,10 @@
 		<role>1</role>
 		<role>2</role>
 	</page>
+        <page>
+		<page_name>/Form/Admin/admin.jsp</page_name>
+		<role>2</role>
+	</page>
         
 	
 	<alert>You couldn't view this page</alert>
