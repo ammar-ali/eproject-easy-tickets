@@ -5,6 +5,8 @@
 
 package ticketbook.ejb.bmp;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.ejb.EntityBean;
 import javax.ejb.EntityContext;
 import javax.ejb.FinderException;
@@ -71,12 +73,12 @@ public class TicketBooking extends TicketBookingTransferData implements EntityBe
             // TODO add code to retrieve data
             TicketBookingTransferData data = TicketBookingDAO.getInstance(SQLTicketBookConnection.getInstance()).getTicketBookingByID(this.getID());
             if(data!=null){
+                this.setID(data.getID());
                 this.setAcceptStatus(data.getAcceptStatus());
                 this.setAdmin(data.getAdmin());
                 this.setCardNumber(data.getCardNumber());
                 this.setDeliveryDate(data.getDeliveryDate());
                 this.setDiscount(data.getDiscount());
-                this.setID(data.getID());
                 this.setPaymentDetailID(data.getPaymentDetailID());
                 this.setPaymentTypeID(data.getPaymentTypeID());
                 this.setPriceTotal(data.getPriceTotal());
@@ -121,6 +123,15 @@ public class TicketBooking extends TicketBookingTransferData implements EntityBe
     }
     public void ejbPostCreate(TicketBookingTransferData data){
         
+    }
+
+    public Collection ejbFindAll(int indexStart,int totalRecord){
+        try {
+            return TicketBookingDAO.getInstance(SQLTicketBookConnection.getInstance()).getTicketBookingIDs(indexStart, totalRecord);
+        } catch (SQLTicketBookException ex) {
+            ex.printStackTrace();
+        }
+        return new ArrayList();
     }
 
 }
