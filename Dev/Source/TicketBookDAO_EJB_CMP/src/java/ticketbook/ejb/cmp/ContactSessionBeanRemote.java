@@ -15,7 +15,7 @@ import javax.ejb.EJBObject;
  */
 public interface ContactSessionBeanRemote extends EJBObject {
 
-    void createContact(String title, String content, String email, Timestamp create_date, String username) throws RemoteException;
+    void createContact(Integer id, String title, String content, String email, Timestamp create_date, String username) throws RemoteException;
 
     void answerContact(Integer id, String title, String content, String answer, String email, String username) throws RemoteException;
 
