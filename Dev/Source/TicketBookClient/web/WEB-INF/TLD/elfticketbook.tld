@@ -9,6 +9,11 @@
 	  	<function-signature>java.lang.Integer getIndexEventTypesByID(java.lang.Integer)</function-signature>
 	</function>
         <function>
+	  	<name>getEventTypeNameByID</name>
+	  	<function-class>ticketbook.model.EventType</function-class>
+	  	<function-signature>java.lang.String getEventTypeNameByID(java.lang.Integer)</function-signature>
+	</function>
+        <function>
 	  	<name>getTicketsByEventTypeID</name>
 	  	<function-class>ticketbook.model.Ticket</function-class>
 	  	<function-signature>java.util.ArrayList getTicketsByEventTypeID(java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Integer)</function-signature>
