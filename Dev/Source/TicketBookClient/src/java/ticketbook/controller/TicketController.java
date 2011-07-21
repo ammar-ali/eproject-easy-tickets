@@ -89,6 +89,7 @@ public class TicketController extends HandlerController {
                     ticketBooking.setPaymentTypeID(new Integer(paymentType));
                     TicketBooking.insert(ticketBooking);
                     if(ticketBooking.getID()!=Constant.ID_FALSE_INTETER){
+                        sttResponse=true;
                         if (request.getSession().getAttribute(FormBackController.CONTEXTPATH_ATTRIBUTE_NAME) != null) {
                             ((TicketBookContextPath) request.getSession().getAttribute(FormBackController.CONTEXTPATH_ATTRIBUTE_NAME)).response(response);
                         } else {
