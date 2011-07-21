@@ -86,7 +86,7 @@ public abstract class Faq implements EntityBean {
         return null;
     }
 
-     public void ejbPostCreate(String answer, String question, String create_date) {
+     public void ejbPostCreate(String answer, String question, Timestamp create_date) {
         // TODO populate relationships here if appropriate
     }
     public abstract Integer getId();

@@ -79,10 +79,10 @@ public class ContactSessionBean implements SessionBean {
         }
     }
 
-    public void createContact(String title, String content, String email, Timestamp create_date, String username) {
+    public void createContact(Integer id, String title, String content, String email, Timestamp create_date, String username) {
         try {
             ContactLocalHome home = lookupContactLocal();
-            home.create(title, content, email, create_date, username);
+            home.create(id,title, content, email, create_date, username);
         } catch (Exception e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,"exception caught", e);
         }
