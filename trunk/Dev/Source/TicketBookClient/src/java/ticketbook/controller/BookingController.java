@@ -18,10 +18,10 @@ import ticketbook.util.TicketBookSession;
  *
  * @author Admin
  */
-public class AdminController extends HttpServlet {
-    public static final String ACTIONTYPE_NAME="actionType";
-    
-    /** 
+public class BookingController extends HttpServlet {
+       public static final String ACTIONTYPE_NAME="actionType";
+
+    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
@@ -38,16 +38,21 @@ public class AdminController extends HttpServlet {
                HttpSession sessionRoleID=request.getSession();
                Object attributeRoleID=sessionRoleID.getAttribute(TicketBookSession.ROLEID_USER_LOGIN);
                if(attributeRoleID!=null){
-               
+                   if(((Integer)attributeRoleID).intValue()!=0){
+                       TicketController ticketController=new TicketController();
+                       ticketController.processRequest(request, response);
+
+                       stt=true;
+                   }
                }
             }
             if(!stt){
                 response.sendRedirect(request.getContextPath()+"/Form/error.jsp?stt=0");
             }
-        } finally { 
+        } finally {
             out.close();
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
