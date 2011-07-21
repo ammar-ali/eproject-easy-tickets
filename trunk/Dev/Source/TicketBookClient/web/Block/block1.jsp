@@ -10,23 +10,30 @@
 <%@page import="ticketbook.util.TicketBookSession"%>
 <%@page import="ticketbook.util.TicketBookConvert"%>
 <%@page import="ticketbook.util.Constant"%>
+<%@page import="ticketbook.util.TicketBookParameter"%>
 <%@ taglib uri="/WEB-INF/TLD/elfticketbook" prefix="ticketbookELF" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib uri="/WEB-INF/TLD/taglib.tld" prefix="w" %>
 
+<c:set var="SYS_PARAM" value='<%=new TicketBookParameter()%>'></c:set>
 <c:set var="roleID" value='<%=TicketBookConvert.castSessionIsNull(request.getSession(),TicketBookSession.ROLEID_USER_LOGIN,new Integer(0))%>'/>
+<c:set var="ADMIN_ROLEID" value="${SYS_PARAM.adminRoleID}"></c:set>
 <c:set var="ID_FALSE_INTEGER" value='<%=Constant.ID_FALSE_INTETER%>'/>
 <w:authorize_role pathTo="/WEB-INF/authorize.xml" request="${pageContext.request}" response="${pageContext.response}"></w:authorize_role>
 <center>
 	<div class="_div_header_1">
 		<div class="_div_header_2">
 			<div class="_div_header_3">
+                            <c:if test="${roleID eq ADMIN_ROLEID}">
+                                <a href="<%=request.getContextPath()%>/Form/Admin/admin.jsp">A<font color="#62b7e5">dmin</font></a> |
+                            </c:if>
                             <c:if test="${roleID eq ID_FALSE_INTEGER}">
                                 <a href="<%=request.getContextPath()%>/Form/login.jsp">L<font color="#62b7e5">ogin</font></a> | <a href="<%=request.getContextPath()%>/Form/register.jsp">R<font color="#62b7e5">egister</font></a>
                             </c:if>
                             <c:if test="${roleID ne ID_FALSE_INTEGER}">
                                 <a href="<%=request.getContextPath()%>/Form/logout.jsp">L<font color="#62b7e5">ogout</font></a>
                             </c:if>
+                
                         </div>
 		</div>
 	</div>
