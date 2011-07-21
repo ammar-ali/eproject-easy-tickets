@@ -100,7 +100,9 @@
                     <td><input type="text" class="_textbox" id="txtPersonCardNumber" name="<%=UserController.PERSONCARDNUMBER_CONTROL_NAME%>" value="<%=TicketBookConvert.castParameterRequestIsNull(request, UserController.PERSONCARDNUMBER_CONTROL_NAME,"")%>"/></td>
                     <td class="_alert_error" id="txtAlertPersonCardNumber"></td>
                 </tr>
-                <tr><td colspan ="2" align="center;padding-top:10px"> <input type="button" value="Submit" onclick="register()"/></td><td></td></tr>
+                <tr>
+                    <td colspan ="2" align="center" style="padding-top:10px"> <input type="button" value="Submit" onclick="register()"/></td>
+                </tr>
             </table>
 
         </form>

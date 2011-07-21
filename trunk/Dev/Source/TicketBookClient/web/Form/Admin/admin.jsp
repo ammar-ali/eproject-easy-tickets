@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 <link rel='stylesheet' href='<%=request.getContextPath()%>/Style/layout.css'/>
 <link rel='stylesheet' href='<%=request.getContextPath()%>/Style/tag_def.css'/>
 <link rel='stylesheet' href='<%=request.getContextPath()%>/Style/component.css'/>
@@ -21,19 +21,19 @@
         <jsp:include page="../../Block/block1.jsp"/>
         <div class="_content_title">Admin</div>
         <br/>
-        <table width="720px" cellpadding="10px;" border="1">
-            <tr align="center" style="font-size: 16px;font-weight: bold;background-color:#176c9c">
-                <td <c:if test="${param.name eq 'ticket'}">style="background-color:black"</c:if>>
+        <table width="720px" cellpadding="10px;" border="1" style="border-width: 1px;">
+            <tr align="center" style="border-width: 1px;font-size: 16px;font-weight: bold;background-color:#176c9c">
+                <td <c:if test="${param.name eq 'ticket'}">style="background-color:black;border-bottom: 0px"</c:if>>
                     <a style="color:white" href="<%=request.getContextPath()%>/Form/Admin/admin.jsp?name=ticket">Ticket</a></td>
-                <td <c:if test="${param.name eq 'booking'}">style="background-color:black"</c:if>>
+                <td <c:if test="${param.name eq 'booking'}">style="background-color:black;border-bottom:0px"</c:if>>
                     <a style="color:white" href="<%=request.getContextPath()%>/Form/Admin/admin.jsp?name=booking">Booking</a></td>
-                <td <c:if test="${param.name eq 'FAQ'}">style="background-color:black"</c:if>>
+                <td <c:if test="${param.name eq 'FAQ'}">style="background-color:black;border-bottom:0px"</c:if>>
                     <a style="color:white" href="<%=request.getContextPath()%>/Form/Admin/admin.jsp?name=FAQ">FAQ</a></td>
-                <td <c:if test="${param.name eq 'contact'}">style="background-color:black"</c:if>>
+                <td <c:if test="${param.name eq 'contact'}">style="background-color:black;border-bottom: 0px"</c:if>>
                     <a style="color:white" href="<%=request.getContextPath()%>/Form/Admin/admin.jsp?name=contact">Contact</a></td>
             </tr>
-                <tr>
-                <td colspan="4">
+            <tr>
+                <td colspan="4" align="center" style="border-width: 1px;border-top:hidden">
                     <c:choose>
                         <c:when test="${param.name eq 'FAQ'}">
                             <jsp:include page="faq_create.jsp"></jsp:include>
@@ -49,7 +49,9 @@
                         </c:when>
 
                     </c:choose>
-                    
+                    <c:if test="${param.name eq null or param.name eq ''}">
+                     (You click into section to see detail.)
+                     </c:if>
                 </td>
             </tr>
         </table>
