@@ -11,7 +11,7 @@
 <%@page import="ticketbook.model.Ticket"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ticketbook.model.PaymentType"%>
-<%@page import="ticketbook.controller.AdminController"%>
+<%@page import="ticketbook.controller.BookingController"%>
 <%@page import="ticketbook.controller.TicketController"%>
 <%@page import="ticketbook.controller.HandlerController"%>
 <%@page import="ticketbook.util.TicketBookConvert"%>
@@ -36,11 +36,11 @@
 
 <c:if test="${param.ticketID ne null and param.ticketID ne 0}">
 
-    <form action="<%=request.getContextPath()%>/AdminController" method="post" name="frmBooking">
+    <form action="<%=request.getContextPath()%>/BookingController" method="post" name="frmBooking">
     <c:set var="objTicket" value="${ticketbookELF:getTicketByID(param.ticketID)}"></c:set>
     <c:set var="paymentTypes" value='<%=PaymentType.getInstanceValue()%>'></c:set>
     <input type="hidden" name="<%=TicketController.TICKETID_CONTROL_NAME%>" value="${param.ticketID}" id="txtTicketID">
-    <input type="hidden" name="<%=AdminController.ACTIONTYPE_NAME%>" id="actionType" value=""/>
+    <input type="hidden" name="<%=BookingController.ACTIONTYPE_NAME%>" id="actionType" value=""/>
             
     <font class="_content_title">Booking</font>
     <br/>
