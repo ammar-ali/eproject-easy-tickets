@@ -18,8 +18,6 @@ import javax.ejb.FinderException;
 public interface FaqLocalHome extends EJBLocalHome {
 
     ticketbook.ejb.cmp.FaqLocal findByPrimaryKey(java.lang.Integer key)  throws FinderException;
-    
-    ticketbook.ejb.cmp.FaqLocal create(java.lang.Integer key)  throws CreateException;
 
     Collection findById(Integer id) throws FinderException;
 
