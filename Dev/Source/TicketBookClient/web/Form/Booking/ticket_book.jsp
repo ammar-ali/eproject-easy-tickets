@@ -11,6 +11,10 @@
 <%@page import="ticketbook.model.Ticket"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ticketbook.model.PaymentType"%>
+<%@page import="ticketbook.controller.AdminController"%>
+<%@page import="ticketbook.controller.TicketController"%>
+<%@page import="ticketbook.controller.HandlerController"%>
+<%@page import="ticketbook.util.TicketBookConvert"%>
 <%@ taglib uri="/WEB-INF/TLD/elfticketbook" prefix="ticketbookELF" %>
 <%@ taglib uri="/WEB-INF/TLD/elfstring" prefix="stringELF" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
@@ -29,17 +33,27 @@
     </head>
 
 <jsp:include page="../../Block/block1.jsp"/>
+
 <c:if test="${param.ticketID ne null and param.ticketID ne 0}">
-    <form action="" method="post">
+
+    <form action="<%=request.getContextPath()%>/AdminController" method="post" name="frmBooking">
     <c:set var="objTicket" value="${ticketbookELF:getTicketByID(param.ticketID)}"></c:set>
     <c:set var="paymentTypes" value='<%=PaymentType.getInstanceValue()%>'></c:set>
-
+    <input type="hidden" name="<%=TicketController.TICKETID_CONTROL_NAME%>" value="${param.ticketID}" id="txtTicketID">
+    <input type="hidden" name="<%=AdminController.ACTIONTYPE_NAME%>" id="actionType" value=""/>
+            
     <font class="_content_title">Booking</font>
     <br/>
-    <table width="600px" cellpadding="10px" style="margin-left: 150px">
+    <div class="_div_alert">
+        <c:set var="alert" value='<%=TicketBookConvert.castAttributeRequestIsNull(request,"error_ticket","")%>'></c:set>
+        <c:if test="${alert eq '1'}">
+            Sorry ! Ticket is not available, please choose other tickets
+        </c:if>
+    </div>
+    <table width="600px" cellpadding="10px" style="margin-left: 200px">
         <tr>
             <td class="_title_form" width="100px">Ticket Total</td>
-            <td width="100px"><input style="width:100px" id="txtTicketTotal" type="text" value="1"></td>
+            <td width="100px"><input style="width:100px" id="txtTicketTotal" type="text" value="<%=TicketBookConvert.castParameterRequestIsNull(request,TicketController.TICKET_TOTAL_CONTROL_NAME,"1")%>" name="<%=TicketController.TICKET_TOTAL_CONTROL_NAME%>" /></td>
             <td width="200px"><input onclick="checkPrice()" type="button" value="Check price"</td>
         </tr>
         <tr>
@@ -53,7 +67,7 @@
             <td>
                 <c:set var="price"   value="${ticketbookELF:filterTicketBookMoney(objTicket.price)}"></c:set>
                  ${price} USD
-                 <input type="hidden" value="${price}" id="txtPrice"/>
+                 <input type="hidden" value="${price}" id="txtPrice" name="<%=TicketController.TICKET__PRICE_CONTROL_NAME%>"/>
             </td>
             <td></td>
         </tr>
@@ -63,7 +77,7 @@
                 <c:if test="${discount ne '' and discount ne null }">
                     <c:set var="discount" value="${ticketbookELF:filterTicketBookMoney(objTicket.discount)}"></c:set>
                     ${discount} 
-                    <input type="hidden" value="${discount}" id="txtDiscount"/>
+                    <input type="hidden" value="${discount}" id="txtDiscount" name="<%=TicketController.TICKET_DISCOUNT_CONTROL_NAME%>"/>
                 </c:if>
                 <c:if test="${discount eq '' or discount eq null }">
                     0
@@ -80,16 +94,21 @@
         </tr>
         <tr>
             <td class="_title_form">Payment Type</td>
-            <td><select>
+            <td><select name="<%=TicketController.PAYMENTTYPE_CONTROL_NAME%>">
+                    <c:set var="selPaymentTypeChoose" value="<%=TicketBookConvert.castParameterRequestIsNull(request,TicketController.PAYMENTTYPE_CONTROL_NAME,"")%>"></c:set>
                     <c:forEach items="${paymentTypes}" var="objPaymentType">
-                        <option value="${objPaymentType.ID}">${objPaymentType.name}</option>
+                        <c:set var="selected" value=""></c:set>
+                        <c:if test="${selPaymentTypeChoose eq objPaymentType.ID}">
+                            <c:set var="selected" value="selected"></c:set>
+                        </c:if>
+                        <option value="${objPaymentType.ID}" ${selected}>${objPaymentType.name}</option>
                     </c:forEach>
                 </select></td>
             <td></td>
         </tr>
         <tr>
             <td class="_title_form">Card Number</td>
-            <td><input style="width:100px" type="text" id="txtCardNumber"></td>
+            <td><input style="width:100px" type="text" id="txtCardNumber" value="<%=TicketBookConvert.castParameterRequestIsNull(request,TicketController.CARD_NUMBER_CONTROL_NAME,"")%>" name="<%=TicketController.CARD_NUMBER_CONTROL_NAME%>"></td>
             <td></td>
         </tr>
         <tr>
@@ -102,6 +121,7 @@
         </tr>
         
     </table>
+
     </form>
 </c:if>
     <script type="text/javascript">
@@ -117,6 +137,7 @@
                        var ticketnumber=parseInt(tickettotal.value,"10");
                        var result=(price-discount)*ticketnumber;
                        document.getElementById("ftPriceTotal").innerHTML=result+"USD";
+            
                        return true;
                    }
                    else document.getElementById("alertTicketTotal").innerHTML="You have entered ticket number";
@@ -140,6 +161,8 @@
                 var cardNumber=document.getElementById("txtCardNumber").value;
                 if(Validate.isNumber(cardNumber)&&cardNumber!=""){
                     document.getElementById("alertCardNumber").innerHTML="";
+                    document.getElementById("actionType").value="<%=HandlerController.ACTIONTYPE_VALUE_BOOKING%>";
+                    document.forms["frmBooking"].submit();
                 }
                 else{
                     document.getElementById("alertCardNumber").innerHTML="Card number must to be number";

@@ -41,11 +41,13 @@
 
 
 <font class="_content_title"> TOP </font>
-<% indexEventTypes=0; %>
+
 <br/>
 <table  border="1" cellpadding="3px" cellspacing="0"  width="720px" style="border-style: solid;">
 <c:forEach items="${eventTypes}" var="objEventType">
-       
+
+    <% indexItemEvent=1; %>
+
         <c:set var="indexEventTypes" value='<%=indexEventTypes%>'></c:set>
         
             <tr>
