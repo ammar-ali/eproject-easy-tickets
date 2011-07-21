@@ -24,6 +24,10 @@
         <servlet-name>TicketController</servlet-name>
         <servlet-class>ticketbook.controller.TicketController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookingController</servlet-name>
+        <servlet-class>ticketbook.controller.BookingController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
         <url-pattern>/UserController</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>TicketController</servlet-name>
         <url-pattern>/TicketController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingController</servlet-name>
+        <url-pattern>/BookingController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
