@@ -21,8 +21,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-//import ticketbook.ejb.cmp.FaqSessionBeanRemote;
-//import ticketbook.ejb.cmp.FaqSessionBeanRemoteHome;
+import ticketbook.ejb.cmp.FAQSessionBeanRemote;
+import ticketbook.ejb.cmp.FAQSessionBeanRemoteHome;
 import ticketbook.util.StringELF;
 
 /**
@@ -69,40 +69,40 @@ public class FAQsController extends HandlerController {
 
     public void insertFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_INSERT_FAQ)){
-           // FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-            //if(remote!=null){
+            FAQSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+            if(remote!=null){
                String answer = request.getParameter(ANSWER_CONTROL_NAME);
                String question = request.getParameter(QUESTION_CONTROL_NAME);
                String get_create_date = request.getParameter(CREATE_DATE_CONTROL_NAME);
-               //Timestamp create_date = StringELF.convertStringToTimestamp(get_create_date, "mm-dd-yyyy");
-               //remote.insertFAQs(answer, question, create_date);
+               Timestamp create_date = StringELF.convertStringToTimestamp(get_create_date, "mm-dd-yyyy");
+               remote.insertFAQs(answer, question, create_date);
                RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
                rd.forward(request, response);
-            //}
+            }
         }
     }
 
-//    public void updateFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-//        if(request.getAttribute(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_UPDATE_FAQ)){
-//            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-//            String answer = request.getParameter(ANSWER_CONTROL_NAME);
-//            String question = request.getParameter(QUESTION_CONTROL_NAME);
-//            Integer id = Integer.getInteger(ID_CONTROL_NAME);
-//            remote.updateFAQs(id, answer, question);
-//            RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
-//            rd.forward(request, response);
-//        }
-//    }
+    public void updateFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        if(request.getAttribute(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_UPDATE_FAQ)){
+            FAQSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+            String answer = request.getParameter(ANSWER_CONTROL_NAME);
+            String question = request.getParameter(QUESTION_CONTROL_NAME);
+            Integer id = Integer.getInteger(ID_CONTROL_NAME);
+            remote.updateFAQs(id, answer, question);
+            RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+            rd.forward(request, response);
+        }
+    }
 
-//    public void deleteFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, RemoveException{
-//        if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_DELETE_FAQ)){
-//            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-//            Integer id = Integer.getInteger(ID_CONTROL_NAME);
-//            remote.remove();
-//            RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
-//            rd.forward(request, response);
-//        }
-//    }
+    public void deleteFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, RemoveException{
+        if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_DELETE_FAQ)){
+            FAQSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+            Integer id = Integer.getInteger(ID_CONTROL_NAME);
+            remote.remove();
+            RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+            rd.forward(request, response);
+        }
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -136,22 +136,21 @@ public class FAQsController extends HandlerController {
         return "Short description";
     }// </editor-fold>
 
-//    private FaqSessionBeanRemote lookupFaqSessionBeanRemote() {
-       // try {
- //           Context c = new InitialContext();
-//            Object remote = c.lookup("FaqSesLocalJNDI");
-//            FaqSessionBeanRemoteHome rv = (FaqSessionBeanRemoteHome) PortableRemoteObject.narrow(remote, FaqSessionBeanRemoteHome.class);
-//            return rv.create();
-//        } catch (NamingException ne) {
-//            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-//            throw new RuntimeException(ne);
-//        } catch (CreateException ce) {
-//            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ce);
-//            throw new RuntimeException(ce);
-//        } catch (RemoteException re) {
-//            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", re);
-//            throw new RuntimeException(re);
-//        }
-   // }
-   // }
+    private FAQSessionBeanRemote lookupFaqSessionBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            Object remote = c.lookup("FaqSesLocalJNDI");
+            FAQSessionBeanRemoteHome rv = (FAQSessionBeanRemoteHome) PortableRemoteObject.narrow(remote, FAQSessionBeanRemoteHome.class);
+            return rv.create();
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        } catch (CreateException ce) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ce);
+            throw new RuntimeException(ce);
+        } catch (RemoteException re) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", re);
+            throw new RuntimeException(re);
+        }
+    }
 }
