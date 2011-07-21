@@ -63,9 +63,19 @@
             <reentrant>false</reentrant>
         </entity>
 
+        <entity>
+            <display-name>TicketBookingEB</display-name>
+            <ejb-name>TicketBooking</ejb-name>
+            <home>ticketbook.ejb.bmp.TicketBookingRemoteHome</home>
+            <remote>ticketbook.ejb.bmp.TicketBookingRemote</remote>
+            <ejb-class>ticketbook.ejb.bmp.TicketBooking</ejb-class>
+            <persistence-type>Bean</persistence-type>
+            <prim-key-class>java.lang.Integer</prim-key-class>
+            <reentrant>false</reentrant>
+        </entity>
         </enterprise-beans>
     <assembly-descriptor>
-        
+
         <container-transaction>
             <method>
                 <ejb-name>EventType</ejb-name>
@@ -109,6 +119,13 @@
             <trans-attribute>Required</trans-attribute>
         </container-transaction>
 
+        <container-transaction>
+            <method>
+                <ejb-name>TicketBooking</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
         </assembly-descriptor>
 
 </ejb-jar>
