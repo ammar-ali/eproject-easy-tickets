@@ -9,25 +9,30 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib uri="/WEB-INF/TLD/elfticketbook" prefix="ticketbookELF" %>
+<%@ taglib uri="/WEB-INF/TLD/elfeventtype" prefix="eventtypeELF" %>
+<%@ taglib uri="/WEB-INF/TLD/elfticket" prefix="ticketELF" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ticketbook.model.EventType"%>
+<%@page import="ticketbook.util.TicketBookParameter"%>
 <html>
 <head>
+<c:set var="CONTEXT_PATH" value='<%=request.getContextPath()%>'></c:set>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EasyTickets-Home</title>
-<link rel='stylesheet' href='<%=request.getContextPath()%>/Style/layout.css'/>
-<link rel='stylesheet' href='<%=request.getContextPath()%>/Style/tag_def.css'/>
-<link rel='stylesheet' href='<%=request.getContextPath()%>/Style/component.css'/>
+<link rel='stylesheet' href='${CONTEXT_PATH}/Style/layout.css'/>
+<link rel='stylesheet' href='${CONTEXT_PATH}/Style/tag_def.css'/>
+<link rel='stylesheet' href='${CONTEXT_PATH}/Style/component.css'/>
 
 </head>
 <body>
     
 <jsp:include page="Block/block1.jsp"/>
-<c:set var="SYS_PARAM" value='<%=new ticketbook.util.TicketBookParameter()%>'></c:set>
-<c:set var="eventTypes" value='<%=EventType.getInstanceValue()%>'></c:set>
-<% int indexEventTypes=0; %>
- <% int indexItemEvent=1; %>
-
+<c:set var="SYS_PARAM" value='${ticketbookELF:getSystemParameter()}'></c:set>
+<c:set var="EVENT_TYPES" value='${eventtypeELF:getInstanceValue()}'></c:set>
+<c:set var="indexEventTypes" value="0"></c:set>
+<c:set var="indexItemEvent" value="1"></c:set>
+ 
  <font class="_content_title"> Online Booking & Payment </font>
 <div>
     <ul>
@@ -44,35 +49,36 @@
 
 <br/>
 <table  border="1" cellpadding="3px" cellspacing="0"  width="720px" style="border-style: solid;">
-<c:forEach items="${eventTypes}" var="objEventType">
 
-    <% indexItemEvent=1; %>
+<c:forEach items="${EVENT_TYPES}" var="objEventType">
 
-        <c:set var="indexEventTypes" value='<%=indexEventTypes%>'></c:set>
+        <c:set var="indexItemEvent" value="${indexItemEvent}"></c:set>
+ 
+        <c:set var="indexEventTypes" value='${indexEventTypes}'></c:set>
         
             <tr>
                 <td align="center" width="250px" style="color:white;font-size:14px;background-color:#176c9c;border-right: 1px">${objEventType.name}</td>
 
             </tr>
-            <c:set var="events" value='${ticketbookELF:getTopTicketsByEventTypeID(objEventType.ID,SYS_PARAM.topIndexShow)}'></c:set>
+            <c:set var="events" value='${ticketELF:getTopTicketsByEventTypeID(objEventType.ID,SYS_PARAM.topIndexShow)}'></c:set>
                 <c:forEach items="${events}" var="objEvent">
                     <tr>
                         <c:set var="status" value="${objEvent.viewStatus}"></c:set>
                         <td align="center" width="250px"><font style='font-size: 14px;font-weight:bold'>${objEvent.title}</font> </td>
                         <td width="360px"  style="border-left:none;border-right:none;padding-left:10px">${objEvent.cityName} City, ${objEvent.venueName} Theatre ,${objEvent.venueAddress} Street</td>
                         <td width="40px"  style="border-left:none;border-right:none" align="center"><c:if test="${status ne 'Old'}"><font color="red" style="font-style: italic">${status}</font></c:if></td>
-                        <td width="40px" style="border-left:none;" align="center"><a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=<%=indexEventTypes%>&view=<%=indexItemEvent%>&stt=more">Detail</a></td>
+                        <td width="40px" style="border-left:none;" align="center"><a href="${CONTEXT_PATH}/Form/show_tickets.jsp?index=${indexEventTypes}&view=${indexItemEvent}&stt=more">Detail</a></td>
                     </tr>
-                    <% indexItemEvent++; %>
+                    <c:set var="indexItemEvent" value="${indexItemEvent+1}"></c:set>
                 </c:forEach>
             <tr>
 
                 <td colspan="4">
-                    <div style="text-align: right;"><a href="<%=request.getContextPath()%>/Form/show_tickets.jsp?index=<%=indexEventTypes%>">More..</a></div>
+                    <div style="text-align: right;"><a href="${CONTEXT_PATH}/Form/show_tickets.jsp?index=${indexEventTypes}">More..</a></div>
                 </td>
             </tr>
-        
-        <% indexEventTypes++;%>
+
+    <c:set var="indexEventTypes" value="${indexEventTypes+1}"></c:set>
  </c:forEach>
 </table>
 
