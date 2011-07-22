@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 package ticketbook.ejb.bmp.dao;
-
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +17,7 @@ import ticketbook.util.StringUtil;
  *
  * @author Admin
  */
-public class TicketDAO {
+public class TicketDAO{
 
     static TicketDAO ticketDAO;
     static SQLTicketBookConnection connection;

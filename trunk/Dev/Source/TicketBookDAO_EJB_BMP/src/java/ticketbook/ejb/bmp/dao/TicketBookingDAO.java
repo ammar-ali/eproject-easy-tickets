@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import ticketbook.ejb.bmp.TicketBooking;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.TicketBookingTransferData;
@@ -20,7 +19,7 @@ import ticketbook.util.Constant;
  *
  * @author Admin
  */
-public class TicketBookingDAO {
+public class TicketBookingDAO{
 
     static TicketBookingDAO ticketBookingDAO;
     static SQLTicketBookConnection connection;
@@ -132,6 +131,20 @@ public class TicketBookingDAO {
             ex.printStackTrace();
         }
         return data;
+    }
+
+    public void updateAcceptStatusByID(Integer ID,String status){
+        try {
+            String sql = "UPDATE ticket_booking SET accept_status=?,delivery_date=GETDATE() WHERE ID=?";
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1,status);
+            preparedStatement.setInt(2, ID.intValue());
+            ResultSet rs = preparedStatement.executeQuery();
+        } catch (SQLTicketBookException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

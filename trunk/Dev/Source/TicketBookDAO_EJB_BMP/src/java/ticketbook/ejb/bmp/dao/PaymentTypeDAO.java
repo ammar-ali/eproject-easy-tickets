@@ -5,6 +5,7 @@
 
 package ticketbook.ejb.bmp.dao;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import ticketbook.transfer.PaymentTypeTransferData;
  *
  * @author Admin
  */
-public class PaymentTypeDAO {
+public class PaymentTypeDAO{
     static PaymentTypeDAO paymentTypeDAO;
     static SQLTicketBookConnection connection;
     private PaymentTypeDAO(){}

@@ -15,7 +15,7 @@ import ticketbook.transfer.EventTypeTransferData;
  *
  * @author Admin
  */
-public class EventTypeDAO {
+public class EventTypeDAO{
 
     static EventTypeDAO eventTypeDAO;
     static SQLTicketBookConnection connection;
