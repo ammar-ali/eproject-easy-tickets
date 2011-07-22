@@ -27,7 +27,7 @@ import ticketbook.util.TicketBookSession;
  */
 public class TicketController extends HandlerController {
     public static final String TICKET_TOTAL_CONTROL_NAME="txtTicketTotal";
-    public static final String TICKET__PRICE_CONTROL_NAME="txtPrice";
+    public static final String TICKET_PRICE_CONTROL_NAME="txtPrice";
     public static final String TICKET_DISCOUNT_CONTROL_NAME="txtDiscount";
     public static final String TICKETID_CONTROL_NAME="txtTicketID";
     public static final String CARD_NUMBER_CONTROL_NAME="txtCardNumber";
@@ -66,7 +66,7 @@ public class TicketController extends HandlerController {
            if(!ticketID.equals("")&&StringUtil.validatePositiveNumber(ticketID)){
                 TicketRemote ticketRemote=Ticket.getTicketByID(new Integer(ticketID));
                 if(ticketRemote.getViewStatus().equals("New")&&ticketRemote.getTicketTotal().intValue()!=0){
-                    String price=TicketBookConvert.castParameterRequestIsNull(request,TICKET__PRICE_CONTROL_NAME, "");
+                    String price=TicketBookConvert.castParameterRequestIsNull(request,TICKET_PRICE_CONTROL_NAME, "");
                     String discount=TicketBookConvert.castParameterRequestIsNull(request,TICKET_DISCOUNT_CONTROL_NAME,"");
                     String cardNumber=TicketBookConvert.castParameterRequestIsNull(request,CARD_NUMBER_CONTROL_NAME,"");
                     String ticketTotal=TicketBookConvert.castParameterRequestIsNull(request,TICKET_TOTAL_CONTROL_NAME,"0");

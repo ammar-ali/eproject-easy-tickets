@@ -75,7 +75,7 @@ public class FAQsController extends HandlerController {
                String question = request.getParameter(QUESTION_CONTROL_NAME);
                String get_create_date = request.getParameter(CREATE_DATE_CONTROL_NAME);
                Timestamp create_date = StringELF.convertStringToTimestamp(get_create_date, "mm-dd-yyyy");
-               remote.insertFAQs(answer, question, create_date);
+        //       remote.insertFAQs(answer, question, create_date);
                RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
                rd.forward(request, response);
             }

@@ -79,4 +79,16 @@ public class Ticket {
         }
         return null;
     }
+
+    public static Integer countByEventTypeID(ArrayList tickets,Integer eventTypeID,Integer cityID){
+        int count=0;
+        if(tickets!=null){
+            try {
+                count = ((TicketRemote) tickets.get(0)).countByEventTypeID(eventTypeID, cityID).intValue();
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return new Integer(count);
+    }
 }

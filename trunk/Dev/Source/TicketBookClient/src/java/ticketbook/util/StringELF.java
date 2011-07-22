@@ -6,6 +6,7 @@
 package ticketbook.util;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 
 /**
@@ -62,4 +63,9 @@ public class StringELF {
         return new Timestamp(0);
     }
 
+    public static int getSizeOfArrayList(ArrayList lst){
+        if(lst!=null)
+            return lst.size();
+        return 0;
+    }
 }

@@ -17,7 +17,20 @@ public class TicketBookParameter {
     int topIndexShow=0;
     int customerRoleID=0;
     int adminRoleID=0;
-    public TicketBookParameter(){
+    int newStatusTicketBooking=0;
+    int acceptStatusTicketBooking=0;
+
+    static TicketBookParameter parameter;
+
+
+    public static TicketBookParameter getInstance(){
+        if(parameter==null)
+            parameter=new TicketBookParameter();
+        return parameter;
+    }
+
+
+    private TicketBookParameter(){
         try{
             pathImageEvent=TicketBookBundle.getSystemParameter().getString("path_image_event");
 
@@ -28,10 +41,21 @@ public class TicketBookParameter {
             adminRoleID=Integer.parseInt(TicketBookBundle.getSystemParameter().getString("admin_roleID"));
             if(recordNumberNeedShow>=topIndexShow)
                 topIndexShow=Integer.parseInt(TicketBookBundle.getSystemParameter().getString("top_index_show"));
+
+            newStatusTicketBooking=Integer.parseInt(TicketBookBundle.getSystemParameter().getString("new_status_ticketbooking"));
+            acceptStatusTicketBooking=Integer.parseInt(TicketBookBundle.getSystemParameter().getString("accept_status_ticketbooking"));
         }
         catch(Exception ex){
             
         }
+    }
+
+    public int getAcceptStatusTicketBooking() {
+        return acceptStatusTicketBooking;
+    }
+
+    public int getNewStatusTicketBooking() {
+        return newStatusTicketBooking;
     }
 
     public int getAdminRoleID() {

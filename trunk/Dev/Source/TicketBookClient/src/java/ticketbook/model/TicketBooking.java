@@ -32,10 +32,10 @@ public class TicketBooking {
         return null;
     }
 
-    public static ArrayList getAll(int indexStart,int totalRecord){
+    public static ArrayList getAllBookingByStatus(String status,Integer indexStart,Integer totalRecord){
         try {
             TicketBookingRemoteHome home = TicketBookLookUpJNDI.getTicketBookingRemoteHome();
-            return (ArrayList)home.findAll(indexStart, totalRecord);
+            return (ArrayList)home.findAllByStatus(status,indexStart.intValue(), totalRecord.intValue());
         } catch (FinderException ex) {
             ex.printStackTrace();
         } catch (RemoteException ex) {

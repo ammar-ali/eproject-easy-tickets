@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  * @author Admin
  */
 public class TicketBookConvert {
-
+    
     public static Object castAttributeRequestIsNull(HttpServletRequest request,String attName,Object value2){
         if(request==null){
             return value2;

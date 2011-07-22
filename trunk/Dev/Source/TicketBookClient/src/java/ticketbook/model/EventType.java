@@ -47,6 +47,15 @@ public class EventType {
         return "";
     }
 
+    public static EventTypeRemote getEventTypeRemoteByIndex(Integer index){
+        if(eventTypes!=null){
+            if(index.intValue()>=0&&index.intValue()<eventTypes.size()){
+                return (EventTypeRemote)eventTypes.get(index.intValue());
+            }
+        }
+        return null;
+    }
+
     public static void add(EventTypeTransferData data){
         if(eventTypes!=null){
             eventTypes.add(data);
