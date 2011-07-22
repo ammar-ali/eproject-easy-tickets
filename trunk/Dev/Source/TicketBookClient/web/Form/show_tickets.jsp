@@ -91,7 +91,7 @@
         <c:set var="eventType" value="${eventtypeELF:getEventTypeRemoteByIndex(param.index)}"></c:set>
         <c:set var="eventTypeID" value="${eventType.ID}"></c:set>
 
-        <font class="_content_title">${eventType.name}Events</font>
+        <font class="_content_title">${eventType.name} Events</font>
         <c:set var="TOTAL_RECORD_SHOW" value='${SYSTEM_PARAM.recordNumberNeedShow}'></c:set>
         <c:set var="TOTAL_PAGE_SHOW" value='${SYSTEM_PARAM.pageNumberNeedShow}'></c:set>
         
@@ -127,10 +127,11 @@
             </c:if>
         </div>
 
-        <% int count=1; %>
+ 
+        <c:set var="count" value="1"></c:set>
         <c:forEach var="obj" items="${tickets}">
             <div class="_block_event_item">
-                <c:set var="index_row" value='<%=count%>'></c:set>
+                <c:set var="index_row" value='${count}'></c:set>
                 <div class="_block_event_item_image">
                     
                         <c:if test="${obj.image ne '' and obj.image ne null}">
@@ -172,7 +173,7 @@
                                         <input onclick="submitFormBack('/Form/Booking/ticket_book.jsp?ticketID=${obj.ID}')" type="button"  value="Book"/>
                                     </c:if>
                                     <c:if test="${obj.viewStatus ne 'New'}">
-                                        <input onclick="location.href='${CONTEXT_PATH}/Form/show_tickets.jsp?sttView=Old&index=${param.index}&pindex=${param.pindex}&indexCity=${param.indexCity}&stt=more&view=<%=count%>';" value="Book" type="button"/>
+                                        <input onclick="location.href='${CONTEXT_PATH}/Form/show_tickets.jsp?sttView=Old&index=${param.index}&pindex=${param.pindex}&indexCity=${param.indexCity}&stt=more&view=${count}';" value="Book" type="button"/>
                                         <c:if test="${param.sttView eq 'Old'}">
                                             <font color="red">Ticket is not available, you can view reference</font>
                                         </c:if>
@@ -185,7 +186,7 @@
 
                     
                     <c:if test="${index_row ne param.view or (index_row eq param.view and param.stt eq 'close')}">
-                        <div style="float:right"><a href="${CONTEXT_PATH}/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=more&pindex=${param.pindex}&indexCity=${param.indexCity}">More...</a></div>
+                        <div style="float:right"><a href="${CONTEXT_PATH}/Form/show_tickets.jsp?index=${param.index}&view=${count}&stt=more&pindex=${param.pindex}&indexCity=${param.indexCity}">More...</a></div>
                     </c:if>
                 </div>
 
@@ -237,7 +238,7 @@
                                            <c:if test="${TEMP_ROW_REFERENCE eq 0}"><td colspan="2" align="center" style="color:red"> No data, please choose other sections </td></c:if>
                             </table>
                         </c:if>
-                        <div style="float:right"><a  href="${CONTEXT_PATH}/Form/show_tickets.jsp?index=${param.index}&view=<%=count%>&stt=close&pindex=${param.pindex}&indexCity=${param.indexCity}">Close</a></div>
+                        <div style="float:right"><a  href="${CONTEXT_PATH}/Form/show_tickets.jsp?index=${param.index}&view=${count}&stt=close&pindex=${param.pindex}&indexCity=${param.indexCity}">Close</a></div>
                         
                     </div>
                </c:if>
@@ -245,7 +246,7 @@
                             <input type="text" readonly="readOnly" style="border:none;background-color:inherit" id="txtFocus"/>
                         </c:if>
             </div>
-                <% count++; %>
+               <c:set var="count" value="${count+1}"></c:set>
         </c:forEach>
 
 

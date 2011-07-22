@@ -52,7 +52,7 @@
 
 <c:forEach items="${EVENT_TYPES}" var="objEventType">
 
-        <c:set var="indexItemEvent" value="${indexItemEvent}"></c:set>
+        <c:set var="indexItemEvent" value="1"></c:set>
  
         <c:set var="indexEventTypes" value='${indexEventTypes}'></c:set>
         

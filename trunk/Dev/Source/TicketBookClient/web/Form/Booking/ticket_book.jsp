@@ -46,7 +46,7 @@
     <c:set var="PAYMENTTYPE_CONTROL_NAME" value='<%=TicketController.PAYMENTTYPE_CONTROL_NAME%>'></c:set>
   <c:set var="TICKETID_CONTROL_NAME" value='<%=TicketController.TICKETID_CONTROL_NAME%>'></c:set>
   <c:set var="TICKET_PRICE_CONTROL_NAME" value='<%=TicketController.TICKET_PRICE_CONTROL_NAME%>'></c:set>
-  <c:set var="ACTIONTYPE_NAME" value='<%=BookingController.ACTIONTYPE_NAME%>'></c:set>
+  <c:set var="ACTIONTYPE_NAME" value='<%=HandlerController.ACTIONTYPE_NAME%>'></c:set>
   <c:set var="TICKET_DISCOUNT_CONTROL_NAME" value='<%=TicketController.TICKET_DISCOUNT_CONTROL_NAME%>'></c:set>
 
     <input type="hidden" name="${TICKETID_CONTROL_NAME}" value="${param.ticketID}" id="txtTicketID">
