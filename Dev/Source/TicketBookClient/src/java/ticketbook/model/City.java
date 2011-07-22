@@ -8,6 +8,7 @@ package ticketbook.model;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import javax.ejb.FinderException;
+import ticketbook.ejb.bmp.CityRemote;
 import ticketbook.ejb.bmp.CityRemoteHome;
 import ticketbook.util.TicketBookLookUpJNDI;
 
@@ -23,6 +24,19 @@ public class City {
         if(citys==null)
             citys=City.values();
         return citys;
+    }
+
+    public static Integer getIDByIndex(Integer index){
+        if(citys!=null){
+            if(citys.size()>index.intValue()&&index.intValue()>=0){
+                try {
+                    return ((CityRemote) citys.get(index.intValue())).getID();
+                } catch (RemoteException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return new Integer(0);
     }
 
     public static ArrayList values(){

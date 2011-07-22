@@ -121,7 +121,7 @@ public class UserController extends HandlerController {
         UserRemote user = User.getByUsername(username);
 
         if (user.getRoleID().equals(Constant.ID_FALSE_INTETER) && !username.equals("")) {
-            data.setRoleID(new Integer(new TicketBookParameter().getCustomerRoleID()));
+            data.setRoleID(new Integer(TicketBookParameter.getInstance().getCustomerRoleID()));
             data.setUsername(request.getParameter(USERNAME_CONTROL_NAME));
             String birthday = "";
             if (request.getParameter(BIRTHDAY_CONTROL_NAME) != null) {

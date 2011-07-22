@@ -112,7 +112,7 @@ public class ContactController extends HandlerController {
                 String get_create_date = request.getParameter(CREATE_DATE_CONTACT_CONTROL_NAME);
                 Timestamp create_date = StringELF.convertStringToTimestamp(title, "mm-dd-yyyy");
                 String username = request.getSession().getAttribute(USERNAME_CONTACT_CONTROL_NAME).toString();
-                remote.createContact(title, content, email, create_date, username);
+//                remote.createContact(title, content, email, create_date, username);
                 RequestDispatcher rd = request.getRequestDispatcher("contact.jsp");
                 rd.forward(request, response);
             }
