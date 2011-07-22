@@ -47,7 +47,7 @@
         <form action="<%=request.getContextPath()%>/FormController" method="post" name="frmRegister">
 
 
-            <input type="hidden" name="<%=FormController.ACTIONTYPE_NAME%>" id="actionType"/>
+            <input type="hidden" name="<%=HandlerController.ACTIONTYPE_NAME%>" id="actionType"/>
 
             <table cellspacing="4px" style="width:550px; float: left;margin-left:200px" >
                 <tr>
