@@ -59,11 +59,12 @@ public class TicketBookingDAO {
         return booking;
     }
 
-    public ArrayList getTicketBookingIDs(int indexStart,int totalRecord){
+    public ArrayList getTicketBookingIDsByStatus(String status, int indexStart,int totalRecord){
        ArrayList booking=new ArrayList();
 
         try{
-           CallableStatement csmt = connection.getConnection().prepareCall("{call sp_get_ticketbooking(?,?)}");
+           CallableStatement csmt = connection.getConnection().prepareCall("{call sp_get_ticketbooking(?,?,?)}");
+           csmt.setString("accept_status", status);
            csmt.setInt("index_start", indexStart);
            csmt.setInt("total_record", totalRecord);
            ResultSet rs=csmt.executeQuery();

@@ -125,9 +125,9 @@ public class TicketBooking extends TicketBookingTransferData implements EntityBe
         
     }
 
-    public Collection ejbFindAll(int indexStart,int totalRecord){
+    public Collection ejbFindAllByStatus(String status,int indexStart,int totalRecord){
         try {
-            return TicketBookingDAO.getInstance(SQLTicketBookConnection.getInstance()).getTicketBookingIDs(indexStart, totalRecord);
+            return TicketBookingDAO.getInstance(SQLTicketBookConnection.getInstance()).getTicketBookingIDsByStatus(status,indexStart, totalRecord);
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }

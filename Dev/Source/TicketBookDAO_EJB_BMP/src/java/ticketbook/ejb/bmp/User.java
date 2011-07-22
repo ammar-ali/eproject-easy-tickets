@@ -12,6 +12,7 @@ import ticketbook.ejb.bmp.dao.UserDAO;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.UserTransferData;
+import ticketbook.util.Constant;
 
 /**
  *
@@ -115,7 +116,10 @@ public class User extends UserTransferData implements EntityBean {
     public java.lang.String ejbFindByUsernameAndPassword(String username,String password){
         try {
             UserTransferData data = UserDAO.getInstance(SQLTicketBookConnection.getInstance()).getUserByUsernameAndPassword(username, password);
-            this.setUsername(data.getUsername());
+            if(!data.getRoleID().equals(Constant.ID_FALSE_INTETER))
+                this.setUsername(data.getUsername());
+            else
+                username="";
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }
