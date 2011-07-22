@@ -5,7 +5,6 @@
 
 package ticketbook.ejb.bmp.dao;
 
-import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +18,7 @@ import ticketbook.util.StringUtil;
  *
  * @author Admin
  */
-public class UserDAO implements Serializable{
+public class UserDAO{
 
     static UserDAO userDAO;
     static SQLTicketBookConnection connection;

@@ -14,7 +14,7 @@ import ticketbook.sql.SQLTicketBookConnection;
  *
  * @author vostro
  */
-public class DateDAO {
+public class DateDAO{
 
     static DateDAO dateDAO;
     static SQLTicketBookConnection connection;

@@ -15,7 +15,7 @@ import ticketbook.transfer.CityTransferData;
  *
  * @author Admin
  */
-public class CityDAO {
+public class CityDAO{
 
     static CityDAO cityDAO;
     static SQLTicketBookConnection connection;
