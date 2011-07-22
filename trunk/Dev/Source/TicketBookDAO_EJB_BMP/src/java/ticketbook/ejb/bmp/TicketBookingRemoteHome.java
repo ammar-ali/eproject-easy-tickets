@@ -21,5 +21,5 @@ public interface TicketBookingRemoteHome extends EJBHome {
     ticketbook.ejb.bmp.TicketBookingRemote findByPrimaryKey(java.lang.Integer key)  throws FinderException, RemoteException;
 
     TicketBookingRemote create(TicketBookingTransferData data) throws CreateException,RemoteException;
-    Collection findAll(int indexStart,int totalRecord) throws FinderException,RemoteException;
+    Collection findAllByStatus(String status,int indexStart,int totalRecord) throws FinderException,RemoteException;
 }
