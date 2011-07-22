@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class FormController extends HttpServlet {
     public static final String ACTIONTYPE_NAME="actionType";
-    
+    //CHINH SUA LAI SAU
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request

@@ -52,10 +52,10 @@ public class UserController extends HandlerController {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            if (request.getParameter(FormController.ACTIONTYPE_NAME) != null) {
-                if (request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_LOGIN)) {
+            if (request.getParameter(HandlerController.ACTIONTYPE_NAME) != null) {
+                if (request.getParameter(HandlerController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_LOGIN)) {
                     this.processLogin(request, response);
-                } else if (request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_REGISTER_MEMBER)) {
+                } else if (request.getParameter(HandlerController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_REGISTER_MEMBER)) {
                     try {
                         this.registerMember(request, response);
                     } catch (FinderException ex) {
@@ -73,7 +73,7 @@ public class UserController extends HandlerController {
     }
 
     public void processLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_LOGIN)) {
+        if (request.getParameter(HandlerController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_LOGIN)) {
             UserRemote userRemote = isAccount(request, response);
             if (userRemote != null && !userRemote.getRoleID().equals(Constant.ID_FALSE_INTETER)) {
                 request.getSession().setAttribute(TicketBookSession.USER_LOGIN, userRemote);

@@ -20,7 +20,6 @@ import ticketbook.util.TicketBookSession;
  * @author Admin
  */
 public class BookingController extends HttpServlet {
-       public static final String ACTIONTYPE_NAME="actionType";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
