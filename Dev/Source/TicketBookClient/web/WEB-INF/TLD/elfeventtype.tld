@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+	  <tlib-version>1.0</tlib-version>
+	  <short-name>elfeventtype</short-name>
+	  <uri>/WEB-INF/TLD/elfeventtype</uri>
+	<function>
+	  	<name>getIndexEventTypesByID</name>
+	  	<function-class>ticketbook.util.TicketBookELF</function-class>
+	  	<function-signature>java.lang.Integer getIndexEventTypesByID(java.lang.Integer)</function-signature>
+	</function>
+        <function>
+	  	<name>getEventTypeRemoteByIndex</name>
+	  	<function-class>ticketbook.model.EventType</function-class>
+	  	<function-signature>ticketbook.ejb.bmp.EventTypeRemote getEventTypeRemoteByIndex(java.lang.Integer)</function-signature>
+	</function>
+        <function>
+	  	<name>getEventTypeNameByID</name>
+	  	<function-class>ticketbook.model.EventType</function-class>
+	  	<function-signature>java.lang.String getEventTypeNameByID(java.lang.Integer)</function-signature>
+	</function>
+        <function>
+	  	<name>getInstanceValue</name>
+	  	<function-class>ticketbook.model.EventType</function-class>
+	  	<function-signature>java.lang.ArrayList getInstanceValue()</function-signature>
+	</function>
+
+</taglib>

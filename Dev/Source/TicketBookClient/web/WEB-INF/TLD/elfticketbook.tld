@@ -3,41 +3,7 @@
 	  <tlib-version>1.0</tlib-version> 
 	  <short-name>elfticketbook</short-name>
 	  <uri>/WEB-INF/TLD/elfticketbook</uri>
-	<function>
-	  	<name>getIndexEventTypesByID</name>
-	  	<function-class>ticketbook.util.TicketBookELF</function-class>
-	  	<function-signature>java.lang.Integer getIndexEventTypesByID(java.lang.Integer)</function-signature>
-	</function>
-        <function>
-	  	<name>getEventTypeNameByID</name>
-	  	<function-class>ticketbook.model.EventType</function-class>
-	  	<function-signature>java.lang.String getEventTypeNameByID(java.lang.Integer)</function-signature>
-	</function>
-        <function>
-	  	<name>getTicketsByEventTypeID</name>
-	  	<function-class>ticketbook.model.Ticket</function-class>
-	  	<function-signature>java.util.ArrayList getTicketsByEventTypeID(java.lang.Integer,java.lang.Integer,java.lang.Integer,java.lang.Integer)</function-signature>
-	</function>
-        <function>
-	  	<name>getTopTicketsByEventTypeID</name>
-	  	<function-class>ticketbook.model.Ticket</function-class>
-	  	<function-signature>java.util.ArrayList getTopTicketsByEventTypeID(java.lang.Integer,java.lang.Integer)</function-signature>
-	</function>
-        <function>
-	  	<name>getTicketByID</name>
-	  	<function-class>ticketbook.model.Ticket</function-class>
-	  	<function-signature>ticketbook.ejb.bmp.TicketRemote getTicketByID(java.lang.Integer)</function-signature>
-	</function>
-        <function>
-	  	<name>getAvailableReferenceTicketByTitle</name>
-	  	<function-class>ticketbook.model.Ticket</function-class>
-	  	<function-signature>java.util.ArrayList getAvailableReferenceTicketByTitle(java.lang.String)</function-signature>
-	</function>
-        <function>
-	  	<name>getAvailableReferenceTicketByEventID</name>
-	  	<function-class>ticketbook.model.Ticket</function-class>
-	  	<function-signature>java.util.ArrayList getAvailableReferenceTicketByEventID(java.lang.Integer)</function-signature>
-	</function>
+        
         <function>
 	  	<name>filterTicketBookDate</name>
 	  	<function-class>ticketbook.util.TicketBookELF</function-class>
@@ -47,5 +13,26 @@
 	  	<name>filterTicketBookMoney</name>
 	  	<function-class>ticketbook.util.TicketBookELF</function-class>
 	  	<function-signature>java.lang.String filterTicketBookMoney(java.lang.String)</function-signature>
+	</function>
+
+        <function>
+	  	<name>castAttributeRequestIsNull</name>
+	  	<function-class>ticketbook.util.TicketBookConvert</function-class>
+	  	<function-signature>java.util.Object castAttributeRequestIsNull(javax.servlet.http.HttpServletRequest,java.lang.String,java.lang.Object)</function-signature>
+	</function>
+                <function>
+	  	<name>castParameterRequestIsNull</name>
+	  	<function-class>ticketbook.util.TicketBookConvert</function-class>
+	  	<function-signature>java.util.String castParameterRequestIsNull(javax.servlet.http.HttpServletRequest,java.lang.String,java.lang.String)</function-signature>
+	</function>
+                <function>
+	  	<name>castSessionIsNull</name>
+	  	<function-class>ticketbook.util.TicketBookConvert</function-class>
+	  	<function-signature>java.util.Object castSessionIsNull(javax.servlet.http.HttpSession,java.lang.String,java.lang.Object)</function-signature>
+	</function>
+        <function>
+	  	<name>getSystemParameter</name>
+	  	<function-class>ticketbook.util.TicketBookParameter</function-class>
+	  	<function-signature>ticketbook.util.TicketBookParameter getInstance()</function-signature>
 	</function>
 </taglib>

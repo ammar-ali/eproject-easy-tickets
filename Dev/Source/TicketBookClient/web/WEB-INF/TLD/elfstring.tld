@@ -14,5 +14,10 @@
 	  	<function-class>java.lang.Integer</function-class>
 	  	<function-signature>java.lang.Integer parseInt(java.lang.String)</function-signature>
 	</function>
+        <function>
+	  	<name>getSizeOfArrayList</name>
+	  	<function-class>ticketbook.util.StringELF</function-class>
+	  	<function-signature>java.lang.Integer getSizeOfArrayList(java.util.ArrayList)</function-signature>
+	</function>
 
 </taglib>
