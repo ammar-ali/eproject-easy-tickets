@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ticketbook.controller;
 
 import java.io.IOException;
@@ -12,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import ticketbook.util.Constant;
+import ticketbook.util.TicketBookParameter;
 import ticketbook.util.TicketBookSession;
 
 /**
@@ -19,8 +20,7 @@ import ticketbook.util.TicketBookSession;
  * @author Admin
  */
 public class AdminController extends HttpServlet {
-    public static final String ACTIONTYPE_NAME="actionType";
-    
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -29,25 +29,33 @@ public class AdminController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            boolean stt=false;
-            if(request.getSession()!=null){
-               HttpSession sessionRoleID=request.getSession();
-               Object attributeRoleID=sessionRoleID.getAttribute(TicketBookSession.ROLEID_USER_LOGIN);
-               if(attributeRoleID!=null){
-               
-               }
+
+            boolean stt = false;
+            if (request.getSession() != null) {
+                HttpSession sessionRoleID = request.getSession();
+                Object attributeRoleID = sessionRoleID.getAttribute(TicketBookSession.ROLEID_USER_LOGIN);
+                if (attributeRoleID != null) {
+                    Integer roleID=(Integer) attributeRoleID;
+                    if (roleID.equals(new Integer(TicketBookParameter.getInstance().getAdminRoleID()))&&!roleID.equals(Constant.ID_FALSE_INTETER)) {
+                        TicketBookingController ticketBookingController = new TicketBookingController();
+                        ticketBookingController.processRequest(request, response);
+
+                        stt = true;
+                    }
+
+                }
             }
-            if(!stt){
-                response.sendRedirect(request.getContextPath()+"/Form/error.jsp?stt=0");
+            if (!stt) {
+                response.sendRedirect(request.getContextPath() + "/Form/error.jsp?stt=0");
             }
-        } finally { 
+        } finally {
             out.close();
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -58,9 +66,9 @@ public class AdminController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -70,7 +78,7 @@ public class AdminController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -81,5 +89,4 @@ public class AdminController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

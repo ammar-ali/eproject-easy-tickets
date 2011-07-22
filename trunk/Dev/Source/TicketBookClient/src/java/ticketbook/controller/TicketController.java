@@ -45,8 +45,8 @@ public class TicketController extends HandlerController {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            if(request.getParameter(AdminController.ACTIONTYPE_NAME)!=null){
-                if(request.getParameter(AdminController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_BOOKING)){
+            if(request.getParameter(HandlerController.ACTIONTYPE_NAME)!=null){
+                if(request.getParameter(HandlerController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_BOOKING)){
                     booking(request, response);
                 }
                 else{
