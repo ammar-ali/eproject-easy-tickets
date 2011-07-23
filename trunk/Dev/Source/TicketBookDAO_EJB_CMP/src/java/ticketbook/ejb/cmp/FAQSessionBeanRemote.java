@@ -9,7 +9,6 @@ import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import javax.ejb.EJBObject;
-import ticketbook.transfer.FaqTransferData;
 
 /**
  *
