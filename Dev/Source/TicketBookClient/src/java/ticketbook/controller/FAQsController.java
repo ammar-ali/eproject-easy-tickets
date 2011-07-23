@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.CreateException;
@@ -27,6 +26,7 @@ import ticketbook.ejb.cmp.FAQSessionBeanRemote;
 import ticketbook.ejb.cmp.FAQSessionBeanRemoteHome;
 import ticketbook.transfer.FaqTransferData;
 import ticketbook.util.StringELF;
+import ticketbook.util.TicketBookLookUpJNDI;
 
 /**
  *
@@ -70,12 +70,17 @@ public class FAQsController extends HandlerController {
         }
     }
 
-    public ArrayList getAllFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        FAQSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-        ArrayList faq = (ArrayList) remote.ejbFindAllFAQs();
-        RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
-        rd.forward(request, response);
-        return faq;
+    public void getAllFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        try {
+            FAQSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
+            ArrayList faq = (ArrayList) remote.ejbFindAllFAQs();
+            RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+            rd.forward(request, response);
+        } catch (CreateException ex) {
+            ex.printStackTrace();
+        }catch (RemoteException ex){
+            ex.printStackTrace();
+        }        
     }
 
     public void insertFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
