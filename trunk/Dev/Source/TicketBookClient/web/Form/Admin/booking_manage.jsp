@@ -20,6 +20,9 @@
 <%@page import="ticketbook.controller.BookingController"%>
 <%@page import="ticketbook.controller.HandlerController"%>
 <%@page import="ticketbook.controller.TicketBookingController"%>
+<%@ taglib uri="/WEB-INF/TLD/taglib.tld" prefix="w" %>
+
+<w:authorize_role pathTo="/WEB-INF/authorize.xml" request="${pageContext.request}" response="${pageContext.response}"></w:authorize_role>
 
 <c:set var="CONTEXT_PATH" value='<%=request.getContextPath()%>'></c:set>
 <c:set var="ACTIONTYPE_NAME" value='<%=HandlerController.ACTIONTYPE_NAME%>'></c:set>
