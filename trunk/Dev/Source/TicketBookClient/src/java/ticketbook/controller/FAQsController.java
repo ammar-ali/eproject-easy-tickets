@@ -65,7 +65,14 @@ public class FAQsController extends HandlerController {
         } finally { 
             out.close();
         }
-    } 
+    }
+
+    public void getAllFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        FAQSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+        remote.loadAllFAQs();
+        RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+        rd.forward(request, response);
+    }
 
     public void insertFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_INSERT_FAQ)){
