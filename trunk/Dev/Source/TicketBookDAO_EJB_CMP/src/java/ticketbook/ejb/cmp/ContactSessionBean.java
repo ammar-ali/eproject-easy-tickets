@@ -6,6 +6,7 @@
 package ticketbook.ejb.cmp;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.SessionBean;
@@ -77,6 +78,16 @@ public class ContactSessionBean implements SessionBean {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
+    }
+
+    public Collection loadAllContact(){
+        try {
+            ContactLocalHome home = lookupContactLocal();
+            home.findAllContact();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void createContact(Integer id, String title, String content, String email, Timestamp create_date, String username) {

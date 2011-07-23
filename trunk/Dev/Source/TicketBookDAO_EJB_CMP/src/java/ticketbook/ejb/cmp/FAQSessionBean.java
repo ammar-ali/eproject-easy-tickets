@@ -6,6 +6,7 @@
 package ticketbook.ejb.cmp;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.SessionBean;
@@ -76,6 +77,16 @@ public class FAQSessionBean implements SessionBean {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
+    }
+
+    public Collection loadAllFAQs(){
+        try {
+            FaqLocalHome home = lookupFaqLocal();
+            return home.findAllFAQs();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void insertFAQs(Integer id, String answer, String question, Timestamp create_date, String username) {

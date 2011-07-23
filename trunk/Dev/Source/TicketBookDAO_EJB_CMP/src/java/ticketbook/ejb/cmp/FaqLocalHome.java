@@ -25,6 +25,8 @@ public interface FaqLocalHome extends EJBLocalHome {
 
     Collection findByAnswer(String answer) throws FinderException;
 
+    Collection findAllFAQs() throws FinderException;
+
     ticketbook.ejb.cmp.FaqLocal create(Integer id, String answer, String question, Timestamp create_date, String username) throws CreateException;
 
 }
