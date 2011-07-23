@@ -14,6 +14,7 @@ import javax.ejb.SessionContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import ticketbook.transfer.FaqTransferData;
 
 /**
  *
@@ -79,7 +80,7 @@ public class FAQSessionBean implements SessionBean {
         }
     }
 
-    public Collection loadAllFAQs(){
+    public Collection ejbFindAllFAQs(){
         try {
             FaqLocalHome home = lookupFaqLocal();
             return home.findAllFAQs();
