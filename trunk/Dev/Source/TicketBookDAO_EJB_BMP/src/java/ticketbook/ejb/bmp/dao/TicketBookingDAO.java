@@ -139,7 +139,7 @@ public class TicketBookingDAO{
             PreparedStatement preparedStatement = connection.getConnection().prepareStatement(sql);
             preparedStatement.setString(1,status);
             preparedStatement.setInt(2, ID.intValue());
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         } catch (SQLException ex) {
@@ -147,4 +147,21 @@ public class TicketBookingDAO{
         }
     }
 
+    public Integer countTicketBookingByStatus(String status){
+            Integer total = new Integer(0);
+        try {
+            String sql = "SELECT COUNT(*) As count FROM ticket_booking WHERE accept_status=?";
+            PreparedStatement preparedStatement = connection.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, status);
+            ResultSet rs=preparedStatement.executeQuery();
+            while(rs.next()){
+                total=new Integer(rs.getInt("count"));
+            }
+        } catch (SQLTicketBookException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+            return total;
+    }
 }

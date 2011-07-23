@@ -114,8 +114,10 @@ public class TicketBooking extends TicketBookingTransferData implements EntityBe
 
     public Integer ejbCreate(TicketBookingTransferData data){
         try {
-            TicketBookingDAO.getInstance(SQLTicketBookConnection.getInstance()).insert(data);
-            return data.getID();
+            if(data!=null){
+                TicketBookingDAO.getInstance(SQLTicketBookConnection.getInstance()).insert(data);
+                return data.getID();
+            }
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }
@@ -134,4 +136,20 @@ public class TicketBooking extends TicketBookingTransferData implements EntityBe
         return new ArrayList();
     }
 
+    public void updateAcceptStatus(String status){
+        try {
+            TicketBookingDAO.getInstance(SQLTicketBookConnection.getInstance()).updateAcceptStatusByID(this.getID(), status);
+        } catch (SQLTicketBookException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public Integer countTicketBookingByStatus(String status){
+        try {
+            return TicketBookingDAO.getInstance(SQLTicketBookConnection.getInstance()).countTicketBookingByStatus(status);
+        } catch (SQLTicketBookException ex) {
+            ex.printStackTrace();
+        }
+        return new Integer(0);
+    }
 }
