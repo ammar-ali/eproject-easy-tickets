@@ -10,6 +10,14 @@
 		<page_name>/Form/Admin/admin.jsp</page_name>
 		<role>2</role>
 	</page>
+        <page>
+		<page_name>/Form/Admin/booking_manage.jsp</page_name>
+		<role>2</role>
+	</page>
+        <page>
+		<page_name>/Form/Admin/ticket_manage.jsp</page_name>
+		<role>2</role>
+	</page>
         
 	
 	<alert>You couldn't view this page</alert>

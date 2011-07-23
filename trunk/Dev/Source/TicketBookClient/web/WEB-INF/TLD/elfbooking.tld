@@ -9,6 +9,11 @@
 	  	<function-class>ticketbook.model.TicketBooking</function-class>
 	  	<function-signature>java.util.ArrayList getAllBookingByStatus(java.lang.String,java.lang.Integer,java.lang.Integer)</function-signature>
 	</function>
+        <function>
+	  	<name>countTicketBookingByStatus</name>
+	  	<function-class>ticketbook.model.TicketBooking</function-class>
+	  	<function-signature>java.lang.Integer countTicketBookingByStatus(java.lang.String)</function-signature>
+	</function>
 
 
 
