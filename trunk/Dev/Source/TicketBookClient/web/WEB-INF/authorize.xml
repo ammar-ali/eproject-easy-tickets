@@ -30,7 +30,7 @@
 	</page>
         
 	
-	<alert>You couldn't view this page</alert>
+	<alert>Permission Role</alert>
 	<error>/TicketBookClient/Form/error.jsp?stt=0</error>
 </authorize>
 
