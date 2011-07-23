@@ -42,6 +42,15 @@
     color:red;
 }
 
+._div_alert_msg{
+    height:auto;
+    width:640px;
+    padding-left:30px;
+    padding-right:30px;
+    font-weight:bold;
+    color:green;
+}
+
 ._title_form{
     color:#176c9c;
 }

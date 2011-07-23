@@ -12,30 +12,60 @@
 <%@ taglib uri="/WEB-INF/TLD/elfticket" prefix="ticketELF" %>
 <%@ taglib uri="/WEB-INF/TLD/elfeventtype" prefix="eventtypeELF" %>
 <%@ taglib uri="/WEB-INF/TLD/elfbooking" prefix="bookingELF" %>
+<%@ taglib uri="/WEB-INF/TLD/elfstring" prefix="stringELF" %>
 <%@ taglib uri="/WEB-INF/TLD/taglib.tld" prefix="w" %>
+
 <%@page import="ticketbook.util.TicketBookParameter"%>
 <%@page import="ticketbook.model.TicketBooking"%>
 <%@page import="ticketbook.controller.BookingController"%>
 <%@page import="ticketbook.controller.HandlerController"%>
 <%@page import="ticketbook.controller.TicketBookingController"%>
 
-<c:set var="SYS_PARAM" value="${ticketbookELF:getSystemParameter()}"></c:set>
-<c:set var="TOTAL_RECORD_SHOW" value='${SYS_PARAM.recordNumberNeedShow}'></c:set>
-<c:set var="TOTAL_PAGE_SHOW" value='${SYS_PARAM.pageNumberNeedShow}'></c:set>
 <c:set var="CONTEXT_PATH" value='<%=request.getContextPath()%>'></c:set>
 <c:set var="ACTIONTYPE_NAME" value='<%=HandlerController.ACTIONTYPE_NAME%>'></c:set>
 <c:set var="ACTIONTYPE_VALUE" value='<%=HandlerController.ACTIONTYPE_VALUE_UPDATE_BOOKING_STATUS%>'></c:set>
 <c:set var="TICKETBOOKID_CONTROL_NAME" value='<%=TicketBookingController.TICKETBOOKID_CONTROL_NAME%>'></c:set>
-<c:set var="TEMP_TICKETBOOK_CHECKBOX_CONTROL_NAME" value='<%=TicketBookingController.TEMP_TICKETBOOK_CHECKBOX_CONTROL_NAME%>'></c:set>
-<c:set var="TEMP_LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME" value='<%=TicketBookingController.TEMP_LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME%>'></c:set>
-<c:set var="bookings" value='${bookingELF:getAllBookingByStatus(param.stt,param.pindex,TOTAL_RECORD_SHOW)}'></c:set>
-<form action="${CONTEXT_PATH}/AdminController" method="post" name="frmBooking">
-    <input type="hidden" value="" name="${ACTIONTYPE_NAME}" id="actionType">
+<c:set var="TICKETBOOK_CHECKBOX_CONTROL_NAME" value='<%=TicketBookingController.TICKETBOOK_CHECKBOX_CONTROL_NAME%>'></c:set>
+<c:set var="LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME" value='<%=TicketBookingController.LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME%>'></c:set>
 
+<c:set var="SYS_PARAM" value="${ticketbookELF:getSystemParameter()}"></c:set>
+<c:set var="TOTAL_RECORD_SHOW" value='${SYS_PARAM.recordNumberNeedShow}'></c:set>
+<c:set var="TOTAL_PAGE_SHOW" value='${SYS_PARAM.pageNumberNeedShow}'></c:set>
+
+<c:set var="bookings" value='${bookingELF:getAllBookingByStatus(param.stt,param.pindex,TOTAL_RECORD_SHOW)}'></c:set>
+
+<c:set var="totalRecord" value="${bookingELF:countTicketBookingByStatus(param.stt)}"></c:set>
+
+<form action="${CONTEXT_PATH}/AdminController" method="post" name="frmBooking">
+
+    <input type="hidden" value="" name="${ACTIONTYPE_NAME}" id="actionType">
+       <c:set var="indexPage" value="0"></c:set>
+        <c:if test="${param.pindex ne '' and  stringELF:validatePositiveNumber(param.pindex) eq 1}">
+            <c:set var="indexPage" value="${stringELF:parseInt(ticketbookELF:castParameterRequestIsNull(pageContext.request,'pindex','0'))}"></c:set>
+        </c:if>
+        <div style="float:right">
+    <c:if test="${totalRecord gt TOTAL_RECORD_SHOW}">
+                <w:paging pathName="admin.jsp"
+                          enableFirstPage="true"
+                enableLastPage="true"
+                enableIndexChoose="true"
+                styleIndexChoose="color:blue"
+                index="${indexPage}"
+                totalRecord="${totalRecord}"
+                numPageDivide="${TOTAL_PAGE_SHOW}"
+                numRecordDivide="${TOTAL_RECORD_SHOW}"
+                style="cursor:pointer"
+                pageName="pindex">
+                    <w:parameter name="name">${param.name}</w:parameter>
+                    <w:parameter name="stt">${param.stt}</w:parameter>
+                </w:paging>
+            </c:if>
+        </div>
     Delivery Status: <select onchange="changeStatusDelivery(this.value)" id="selStatusDelivery">
         <option value="${SYS_PARAM.newStatusTicketBooking}" <c:if test="${param.stt eq SYS_PARAM.newStatusTicketBooking}">selected</c:if>>New</option>
         <option value="${SYS_PARAM.acceptStatusTicketBooking}" <c:if test="${param.stt eq SYS_PARAM.acceptStatusTicketBooking}">selected</c:if>>Finish</option>
     </select>
+
     <table width="640px" cellpadding="10px">
         <tr align="center" style="font-weight: bold">
             <td><input type="checkbox" onclick="checkAll_ckbTicket(this.checked)"/></td><td>Card Number</td><td>Event</td><td>Ticket Total</td><td>Price Total</td>
@@ -43,7 +73,7 @@
         <c:set var="count" value="0"></c:set>
         <c:forEach var="objBooking" items="${bookings}">
             <tr align="center">
-                <td><input type="checkbox" name="${TEMP_TICKETBOOK_CHECKBOX_CONTROL_NAME}${count}" <c:if test="${objBooking.acceptStatus eq SYS_PARAM.acceptStatusTicketBooking}">checked disabled='disabled'</c:if> id="ckbTicket_${count}"/>
+                <td><input type="checkbox" name="${TICKETBOOK_CHECKBOX_CONTROL_NAME}${count}" <c:if test="${objBooking.acceptStatus eq SYS_PARAM.acceptStatusTicketBooking}">checked disabled='disabled'</c:if> id="ckbTicket_${count}"/>
                     <input type="hidden"  id="txtTicket_${count}" value="${objBooking.ID}" name="${TICKETBOOKID_CONTROL_NAME}${count}"/>
                 </td>
                 <td>${objBooking.cardNumber}</td>
@@ -57,9 +87,12 @@
             </tr>
             <c:set var="count" value="${count+1}"></c:set>
         </c:forEach>
+            <c:if test="${count eq 0}">
+                <tr><td colspan="5">(No Data)</td></tr>
+            </c:if>
         <tr>
             <td colspan="5" align="center">
-                <input type="hidden" value="${count}" name="${TEMP_LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME}"/>
+                <input type="hidden" value="${count}" name="${LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME}"/>
                 <input type="button" <c:if test="${SYS_PARAM.acceptStatusTicketBooking eq param.stt}">disabled='disabled'</c:if> value="Submit" onclick="submitUpdateStatus()"/></td>
         </tr>
     </table>

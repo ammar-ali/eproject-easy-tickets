@@ -29,7 +29,7 @@
         <c:set var="ACTIONTYPE_VALUE" value='<%=HandlerController.ACTIONTYPE_VALUE_LOGIN%>'></c:set>
         <script type="text/javascript">
             function clickBtnSubmit(){
-        if(validateLogin())        {
+                if(validateLogin())        {
                     document.getElementById("actionType").value="${ACTIONTYPE_VALUE}";
                     document.forms["frmLogin"].submit();
                 }
@@ -71,6 +71,9 @@
             <br/>
 
             <div class="_div_alert">${alertLogin}</div>
+            <c:if test="${param.register eq 'yes'}">
+                <div class="_div_alert_msg">You have already registered account, you can login to verify your account</div>
+            </c:if>
 
             <br/>
             <input type="hidden" name="${ACTIONTYPE_NAME}" id="actionType"/>
