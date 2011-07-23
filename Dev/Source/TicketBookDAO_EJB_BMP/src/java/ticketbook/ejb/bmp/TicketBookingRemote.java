@@ -39,4 +39,7 @@ public interface TicketBookingRemote extends EJBObject {
     public void setPaymentDetailID(Integer paymentDetailID) throws RemoteException;
     public Integer getPaymentTypeID() throws RemoteException;
     public void setPaymentTypeID(Integer paymentTypeID) throws RemoteException;
+    public void updateAcceptStatus(String status) throws RemoteException;
+
+    public Integer countTicketBookingByStatus(String status) throws RemoteException;
 }
