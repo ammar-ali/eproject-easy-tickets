@@ -81,7 +81,11 @@ public class UserController extends HandlerController {
                 if (request.getSession().getAttribute(FormBackController.CONTEXTPATH_ATTRIBUTE_NAME) != null) {
                     ((TicketBookContextPath) request.getSession().getAttribute(FormBackController.CONTEXTPATH_ATTRIBUTE_NAME)).response(response);
                 } else {
-                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                    if (userRemote.getRoleID().intValue() == TicketBookParameter.getInstance().getAdminRoleID()) {
+                        response.sendRedirect(request.getContextPath() + "/Form/Admin/admin.jsp?name=booking&stt=0");
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/index.jsp");
+                    }
                 }
             } else {
                 request.setAttribute("alert_login", "Invalid Account");
@@ -111,7 +115,7 @@ public class UserController extends HandlerController {
         return remote;
     }
 
-    public void registerMember(HttpServletRequest request, HttpServletResponse response) throws RemoteException, FinderException  {
+    public void registerMember(HttpServletRequest request, HttpServletResponse response) throws RemoteException, FinderException {
         UserTransferData data = new UserTransferData();
         String username = "";
         if (request.getParameter(USERNAME_CONTROL_NAME) != null) {
@@ -128,8 +132,8 @@ public class UserController extends HandlerController {
 
                 birthday = request.getParameter(BIRTHDAY_CONTROL_NAME);
             }
-                if (Date.diffDate(birthday, Date.getDateCurrent()) >= 0) {
-                    data.setBirthDate(request.getParameter(BIRTHDAY_CONTROL_NAME));
+            if (Date.diffDate(birthday, Date.getDateCurrent()) >= 0) {
+                data.setBirthDate(request.getParameter(BIRTHDAY_CONTROL_NAME));
                 if (request.getParameter(PASSWORD_CONTROL_NAME) != null) {
                     data.setPassword(request.getParameter(PASSWORD_CONTROL_NAME));
                 }
@@ -152,19 +156,19 @@ public class UserController extends HandlerController {
 
                 try {
                     User.create(data);
-                    response.sendRedirect(request.getContextPath() + "/Form/login.jsp");
+                    response.sendRedirect(request.getContextPath() + "/Form/login.jsp?register=yes");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-            } else{
-                 request.setAttribute("alertRegister_Birthday", "Invalid birthday");
-            try {
-                request.getRequestDispatcher("/Form/register.jsp").forward(request, response);
-            } catch (ServletException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            } else {
+                request.setAttribute("alertRegister_Birthday", "Invalid birthday");
+                try {
+                    request.getRequestDispatcher("/Form/register.jsp").forward(request, response);
+                } catch (ServletException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         } else {
             request.setAttribute("alertRegister", "Username already exists");

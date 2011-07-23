@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ticketbook.ejb.bmp.TicketBookingRemote;
+import ticketbook.model.TicketBooking;
 import ticketbook.util.StringUtil;
 import ticketbook.util.TicketBookParameter;
 
@@ -18,9 +20,9 @@ public class TicketBookingController extends HandlerController {
 
    public static final String TICKETBOOKID_CONTROL_NAME="txtTicketBookID";
 
-    public static final String TEMP_TICKETBOOK_CHECKBOX_CONTROL_NAME="ckbTicket";
+    public static final String TICKETBOOK_CHECKBOX_CONTROL_NAME="ckbTicket";
 
-    public static final String TEMP_LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME="txtLengthCkbTicket";
+    public static final String LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME="txtLengthCkbTicket";
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -50,15 +52,20 @@ public class TicketBookingController extends HandlerController {
 
     public void updateBookingStatus(HttpServletRequest request,HttpServletResponse response){
         try {
-            if(request.getParameter(TEMP_LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME)!=null){
-                if(StringUtil.validatePositiveNumber(request.getParameter(TEMP_LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME))){
-                    int total=Integer.parseInt(request.getParameter(TEMP_LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME));
+            if(request.getParameter(LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME)!=null){
+                if(StringUtil.validatePositiveNumber(request.getParameter(LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME))){
+                    int total=Integer.parseInt(request.getParameter(LENGTH_TICKETBOOK_CHECKBOX_CONTROL_NAME));
+
                     for(int i=0;i<total;i++){
-                        Integer ticketBookingID=new Integer(request.getParameter(TICKETBOOKID_CONTROL_NAME+i));
-                        String tempCheckStatus=request.getParameter(TEMP_TICKETBOOK_CHECKBOX_CONTROL_NAME+i);
+                        
+                        String tempCheckStatus=request.getParameter(TICKETBOOK_CHECKBOX_CONTROL_NAME+i);
                         if(tempCheckStatus!=null){
-                            if(tempCheckStatus.equals("true")){
-                                
+                            if(tempCheckStatus.equals("true") || tempCheckStatus.equals("on")){
+                                Integer ticketBookingID=new Integer(request.getParameter(TICKETBOOKID_CONTROL_NAME+i));
+                                TicketBookingRemote ticketBookRemote=TicketBooking.getTicketBookingByID(ticketBookingID);
+                                if(ticketBookRemote!=null){
+                                    ticketBookRemote.updateAcceptStatus(TicketBookParameter.getInstance().getAcceptStatusTicketBooking());
+                                }
                             }
                         }
                     }
