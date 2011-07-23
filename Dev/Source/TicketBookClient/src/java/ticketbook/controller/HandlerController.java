@@ -26,7 +26,7 @@ public abstract class HandlerController extends HttpServlet {
     public abstract void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
     
-       public static final String ACTIONTYPE_NAME="actionType";
+    public static final String ACTIONTYPE_NAME="actionType";
 
     public static final String ACTIONTYPE_VALUE_LOGIN = "login";
     public static final String ACTIONTYPE_VALUE_REGISTER_MEMBER="register_member";
