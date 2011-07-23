@@ -21,7 +21,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import ticketbook.ejb.cmp.ContactSessionBeanRemote;
 import ticketbook.ejb.cmp.ContactSessionBeanRemoteHome;
 import ticketbook.util.StringELF;
@@ -101,6 +100,12 @@ public class ContactController extends HandlerController {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    public void loadAllContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        ContactSessionBeanRemote remote = lookupContactSessionBeanRemote();
+        remote.loadAllContact();
+        RequestDispatcher rd = request.getRequestDispatcher("contact_manage.jsp");
+        rd.forward(request, response);
+    }
 
     public void createContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_CREATE_CONTACT_MESSAGE)){
