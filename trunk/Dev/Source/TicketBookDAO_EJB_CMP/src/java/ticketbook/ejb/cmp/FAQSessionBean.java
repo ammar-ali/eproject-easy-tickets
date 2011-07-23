@@ -14,7 +14,6 @@ import javax.ejb.SessionContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import ticketbook.transfer.FaqTransferData;
 
 /**
  *
