@@ -74,7 +74,20 @@ public abstract class Faq implements EntityBean {
 
     // </editor-fold>
         
+ public java.lang.Integer ejbCreate(java.lang.Integer key)  throws CreateException {
+        if (key == null) {
+            throw new CreateException("The field \"key\" must not be null");
+        }
 
+        // TODO add additional validation code, throw CreateException if data is not valid
+
+        return null;
+    }
+
+    public void ejbPostCreate(java.lang.Integer key) {
+        // TODO populate relationships here if appropriate
+    }
+    
     public Integer ejbCreate(Integer id, String answer, String question, Timestamp create_date, String username) throws CreateException{
         if(question == null){
             throw new CreateException("The field \"key\" must not be null");
