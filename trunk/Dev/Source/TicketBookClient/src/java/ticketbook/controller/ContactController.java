@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import ticketbook.ejb.cmp.ContactSessionBeanRemote;
 import ticketbook.ejb.cmp.ContactSessionBeanRemoteHome;
 import ticketbook.util.StringELF;
+import ticketbook.util.TicketBookLookUpJNDI;
 
 /**
  *
@@ -101,12 +102,17 @@ public class ContactController extends HandlerController {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    public ArrayList loadAllContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        ContactSessionBeanRemote remote = lookupContactSessionBeanRemote();
-        ArrayList contact = (ArrayList) remote.ejbFindAllContact();
-        RequestDispatcher rd = request.getRequestDispatcher("contact_manage.jsp");
-        rd.forward(request, response);
-        return contact;
+    public void loadAllContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        try {
+            ContactSessionBeanRemote remote = TicketBookLookUpJNDI.getContactSessionBeanRemoteHome().create();
+            ArrayList contact = (ArrayList) remote.ejbFindAllContact();
+            RequestDispatcher rd = request.getRequestDispatcher("contact_manage.jsp");
+            rd.forward(request, response);
+        } catch (CreateException ex) {
+            ex.printStackTrace();
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void createContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
