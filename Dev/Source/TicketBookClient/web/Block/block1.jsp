@@ -26,7 +26,6 @@
 <c:set var="SYS_PARAM" value='${ticketbookELF:getSystemParameter()}'></c:set>
 <c:set var="roleID" value='${ticketbookELF:castSessionIsNull(TICKETBOOK_SESSION,ROLEID_USER_LOGIN_SESSION_NAME,0)}'/>
 <c:set var="ADMIN_ROLEID" value="${SYS_PARAM.adminRoleID}"></c:set>
-<c:set var="ID_FALSE_INTEGER" value='${ID_FALSE_INTEGER}'/>
 
 
 <center>
