@@ -197,10 +197,10 @@
                         <div><b>Artist</b>: ${obj.artist}</div>
                         <div style="font-weight:bold">Introduction:</div>
                         <div style="padding-left:20px;padding-right:20px">${obj.content}</div>
-                        <c:if test="${obj.promotion ne '' and obj.promotion ne null}">
+                        <c:if test="${obj.promotion ne null and obj.promotion ne ''}">
                             <div style="color:green;"><b>Promotion</b>: <font>${obj.promotion}</font></div>
                         </c:if>
-                        <c:if test="${obj.discount ne '' and obj.discount ne '0' and obj.discount != null}">
+                        <c:if test="${obj.discount != null and obj.discount ne '' and ticketbookELF:filterTicketBookMoney(obj.discount) ne '0'}">
                             <div style="color:green;"><b>Discount</b>: <font>${ticketbookELF:filterTicketBookMoney(obj.discount)} USD</font></div>
                         </c:if>
                         <c:if test="${ROLEID_SESSION ne ID_FALSE_INTEGER and param.sttView eq 'Old' and obj.viewStatus ne 'New'}">
@@ -222,11 +222,11 @@
                                                </c:if>
                                            </td>
                                            <td style="border-width:1px;border-bottom: black;border-style: inset">
-                                                <c:if test="${objReferenceTicket.promotion ne '' and objReferenceTicket.promotion ne null}">
+                                                <c:if test="${ objReferenceTicket.promotion ne null and objReferenceTicket.promotion ne '' }">
                                                      <font style="color:green;"> <b style="color:green;">Promotion</b>: ${objReferenceTicket.promotion}</font><br/>
                                                 </c:if>
                                                      
-                                                <c:if test="${objReferenceTicket.discount ne '' and objReferenceTicket.discount ne '0' and objReferenceTicket.discount != null}">
+                                                <c:if test="${objReferenceTicket.discount != null and objReferenceTicket.discount ne '' and ticketbookELF:filterTicketBookMoney(objReferenceTicket.discount) ne '0'}">
                                                     <font style="color:green;"> <b style="color:green;">Discount</b>: ${ticketbookELF:filterTicketBookMoney(objReferenceTicket.discount)} USD</font>
                                                 </c:if>
                                            </td>
