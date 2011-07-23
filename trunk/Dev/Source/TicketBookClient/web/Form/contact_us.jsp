@@ -21,8 +21,25 @@
 
 <jsp:include page="../Block/block1.jsp"/>
 <font class="_content_title">Contact us</font>
-
-
+<center>
+    <table>
+        <tr>
+            <td>Title</td>
+            <td><input type="text" name="txtContact_Title" maxlength="200" /></td>
+        </tr>
+        <tr>
+            <td>Content</td>
+            <td><input type="text" maxlength="200" name="txtContact_Content"/></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" maxlength="200" name="txtContact_Email"/></td>
+        </tr>
+        <tr align="center">
+            <td><input type="button" value="Submit" onclick=""/></td>
+        </tr>
+    </table>
+</center>
 <jsp:include page="../Block/block2.jsp"/>
 </body>
 </html>	
