@@ -22,6 +22,6 @@ public interface ContactSessionBeanRemote extends EJBObject {
 
     void deleteContact(Integer id) throws RemoteException;
 
-    Collection loadAllContact()throws RemoteException;
+    Collection ejbFindAllContact()throws RemoteException;
     
 }

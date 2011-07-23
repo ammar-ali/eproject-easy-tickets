@@ -80,7 +80,7 @@ public class ContactSessionBean implements SessionBean {
         }
     }
 
-    public Collection loadAllContact(){
+    public Collection ejbFindAllContact(){
         try {
             ContactLocalHome home = lookupContactLocal();
             home.findAllContact();
