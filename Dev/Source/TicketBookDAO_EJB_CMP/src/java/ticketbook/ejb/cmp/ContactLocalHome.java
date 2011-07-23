@@ -29,6 +29,8 @@ public interface ContactLocalHome extends EJBLocalHome {
 
     Collection findByEmail(String email) throws FinderException;
 
+    Collection findAllContact()throws FinderException;
+
     ticketbook.ejb.cmp.ContactLocal create(Integer id, String title, String content, String email, Timestamp create_date, String username) throws CreateException;
 
 }

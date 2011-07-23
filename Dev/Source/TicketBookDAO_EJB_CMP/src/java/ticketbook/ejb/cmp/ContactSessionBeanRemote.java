@@ -7,6 +7,7 @@ package ticketbook.ejb.cmp;
 
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
+import java.util.Collection;
 import javax.ejb.EJBObject;
 
 /**
@@ -20,5 +21,7 @@ public interface ContactSessionBeanRemote extends EJBObject {
     void answerContact(Integer id, String title, String content, String answer, String email, String username) throws RemoteException;
 
     void deleteContact(Integer id) throws RemoteException;
+
+    Collection loadAllContact()throws RemoteException;
     
 }
