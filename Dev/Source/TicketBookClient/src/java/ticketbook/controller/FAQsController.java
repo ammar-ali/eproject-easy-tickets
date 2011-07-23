@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.CreateException;
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ticketbook.ejb.cmp.FAQSessionBeanRemote;
 import ticketbook.ejb.cmp.FAQSessionBeanRemoteHome;
+import ticketbook.transfer.FaqTransferData;
 import ticketbook.util.StringELF;
 
 /**
@@ -67,11 +70,12 @@ public class FAQsController extends HandlerController {
         }
     }
 
-    public void getAllFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public ArrayList getAllFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         FAQSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-        remote.loadAllFAQs();
+        ArrayList faq = (ArrayList) remote.ejbFindAllFAQs();
         RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
         rd.forward(request, response);
+        return faq;
     }
 
     public void insertFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

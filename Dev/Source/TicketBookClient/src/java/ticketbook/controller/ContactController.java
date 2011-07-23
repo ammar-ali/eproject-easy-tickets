@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.CreateException;
@@ -100,11 +101,12 @@ public class ContactController extends HandlerController {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    public void loadAllContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public ArrayList loadAllContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         ContactSessionBeanRemote remote = lookupContactSessionBeanRemote();
-        remote.loadAllContact();
+        ArrayList contact = (ArrayList) remote.ejbFindAllContact();
         RequestDispatcher rd = request.getRequestDispatcher("contact_manage.jsp");
         rd.forward(request, response);
+        return contact;
     }
 
     public void createContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
