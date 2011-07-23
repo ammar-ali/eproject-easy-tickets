@@ -13,7 +13,7 @@
             <local-jndi-name>ContactLocalJNDI</local-jndi-name>
         </entity>
         <session>
-            <ejb-name>FaqSessionBean</ejb-name>
+            <ejb-name>FAQSessionBean</ejb-name>
             <jndi-name>FaqSesJNDI</jndi-name>
             <local-jndi-name>FaqSesLocalJNDI</local-jndi-name>
         </session>
