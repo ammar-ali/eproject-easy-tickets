@@ -10,7 +10,6 @@ import java.util.Collection;
 import javax.ejb.CreateException;
 import javax.ejb.EJBLocalHome;
 import javax.ejb.FinderException;
-import ticketbook.transfer.FaqTransferData;
 
 /**
  *
