@@ -80,6 +80,13 @@
                 </query-method>
                 <ejb-ql>SELECT OBJECT(f) FROM Faq AS f WHERE f.answer = ?1</ejb-ql>
             </query>
+            <query>
+                <query-method>
+                    <method-name>findAllFAQs</method-name>
+                    <method-params/>
+                </query-method>
+                <ejb-ql>SELECT OBJECT(f) FROM Faq </ejb-ql>
+            </query>
             </entity>
         <entity>
             <description>jdbc:sqlserver://localhost:1433;databaseName=easy_tickets [sa on dbo]</description>
@@ -109,6 +116,9 @@
             </cmp-field>
             <cmp-field>
                 <field-name>createDate</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>username</field-name>
             </cmp-field>
             <primkey-field>id</primkey-field>
             <query>
@@ -155,6 +165,13 @@
                     </method-params>
                 </query-method>
                 <ejb-ql>SELECT OBJECT(c) FROM Contact AS c WHERE c.email = ?1</ejb-ql>
+            </query>
+            <query>
+                <query-method>
+                    <method-name>findAllContact</method-name>
+                    <method-params/>
+                </query-method>
+                <ejb-ql>SELECT OBJECT(c) FROM Contact</ejb-ql>
             </query>
             </entity>
         </enterprise-beans>
