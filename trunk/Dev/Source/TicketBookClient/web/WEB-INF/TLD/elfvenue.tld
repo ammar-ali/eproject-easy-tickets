@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee web-jsptaglibrary_2_0.xsd">
+  <tlib-version>1.0</tlib-version>
+  <short-name>elfvenue</short-name>
+  <uri>/WEB-INF/TLD/elfvenue</uri>
+    <function>
+	<name>getAllVenue</name>
+	<function-class>ticketbook.model.Venue</function-class>
+  	<function-signature>java.lang.ArrayList getAllVenue()</function-signature>
+    </function>
+</taglib>
