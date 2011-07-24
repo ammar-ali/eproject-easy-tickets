@@ -5,8 +5,6 @@
 
 package ticketbook.util;
 
-import java.rmi.RemoteException;
-import javax.ejb.CreateException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,9 +16,10 @@ import ticketbook.ejb.bmp.PaymentTypeRemoteHome;
 import ticketbook.ejb.bmp.TicketBookingRemoteHome;
 import ticketbook.ejb.bmp.TicketRemoteHome;
 import ticketbook.ejb.bmp.UserRemoteHome;
+import ticketbook.ejb.bmp.VenueRemoteHome;
 import ticketbook.ejb.cmp.ContactSessionBeanRemoteHome;
-import ticketbook.ejb.cmp.FAQSessionBeanRemote;
 import ticketbook.ejb.cmp.FAQSessionBeanRemoteHome;
+
 import ticketbook.exception.ConfigException;
 
 /**
@@ -28,8 +27,8 @@ import ticketbook.exception.ConfigException;
  * @author Admin
  */
 public class TicketBookLookUpJNDI {
-    
-    
+
+
 
     public static EventTypeRemoteHome getEventTypeRemoteHome(){
         try{
@@ -147,7 +146,22 @@ public class TicketBookLookUpJNDI {
         }
         return null;
     }
-
+    public static VenueRemoteHome getVenueRemoteHome(){
+        try{
+            Config.settingSystemPropertiesForEntityBean();
+            Context ctx=new InitialContext();
+            Object ref=ctx.lookup("Venue");
+            VenueRemoteHome home=(VenueRemoteHome)
+                            javax.rmi.PortableRemoteObject.narrow(
+                             ref,VenueRemoteHome.class);
+            return home;
+        } catch (ConfigException ex) {
+            ex.printStackTrace();
+        }catch(NamingException namingException){
+            namingException.printStackTrace();
+        }
+        return null;
+    }
      public static ContactSessionBeanRemoteHome getContactSessionBeanRemoteHome() {
         try {
             Context c = new InitialContext();
