@@ -73,6 +73,16 @@
             <prim-key-class>java.lang.Integer</prim-key-class>
             <reentrant>false</reentrant>
         </entity>
+        <entity>
+            <display-name>VenueEB</display-name>
+            <ejb-name>Venue</ejb-name>
+            <home>ticketbook.ejb.bmp.VenueRemoteHome</home>
+            <remote>ticketbook.ejb.bmp.VenueRemote</remote>
+            <ejb-class>ticketbook.ejb.bmp.Venue</ejb-class>
+            <persistence-type>Bean</persistence-type>
+            <prim-key-class>java.lang.Integer</prim-key-class>
+            <reentrant>false</reentrant>
+        </entity>
         </enterprise-beans>
     <assembly-descriptor>
 
@@ -122,6 +132,13 @@
         <container-transaction>
             <method>
                 <ejb-name>TicketBooking</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+        <container-transaction>
+            <method>
+                <ejb-name>Venue</ejb-name>
                 <method-name>*</method-name>
             </method>
             <trans-attribute>Required</trans-attribute>
