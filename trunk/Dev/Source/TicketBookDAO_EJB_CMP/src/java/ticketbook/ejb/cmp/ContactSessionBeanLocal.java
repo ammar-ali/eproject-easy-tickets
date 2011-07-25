@@ -22,6 +22,6 @@ public interface ContactSessionBeanLocal extends EJBLocalObject {
 
     void deleteContact(Integer id);
 
-    Collection findAllContact()throws FinderException;
+    Collection ejbFindAllContact()throws FinderException;
     
 }
