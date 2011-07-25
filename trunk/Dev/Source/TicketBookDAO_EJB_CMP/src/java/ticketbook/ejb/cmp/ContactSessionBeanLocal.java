@@ -5,6 +5,7 @@
 
 package ticketbook.ejb.cmp;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import javax.ejb.EJBLocalObject;
 import javax.ejb.FinderException;
@@ -15,7 +16,7 @@ import javax.ejb.FinderException;
  */
 public interface ContactSessionBeanLocal extends EJBLocalObject {
 
-    void insertContact(String title, String content, String email, String create_date, String username);
+    void insertContact(String title, String content, String email, Timestamp create_date, String username);
 
     void answerContact(Integer id, String title, String content, String answer, String email, String username);
 
