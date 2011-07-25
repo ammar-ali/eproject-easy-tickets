@@ -5,6 +5,7 @@
 
 package ticketbook.ejb.cmp;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import javax.ejb.CreateException;
 import javax.ejb.EJBLocalHome;
@@ -28,6 +29,6 @@ public interface FaqLocalHome extends EJBLocalHome {
 
     Collection findAllFAQs() throws FinderException;
 
-    ticketbook.ejb.cmp.FaqLocal create(String question, String answer, String create_date, String username) throws CreateException;
+    ticketbook.ejb.cmp.FaqLocal create(String question, String answer, Timestamp create_date, String username) throws CreateException;
 
 }
