@@ -20,7 +20,7 @@ public interface FaqSessionBeanLocal extends EJBLocalObject {
 
     void updateFAQs(int id, String question, String answer, String username);
 
-    void deleteFAQs(String id);
+    void deleteFAQs(Integer id);
 
     Collection ejbFindAllFAQs() throws FinderException;
     
