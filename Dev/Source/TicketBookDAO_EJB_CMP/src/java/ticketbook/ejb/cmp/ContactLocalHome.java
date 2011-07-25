@@ -5,6 +5,7 @@
 
 package ticketbook.ejb.cmp;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import javax.ejb.CreateException;
 import javax.ejb.EJBLocalHome;
@@ -32,6 +33,6 @@ public interface ContactLocalHome extends EJBLocalHome {
 
     Collection findAllContact()throws FinderException;
 
-    ticketbook.ejb.cmp.ContactLocal create(String title, String content, String email, String create_date, String username) throws CreateException;
+    ticketbook.ejb.cmp.ContactLocal create( String title, String content, String email, Timestamp create_date, String username) throws CreateException;
 
 }

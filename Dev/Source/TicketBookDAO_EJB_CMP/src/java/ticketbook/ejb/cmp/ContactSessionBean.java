@@ -5,6 +5,7 @@
 
 package ticketbook.ejb.cmp;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,7 +80,7 @@ public class ContactSessionBean implements SessionBean {
         }
     }
 
-    public void insertContact(String title, String content, String email, String create_date, String username) {
+    public void insertContact(String title, String content, String email, Timestamp create_date, String username) {
         try {
             ContactLocalHome home = lookupContactLocal();
             home.create(title, content, email, create_date, username);

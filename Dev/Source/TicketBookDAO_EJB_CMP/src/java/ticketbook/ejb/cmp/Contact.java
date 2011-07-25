@@ -89,8 +89,8 @@ public abstract class Contact implements EntityBean {
         // TODO populate relationships here if appropriate
     }
 
-    public Integer ejbCreate(Integer id, String title, String content, String email, Timestamp create_date, String username) throws CreateException{
-        if(id==null){
+    public Integer ejbCreate( String title, String content, String email, Timestamp create_date, String username) throws CreateException{
+        if(content==null){
             throw new CreateException("The field \"key\" must not be null");
         }
         setTitle(title);
@@ -100,7 +100,7 @@ public abstract class Contact implements EntityBean {
         return null;
     }
 
-    public void ejbPostCreate(Integer id, String title, String content, String email, Timestamp create_date, String username){
+    public void ejbPostCreate( String title, String content, String email, Timestamp create_date, String username){
 
     }
     public abstract Integer getId();

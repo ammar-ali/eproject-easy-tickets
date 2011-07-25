@@ -5,6 +5,7 @@
 
 package ticketbook.ejb.cmp;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,7 +80,7 @@ public class FaqSessionBean implements SessionBean {
         }
     }
 
-    public void insertFAQs(String question, String answer, String create_date, String username) {
+    public void insertFAQs(String question, String answer, Timestamp create_date, String username) {
         try {
             FaqLocalHome home = lookupFaqLocal();
             home.create(answer, question, create_date, username);
