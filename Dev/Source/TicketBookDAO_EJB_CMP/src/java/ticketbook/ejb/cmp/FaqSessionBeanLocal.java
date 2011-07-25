@@ -5,7 +5,6 @@
 
 package ticketbook.ejb.cmp;
 
-import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import javax.ejb.EJBLocalObject;
