@@ -22,9 +22,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ticketbook.ejb.cmp.FAQSessionBeanRemote;
-import ticketbook.ejb.cmp.FAQSessionBeanRemoteHome;
-import ticketbook.transfer.FaqTransferData;
+import ticketbook.ejb.cmp.FaqSessionBeanRemote;
+import ticketbook.ejb.cmp.FaqSessionBeanRemoteHome;
 import ticketbook.util.StringELF;
 import ticketbook.util.TicketBookLookUpJNDI;
 
@@ -72,7 +71,7 @@ public class FAQsController extends HandlerController {
 
     public void getAllFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         try {
-            FAQSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
+            FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
             ArrayList faq = (ArrayList) remote.ejbFindAllFAQs();
             RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
             rd.forward(request, response);
@@ -85,7 +84,7 @@ public class FAQsController extends HandlerController {
 
     public void insertFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_INSERT_FAQ)){
-            FAQSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
             if(remote!=null){
                String answer = request.getParameter(ANSWER_CONTROL_NAME);
                String question = request.getParameter(QUESTION_CONTROL_NAME);
@@ -100,11 +99,12 @@ public class FAQsController extends HandlerController {
 
     public void updateFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getAttribute(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_UPDATE_FAQ)){
-            FAQSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
             String answer = request.getParameter(ANSWER_CONTROL_NAME);
             String question = request.getParameter(QUESTION_CONTROL_NAME);
             Integer id = Integer.getInteger(ID_CONTROL_NAME);
-            remote.updateFAQs(id, answer, question);
+            String username = request.getParameter("txtUsername");
+            remote.updateFAQs(id, answer, question, username);
             RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
             rd.forward(request, response);
         }
@@ -112,7 +112,7 @@ public class FAQsController extends HandlerController {
 
     public void deleteFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, RemoveException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_DELETE_FAQ)){
-            FAQSessionBeanRemote remote = lookupFaqSessionBeanRemote();
+            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
             Integer id = Integer.getInteger(ID_CONTROL_NAME);
             remote.remove();
             RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
@@ -152,11 +152,11 @@ public class FAQsController extends HandlerController {
         return "Short description";
     }// </editor-fold>
 
-    private FAQSessionBeanRemote lookupFaqSessionBeanRemote() {
+    private FaqSessionBeanRemote lookupFaqSessionBeanRemote() {
         try {
             Context c = new InitialContext();
             Object remote = c.lookup("FaqSesLocalJNDI");
-            FAQSessionBeanRemoteHome rv = (FAQSessionBeanRemoteHome) PortableRemoteObject.narrow(remote, FAQSessionBeanRemoteHome.class);
+            FaqSessionBeanRemoteHome rv = (FaqSessionBeanRemoteHome) PortableRemoteObject.narrow(remote, FaqSessionBeanRemoteHome.class);
             return rv.create();
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
