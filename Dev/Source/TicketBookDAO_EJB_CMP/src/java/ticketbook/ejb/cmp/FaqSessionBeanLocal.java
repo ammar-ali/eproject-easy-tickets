@@ -6,6 +6,7 @@
 package ticketbook.ejb.cmp;
 
 import java.rmi.RemoteException;
+import java.sql.Timestamp;
 import java.util.Collection;
 import javax.ejb.EJBLocalObject;
 import javax.ejb.FinderException;
@@ -16,9 +17,9 @@ import javax.ejb.FinderException;
  */
 public interface FaqSessionBeanLocal extends EJBLocalObject {
 
-    void insertFAQs(String question, String answer, String create_date, String username);
+    void insertFAQs(String question, String answer, Timestamp create_date, String username);
 
-    void updateFAQs(int id, String question, String answer, String username);
+    void updateFAQs(Integer id, String question, String answer, String username);
 
     void deleteFAQs(Integer id);
 
