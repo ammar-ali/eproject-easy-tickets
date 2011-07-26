@@ -18,7 +18,7 @@ public class VenueTransferData implements Serializable {
     private String address;
 
     public VenueTransferData(){
-        this.ID=Constant.DEFAULT_VALUE_INTEGER;
+        this.ID=Constant.ID_FALSE_INTETER;
         this.name=Constant.DEFAULT_VALUE_STRING;
         this.address=Constant.DEFAULT_VALUE_STRING;
     }
