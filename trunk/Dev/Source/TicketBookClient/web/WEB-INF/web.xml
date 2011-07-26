@@ -32,6 +32,10 @@
         <servlet-name>TicketBookingController</servlet-name>
         <servlet-class>ticketbook.controller.TicketBookingController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EventController</servlet-name>
+        <servlet-class>ticketbook.controller.EventController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
         <url-pattern>/UserController</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>TicketBookingController</servlet-name>
         <url-pattern>/TicketBookingController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EventController</servlet-name>
+        <url-pattern>/EventController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

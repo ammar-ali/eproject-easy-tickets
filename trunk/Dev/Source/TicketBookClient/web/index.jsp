@@ -29,9 +29,17 @@
 <c:set var="ROLEID_USER_LOGIN_SESSION_NAME" value='<%=TicketBookSession.ROLEID_USER_LOGIN%>'></c:set>
 <c:set var="roleID" value='${ticketbookELF:castSessionIsNull(TICKETBOOK_SESSION,ROLEID_USER_LOGIN_SESSION_NAME,0)}'/>
 <c:set var="ID_FALSE_INTEGER" value='<%=Constant.ID_FALSE_INTETER%>'></c:set>
-
- <font class="_content_title"> Online Booking & Payment </font>
 <div>
+<c:choose>
+    <c:when test="${roleID ne ID_FALSE_INTEGER}">
+        <jsp:include page="Form/top_ticket_form.jsp"></jsp:include>
+    </c:when>
+</c:choose>
+</div>
+<br/>
+<font class="_content_title"> Online Booking & Payment </font>
+<div>
+ 
     <ul>
         <li>You must be registered member to book the ticket.</li>
         <li>Online booking can be done only 15 days in advance.</li>
@@ -39,15 +47,7 @@
         <li>No cancellation of tickets once they are booked, at any cost.</li>
     </ul>
 </div>
-<br/>
-<c:choose>
-    <c:when test="${roleID ne ID_FALSE_INTEGER}">
-        <jsp:include page="Form/top_ticket_form.jsp"></jsp:include>
-    </c:when>
-    <c:otherwise>
-        <jsp:include page="Form/login_form.jsp"></jsp:include>
-    </c:otherwise>
-</c:choose>
+
 <jsp:include page="Block/block2.jsp"/>
 </body>
 </html>	
