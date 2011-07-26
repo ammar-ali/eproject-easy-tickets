@@ -33,7 +33,7 @@
                 <th>Answer</th>
             </tr>
             
-          <% ArrayList lstFAQ=FAQ.getAll();%>
+          <% ArrayList lstFAQ = FAQ.getAll();%>
           <% for(int i=0;i<lstFAQ.size();i++){          %>
                 <tr>
                     <td>
