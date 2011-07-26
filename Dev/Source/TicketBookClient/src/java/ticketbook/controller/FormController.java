@@ -32,8 +32,8 @@ public class FormController extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             UserController userController=new UserController();
-            ContactController contactController=new ContactController();
-            userController.setHandlerController(contactController);
+//            ContactController contactController=new ContactController();
+//            userController.setHandlerController(contactController);
             userController.processRequest(request, response);
         } finally { 
             out.close();
