@@ -38,4 +38,5 @@ public abstract class HandlerController extends HttpServlet {
     public static final String ACTIONTYPE_VALUE_ANSWER_CONTACT_MESSAGE = "answer_message";
     public static final String ACTIONTYPE_VALUE_DELETE_CONTACT_MESSAGE = "delete_message";
     public static final String ACTIONTYPE_VALUE_UPDATE_BOOKING_STATUS = "update_booking_status";
+    public static final String ACTIONTYPE_VALUE_CREATE_EVENT="create_event";
 }

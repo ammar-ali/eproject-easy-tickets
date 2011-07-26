@@ -42,6 +42,8 @@ public class AdminController extends HttpServlet {
                     Integer roleID=(Integer) attributeRoleID;
                     if (roleID.equals(new Integer(TicketBookParameter.getInstance().getAdminRoleID()))&&!roleID.equals(Constant.ID_FALSE_INTETER)) {
                         TicketBookingController ticketBookingController = new TicketBookingController();
+                        EventController eventController=new EventController();
+                        ticketBookingController.setHandlerController(eventController);
                         ticketBookingController.processRequest(request, response);
 
                         stt = true;
