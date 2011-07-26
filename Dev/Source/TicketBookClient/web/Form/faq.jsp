@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="ticketbook.transfer.FaqTransferData" %>
+<%@page import="ticketbook.model.FAQ" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="ticketbook.ejb.cmp.Faq"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -21,6 +24,7 @@
 <body>
 
 <jsp:include page="../Block/block1.jsp"/>
+  <form action="FAQsController" method="post">
 <font class="_content_title">FAQ'S</font>
     <table border="1">
             <tr>
@@ -28,24 +32,25 @@
                 <th>Question</th>
                 <th>Answer</th>
             </tr>
-            <% FaqTransferData[] faq = (FaqTransferData[])request.getAttribute("");
-                for(int i = 0; i<faq.length; i++){
-            %>
-            <form action="FAQsController" method="post">
+            
+          <% ArrayList lstFAQ=FAQ.getAll();%>
+          <% for(int i=0;i<lstFAQ.size();i++){          %>
                 <tr>
-                    <td><%=i+1%></td>
                     <td>
-                        <%= faq[i].getQuestion()%><input type="text" name="txtQuestion" value="<%=faq[i].getQuestion()%>"
+                        <%=((Faq)lstFAQ.get(i)).getId()%>
                     </td>
                     <td>
-                        <input type="text" name="txtAnswer" value="<%= faq[i].getAnswer()%>"
+                        <%=((Faq)lstFAQ.get(i)).getQuestion()%>
+                    </td>
+                    <td>
+                        <%=((Faq)lstFAQ.get(i)).getAnswer()%>
                     </td>
                 </tr>
-            </form>
             <%
                 }
             %>
     </table>
+          </form>
 <a href="faq_create.jsp">Create FAQs</a>
 <jsp:include page="../Block/block2.jsp"/>
 </body>
