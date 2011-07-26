@@ -84,39 +84,57 @@ public class FAQsController extends HandlerController {
 
     public void insertFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_INSERT_FAQ)){
-            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-            if(remote!=null){
-               String answer = request.getParameter(ANSWER_CONTROL_NAME);
-               String question = request.getParameter(QUESTION_CONTROL_NAME);
-               String get_create_date = request.getParameter(CREATE_DATE_CONTROL_NAME);
-               Timestamp create_date = StringELF.convertStringToTimestamp(get_create_date, "mm-dd-yyyy");
-        //       remote.insertFAQs(answer, question, create_date);
-               RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
-               rd.forward(request, response);
+            try {
+                FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
+                if (remote != null) {
+                    String answer = request.getParameter(ANSWER_CONTROL_NAME);
+                    String question = request.getParameter(QUESTION_CONTROL_NAME);
+                    String get_create_date = request.getParameter(CREATE_DATE_CONTROL_NAME);
+                    Timestamp create_date = StringELF.convertStringToTimestamp(get_create_date, "mm-dd-yyyy");
+                    //       remote.insertFAQs(answer, question, create_date);
+                    RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+                    rd.forward(request, response);
+                }
+            } catch (CreateException ex) {
+                ex.printStackTrace();
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
             }
         }
     }
 
     public void updateFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getAttribute(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_UPDATE_FAQ)){
-            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-            String answer = request.getParameter(ANSWER_CONTROL_NAME);
-            String question = request.getParameter(QUESTION_CONTROL_NAME);
-            Integer id = Integer.getInteger(ID_CONTROL_NAME);
-            String username = request.getParameter("txtUsername");
-            remote.updateFAQs(id, answer, question, username);
-            RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
-            rd.forward(request, response);
+            try {
+                FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
+                String answer = request.getParameter(ANSWER_CONTROL_NAME);
+                String question = request.getParameter(QUESTION_CONTROL_NAME);
+                Integer id = Integer.getInteger(ID_CONTROL_NAME);
+                String username = request.getParameter("txtUsername");
+                remote.updateFAQs(id, answer, question, username);
+                RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+                rd.forward(request, response);
+            } catch (CreateException ex) {
+                ex.printStackTrace();
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
     public void deleteFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, RemoveException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_DELETE_FAQ)){
-            FaqSessionBeanRemote remote = lookupFaqSessionBeanRemote();
-            Integer id = Integer.getInteger(ID_CONTROL_NAME);
-            remote.remove();
-            RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
-            rd.forward(request, response);
+            try {
+                FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
+                Integer id = Integer.getInteger(ID_CONTROL_NAME);
+                remote.remove();
+                RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
+                rd.forward(request, response);
+            } catch (CreateException ex) {
+                ex.printStackTrace();
+            } catch (RemoteException ex) {
+                ex.printStackTrace();
+            }
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
