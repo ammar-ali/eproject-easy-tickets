@@ -5,6 +5,8 @@
 
 package ticketbook.util;
 
+import java.rmi.RemoteException;
+import javax.ejb.CreateException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -19,6 +21,7 @@ import ticketbook.ejb.bmp.TicketRemoteHome;
 import ticketbook.ejb.bmp.UserRemoteHome;
 import ticketbook.ejb.bmp.VenueRemoteHome;
 import ticketbook.ejb.cmp.ContactSessionBeanRemoteHome;
+import ticketbook.ejb.cmp.FaqSessionBeanRemote;
 import ticketbook.ejb.cmp.FaqSessionBeanRemoteHome;
 
 import ticketbook.exception.ConfigException;
@@ -166,7 +169,7 @@ public class TicketBookLookUpJNDI {
      public static ContactSessionBeanRemoteHome getContactSessionBeanRemoteHome() {
         try {
             Context c = new InitialContext();
-            Object remote = c.lookup("ContactSesLocalJNDI");
+            Object remote = c.lookup("ContactSesJNDI");
             ContactSessionBeanRemoteHome rv = (ContactSessionBeanRemoteHome) PortableRemoteObject.narrow(remote, ContactSessionBeanRemoteHome.class);
             return rv;
         } catch (NamingException ne) {
@@ -175,12 +178,16 @@ public class TicketBookLookUpJNDI {
         return null;
     }
 
-     public static FaqSessionBeanRemoteHome getFaqSessionBeanRemoteHome() {
+     public static FaqSessionBeanRemote getFaqSessionBeanRemote() {
         try {
             Context c = new InitialContext();
-            Object remote = c.lookup("FaqSesLocalJNDI");
+            Object remote = c.lookup("FaqSesJNDI");
             FaqSessionBeanRemoteHome rv = (FaqSessionBeanRemoteHome) PortableRemoteObject.narrow(remote, FaqSessionBeanRemoteHome.class);
-            return rv;
+            return rv.create();
+        } catch (CreateException ex) {
+            ex.printStackTrace();
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
         } catch (NamingException ne) {
             ne.printStackTrace();
         }
