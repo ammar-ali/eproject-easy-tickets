@@ -20,11 +20,9 @@ public class FAQ {
     private FAQ(){}
     public static ArrayList getAll(){
         try {
-            FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
+            FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemote();
             ArrayList faq = (ArrayList) remote.ejbFindAllFAQs();
             return faq;
-        } catch (CreateException ex) {
-            ex.printStackTrace();
         } catch (RemoteException ex) {
             ex.printStackTrace();
         }
