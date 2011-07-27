@@ -71,12 +71,10 @@ public class FAQsController extends HandlerController {
 
     public void getAllFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         try {
-            FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
+            FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemote();
             ArrayList faq = (ArrayList) remote.ejbFindAllFAQs();
             RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
             rd.forward(request, response);
-        } catch (CreateException ex) {
-            ex.printStackTrace();
         }catch (RemoteException ex){
             ex.printStackTrace();
         }        
@@ -85,7 +83,7 @@ public class FAQsController extends HandlerController {
     public void insertFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_INSERT_FAQ)){
             try {
-                FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
+                FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemote();
                 if (remote != null) {
                     String answer = request.getParameter(ANSWER_CONTROL_NAME);
                     String question = request.getParameter(QUESTION_CONTROL_NAME);
@@ -95,8 +93,6 @@ public class FAQsController extends HandlerController {
                     RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
                     rd.forward(request, response);
                 }
-            } catch (CreateException ex) {
-                ex.printStackTrace();
             } catch (RemoteException ex) {
                 ex.printStackTrace();
             }
@@ -106,7 +102,7 @@ public class FAQsController extends HandlerController {
     public void updateFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getAttribute(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_UPDATE_FAQ)){
             try {
-                FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
+                FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemote();
                 String answer = request.getParameter(ANSWER_CONTROL_NAME);
                 String question = request.getParameter(QUESTION_CONTROL_NAME);
                 Integer id = Integer.getInteger(ID_CONTROL_NAME);
@@ -114,8 +110,6 @@ public class FAQsController extends HandlerController {
                 remote.updateFAQs(id, answer, question, username);
                 RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
                 rd.forward(request, response);
-            } catch (CreateException ex) {
-                ex.printStackTrace();
             } catch (RemoteException ex) {
                 ex.printStackTrace();
             }
@@ -125,13 +119,11 @@ public class FAQsController extends HandlerController {
     public void deleteFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, RemoveException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_DELETE_FAQ)){
             try {
-                FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemoteHome().create();
+                FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemote();
                 Integer id = Integer.getInteger(ID_CONTROL_NAME);
                 remote.remove();
                 RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
                 rd.forward(request, response);
-            } catch (CreateException ex) {
-                ex.printStackTrace();
             } catch (RemoteException ex) {
                 ex.printStackTrace();
             }
@@ -173,7 +165,7 @@ public class FAQsController extends HandlerController {
     private FaqSessionBeanRemote lookupFaqSessionBeanRemote() {
         try {
             Context c = new InitialContext();
-            Object remote = c.lookup("FaqSesLocalJNDI");
+            Object remote = c.lookup("FaqSesJNDI");
             FaqSessionBeanRemoteHome rv = (FaqSessionBeanRemoteHome) PortableRemoteObject.narrow(remote, FaqSessionBeanRemoteHome.class);
             return rv.create();
         } catch (NamingException ne) {
