@@ -31,9 +31,11 @@ public abstract class HandlerController extends HttpServlet {
     public static final String ACTIONTYPE_VALUE_LOGIN = "login";
     public static final String ACTIONTYPE_VALUE_REGISTER_MEMBER="register_member";
     public static final String ACTIONTYPE_VALUE_BOOKING="booking";
+    public static final String ACTIONTYPE_VALUE_GETALLFAQ = "get_all_faq";
     public static final String ACTIONTYPE_VALUE_INSERT_FAQ = "insert_faq";
     public static final String ACTIONTYPE_VALUE_DELETE_FAQ = "delete_faq";
     public static final String ACTIONTYPE_VALUE_UPDATE_FAQ = "update_faq";
+    public static final String ACTIONTYPE_VALUE_GETALLCONTACT = "get_all_contact";
     public static final String ACTIONTYPE_VALUE_CREATE_CONTACT_MESSAGE = "create_message";
     public static final String ACTIONTYPE_VALUE_ANSWER_CONTACT_MESSAGE = "answer_message";
     public static final String ACTIONTYPE_VALUE_DELETE_CONTACT_MESSAGE = "delete_message";
