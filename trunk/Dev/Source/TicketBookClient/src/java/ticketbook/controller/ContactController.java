@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.CreateException;
@@ -104,12 +104,10 @@ public class ContactController extends HandlerController {
     }// </editor-fold>
     public void loadAllContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         try {
-            ContactSessionBeanRemote remote = TicketBookLookUpJNDI.getContactSessionBeanRemoteHome().create();
-            ArrayList contact = (ArrayList) remote.ejbFindAllContact();
+            ContactSessionBeanRemote remote = TicketBookLookUpJNDI.getContactSessionBeanRemote();
+            Vector contact = (Vector) remote.ejbFindAllContact();
             RequestDispatcher rd = request.getRequestDispatcher("contact_manage.jsp");
             rd.forward(request, response);
-        } catch (CreateException ex) {
-            ex.printStackTrace();
         } catch (RemoteException ex) {
             ex.printStackTrace();
         }
@@ -117,7 +115,7 @@ public class ContactController extends HandlerController {
 
     public void createContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_CREATE_CONTACT_MESSAGE)){
-            ContactSessionBeanRemote remote = lookupContactSessionBeanRemote();
+            ContactSessionBeanRemote remote = TicketBookLookUpJNDI.getContactSessionBeanRemote();
             if(remote!=null){
                 String title = request.getParameter(TITLE_CONTACT_CONTROL_NAME);
                 String content = request.getParameter(CONTENT_CONTACT_CONTROL_NAME);
@@ -134,7 +132,7 @@ public class ContactController extends HandlerController {
 
     public void answerContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_ANSWER_CONTACT_MESSAGE)){
-            ContactSessionBeanRemote remote = lookupContactSessionBeanRemote();
+            ContactSessionBeanRemote remote = TicketBookLookUpJNDI.getContactSessionBeanRemote();
             Integer id = Integer.getInteger(ID_CONTACT_CONTROL_NAME);
             String title = request.getParameter(TITLE_CONTACT_CONTROL_NAME);
             String content = request.getParameter(CONTENT_CONTACT_CONTROL_NAME);
@@ -148,7 +146,7 @@ public class ContactController extends HandlerController {
 
     public void deleteContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, RemoveException{
         if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_DELETE_CONTACT_MESSAGE)){
-            ContactSessionBeanRemote remote = lookupContactSessionBeanRemote();
+            ContactSessionBeanRemote remote = TicketBookLookUpJNDI.getContactSessionBeanRemote();
             Integer id = Integer.getInteger(ID_CONTACT_CONTROL_NAME);
             remote.remove();
             RequestDispatcher rd = request.getRequestDispatcher("contact.jsp");
@@ -159,7 +157,7 @@ public class ContactController extends HandlerController {
     private ContactSessionBeanRemote lookupContactSessionBeanRemote() {
         try {
             Context c = new InitialContext();
-            Object remote = c.lookup("ContactSesLocalJNDI");
+            Object remote = c.lookup("ContactSesJNDI");
             ContactSessionBeanRemoteHome rv = (ContactSessionBeanRemoteHome) PortableRemoteObject.narrow(remote, ContactSessionBeanRemoteHome.class);
             return rv.create();
         } catch (NamingException ne) {
