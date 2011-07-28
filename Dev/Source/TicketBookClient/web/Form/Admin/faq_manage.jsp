@@ -17,7 +17,7 @@
 <%@page import="java.util.Vector" %>
 <%@page import="ticketbook.model.FAQ" %>
 
-<form action="FAQsController" method="post">
+<form action="" method="post">
 <font class="_content_title">FAQ'S</font>
 <table border="1">
             <tr>
@@ -31,7 +31,6 @@
 
           <% Vector lstFAQ = FAQ.getAll();%>
           <% for(int i=0;i<lstFAQ.size();i++){
-          System.out.println(lstFAQ.size());
             %>
                 <tr>
                     <td>
