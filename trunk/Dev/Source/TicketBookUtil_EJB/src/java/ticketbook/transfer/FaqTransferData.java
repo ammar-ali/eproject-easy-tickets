@@ -6,6 +6,7 @@
 package ticketbook.transfer;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import ticketbook.util.Constant;
 
 /**
@@ -16,17 +17,25 @@ public class FaqTransferData implements Serializable {
     Integer id;
     String question;
     String answer;
-    String create_date;
+    Timestamp create_date;
     String username;
 
     public FaqTransferData(){
         this.id= Constant.DEFAULT_VALUE_INTEGER;
         this.question = Constant.DEFAULT_VALUE_STRING;
         this.answer = Constant.DEFAULT_VALUE_STRING;
-        this.create_date = Constant.DEFAULT_VALUE_STRING;
+        this.create_date = Constant.DEFAULT_VALUE_TIMESTAMP;
         this.username = Constant.DEFAULT_VALUE_STRING;
     }
 
+    public FaqTransferData(Integer id, String question, String answer, Timestamp create_date, String username){
+    this.id = id;
+    this.question = question;
+    this.answer = answer;
+    this.create_date = create_date;
+    this.username = username;
+    }
+    
     public Integer getID() {
         return id;
     }
@@ -35,7 +44,7 @@ public class FaqTransferData implements Serializable {
         return answer;
     }
 
-    public String getCreate_date() {
+    public Timestamp getCreate_date() {
         return create_date;
     }
 
@@ -55,7 +64,7 @@ public class FaqTransferData implements Serializable {
         this.answer = answer;
     }
 
-    public void setCreate_date(String create_date) {
+    public void setCreate_date(Timestamp create_date) {
         this.create_date = create_date;
     }
 
