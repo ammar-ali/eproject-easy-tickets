@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.CreateException;
@@ -72,7 +73,7 @@ public class FAQsController extends HandlerController {
     public void getAllFAQs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         try {
             FaqSessionBeanRemote remote = TicketBookLookUpJNDI.getFaqSessionBeanRemote();
-            ArrayList faq = (ArrayList) remote.ejbFindAllFAQs();
+            Vector faq = (Vector) remote.ejbFindAllFAQs();
             RequestDispatcher rd = request.getRequestDispatcher("faq.jsp");
             rd.forward(request, response);
         }catch (RemoteException ex){
