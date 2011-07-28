@@ -6,7 +6,7 @@
 package ticketbook.ejb.cmp;
 
 import java.sql.Timestamp;
-import java.util.Collection;
+import java.util.Vector;
 import javax.ejb.EJBLocalObject;
 import javax.ejb.FinderException;
 
@@ -22,6 +22,6 @@ public interface ContactSessionBeanLocal extends EJBLocalObject {
 
     void deleteContact(Integer id);
 
-    Collection ejbFindAllContact()throws FinderException;
+    Vector ejbFindAllContact()throws FinderException;
     
 }

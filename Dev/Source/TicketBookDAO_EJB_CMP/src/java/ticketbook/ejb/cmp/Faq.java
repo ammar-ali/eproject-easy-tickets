@@ -89,18 +89,18 @@ public abstract class Faq implements EntityBean {
         // TODO populate relationships here if appropriate
     }
 
-    public Integer ejbCreate( String answer, String question, Timestamp create_date, String username) throws CreateException{
+    public Integer ejbCreate(String answer, String question, Timestamp create_date, String username) throws CreateException{
         if(question == null){
             throw new CreateException("The field \"key\" must not be null");
         }
-
         setAnswer(answer);
         setQuestion(question);
         setCreateDate(create_date);
+        setUsername(username);
         return null;
     }
 
-     public void ejbPostCreate( String answer, String question, Timestamp create_date, String username) {
+     public void ejbPostCreate(Integer id, String answer, String question, Timestamp create_date, String username) {
         // TODO populate relationships here if appropriate
     }
 

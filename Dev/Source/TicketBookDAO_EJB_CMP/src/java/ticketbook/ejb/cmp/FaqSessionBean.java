@@ -7,6 +7,8 @@ package ticketbook.ejb.cmp;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.SessionBean;
@@ -14,6 +16,7 @@ import javax.ejb.SessionContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import ticketbook.transfer.FaqTransferData;
 
 /**
  *
@@ -80,10 +83,10 @@ public class FaqSessionBean implements SessionBean {
         }
     }
 
-    public void insertFAQs(String question, String answer, Timestamp create_date, String username) {
+    public void insertFAQs( String question, String answer, Timestamp create_date, String username) {
         try {
             FaqLocalHome home = lookupFaqLocal();
-            home.create(question, answer, create_date, username);
+            home.create( question, answer, create_date, username);
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -111,14 +114,22 @@ public class FaqSessionBean implements SessionBean {
         }
     }
 
-    public Collection ejbFindAllFAQs() {
+    public Vector ejbFindAllFAQs() {
+        Collection col = null;
+        Vector v = new Vector();
         try {
             FaqLocalHome home = lookupFaqLocal();
-            return home.findAllFAQs();
+            col = home.findAllFAQs();
+            Iterator it = col.iterator();
+            while (it.hasNext()){
+                FaqLocal local = (FaqLocal)it.next();
+                FaqTransferData faqtd = new FaqTransferData(local.getId(), local.getQuestion(), local.getAnswer(), local.getCreateDate(), local.getUsername());
+                v.add(faqtd);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return v;
     }
 
 
