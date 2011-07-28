@@ -5,9 +5,8 @@
 
 package ticketbook.model;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import javax.ejb.CreateException;
+import java.rmi.RemoteException;    
+import java.util.Vector;
 import ticketbook.ejb.cmp.ContactSessionBeanRemote;
 import ticketbook.util.TicketBookLookUpJNDI;
 
@@ -17,17 +16,15 @@ import ticketbook.util.TicketBookLookUpJNDI;
  */
 public class Contact {
     private Contact(){}
-    public static ArrayList getAll(){
+    public static Vector getAll(){
         try {
-            ContactSessionBeanRemote remote = TicketBookLookUpJNDI.getContactSessionBeanRemoteHome().create();
-            ArrayList contact = (ArrayList) remote.ejbFindAllContact();
+            ContactSessionBeanRemote remote = TicketBookLookUpJNDI.getContactSessionBeanRemote();
+            Vector contact = (Vector) remote.ejbFindAllContact();
             return contact;
-        } catch (CreateException ce) {
-            ce.printStackTrace();
         }catch (RemoteException re){
             re.printStackTrace();
         }
-        return new ArrayList();
+        return new Vector();
     }
 
 }
