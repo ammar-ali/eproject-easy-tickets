@@ -13,14 +13,16 @@
 <form action="${CONTEXT_PATH}/ContactController" method="post" name="frmContact">
     <input type="hidden" value="" name="${ACTIONTYPE_NAME}" id="actionType">
 <font class="_content_title">Contacts</font>
-    <table>
+<table border="1">
             <tr>
                 <th>No.</th>
                 <th>Title</th>
                 <th>Content</th>
+                <th>Answer</th>
                 <th>Email</th>
                 <th>Create Date</th>
                 <th>Creator</th>
+                <th colspan="2">Function</th>
             </tr>
 
           <% Vector lstContact = Contact.getAll();%>
@@ -37,6 +39,9 @@
                         <%=((ContactTransferData)lstContact.get(i)).getContent() %>
                     </td>
                     <td>
+                        <%= ((ContactTransferData)lstContact.get(i)).getAnswer() %>
+                    </td>
+                    <td>
                         <%= ((ContactTransferData)lstContact.get(i)).getEmail() %>
                     </td>
                     <td>
@@ -46,7 +51,7 @@
                         <%= ((ContactTransferData)lstContact.get(i)).getUsername() %>
                     </td>
                     <td>
-                        <input type="button" onclick="" name="" value="Update"/>
+                        <input type="button" onclick="" name="" value="Answer"/>
                     </td>
                      <td>
                         <input type="button" onclick="click_delete()" name="" value="Delete"/>
@@ -55,10 +60,6 @@
             <%
                 }
             %>
-            <tr align="center">
-                <td><input type="button" onclick="" name="" value="Create" id="create"/>
-                </td>
-            </tr>
     </table>
           </form>
     <script type="text/javascript">

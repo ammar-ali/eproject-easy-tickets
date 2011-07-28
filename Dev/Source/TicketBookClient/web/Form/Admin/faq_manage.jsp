@@ -19,7 +19,7 @@
 
 <form action="FAQsController" method="post">
 <font class="_content_title">FAQ'S</font>
-    <table>
+<table border="1">
             <tr>
                 <th>No.</th>
                 <th>Question</th>
@@ -61,7 +61,7 @@
             %>
             <tr>
                 <td>
-                    <input type="button" name="" value="Create" onclick="" />
+                    <input type="button" name="" value="Create" onclick="click_create()" />
                </td>
             </tr>
     </table>
@@ -69,5 +69,9 @@
             <script type="text/javascript">
             function click_delete(){
             var a = confirm("Are you sure to delete this FAQ?? ");
+            }
+
+            function click_create(){
+                document.location.href="../FAQs/faq_create_update.jsp";
             }
             </script>
