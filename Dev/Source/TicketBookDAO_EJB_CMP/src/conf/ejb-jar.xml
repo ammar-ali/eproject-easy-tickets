@@ -95,7 +95,7 @@
             <query>
                 <query-method>
                     <method-name>findAllFAQs</method-name>
-                    <method-params/>
+                    <method-params></method-params>
                 </query-method>
                 <ejb-ql>SELECT OBJECT(f) FROM Faq AS f</ejb-ql>
             </query>
@@ -181,7 +181,7 @@
             <query>
                 <query-method>
                     <method-name>findAllContact</method-name>
-                    <method-params/>
+                    <method-params></method-params>
                 </query-method>
                 <ejb-ql>SELECT OBJECT(c) FROM Contact c</ejb-ql>
             </query>
