@@ -20,6 +20,7 @@ import ticketbook.ejb.bmp.TicketBookingRemoteHome;
 import ticketbook.ejb.bmp.TicketRemoteHome;
 import ticketbook.ejb.bmp.UserRemoteHome;
 import ticketbook.ejb.bmp.VenueRemoteHome;
+import ticketbook.ejb.cmp.ContactSessionBeanRemote;
 import ticketbook.ejb.cmp.ContactSessionBeanRemoteHome;
 import ticketbook.ejb.cmp.FaqSessionBeanRemote;
 import ticketbook.ejb.cmp.FaqSessionBeanRemoteHome;
@@ -166,12 +167,16 @@ public class TicketBookLookUpJNDI {
         }
         return null;
     }
-     public static ContactSessionBeanRemoteHome getContactSessionBeanRemoteHome() {
+     public static ContactSessionBeanRemote getContactSessionBeanRemote() {
         try {
             Context c = new InitialContext();
             Object remote = c.lookup("ContactSesJNDI");
             ContactSessionBeanRemoteHome rv = (ContactSessionBeanRemoteHome) PortableRemoteObject.narrow(remote, ContactSessionBeanRemoteHome.class);
-            return rv;
+            return rv.create();
+        } catch (CreateException ex) {
+            ex.printStackTrace();
+        } catch (RemoteException ex) {
+            ex.printStackTrace();
         } catch (NamingException ne) {
             ne.printStackTrace();
         }
