@@ -7,6 +7,8 @@ package ticketbook.ejb.cmp;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.SessionBean;
@@ -14,6 +16,7 @@ import javax.ejb.SessionContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import ticketbook.transfer.ContactTransferData;
 
 /**
  *
@@ -113,16 +116,23 @@ public class ContactSessionBean implements SessionBean {
         }
     }
 
-    public Collection ejbFindAllContact(){
+    public Vector ejbFindAllContact() {
+        Collection col = null;
+        Vector v = new Vector();
         try {
             ContactLocalHome home = lookupContactLocal();
-            home.findAllContact();
+            col = home.findAllContact();
+            Iterator it = col.iterator();
+            while (it.hasNext()){
+                ContactLocal local = (ContactLocal)it.next();
+                ContactTransferData contd = new ContactTransferData(local.getId(), local.getTitle(), local.getContent(),local.getAnswer() ,local.getEmail(), local.getCreateDate(), local.getUsername());
+                v.add(contd);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return v;
     }
-
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method" or "Web Service > Add Operation")
     
