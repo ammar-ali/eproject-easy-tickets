@@ -83,7 +83,7 @@ public class FaqSessionBean implements SessionBean {
         }
     }
 
-    public void insertFAQs( String question, String answer, Timestamp create_date, String username) {
+    public void insertFAQs(String question, String answer, Timestamp create_date, String username) {
         try {
             FaqLocalHome home = lookupFaqLocal();
             home.create( question, answer, create_date, username);

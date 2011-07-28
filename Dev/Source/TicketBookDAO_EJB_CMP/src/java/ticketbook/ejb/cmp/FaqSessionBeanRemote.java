@@ -17,7 +17,7 @@ import javax.ejb.EJBObject;
  */
 public interface FaqSessionBeanRemote extends EJBObject {
 
-    void insertFAQs(Integer id, String question, String answer, Timestamp create_date, String username) throws RemoteException;
+    void insertFAQs(String question, String answer, Timestamp create_date, String username) throws RemoteException;
 
     void updateFAQs(Integer id, String question, String answer, String username) throws RemoteException;
 
