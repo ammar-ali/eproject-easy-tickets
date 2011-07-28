@@ -17,17 +17,57 @@
 <%@page import="java.util.Vector" %>
 <%@page import="ticketbook.model.FAQ" %>
 
-<font class="_content_title">Create new FAQs</font>
-<form action=""
-    <table border="1">
+<form action="FAQsController" method="post">
+<font class="_content_title">FAQ'S</font>
+    <table>
             <tr>
-                <td><input type="text" name="txtAnswer"/></td>
+                <th>No.</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Create Date</th>
+                <th>User</th>
+                <th colspan="2">Function</th>
             </tr>
+
+          <% Vector lstFAQ = FAQ.getAll();%>
+          <% for(int i=0;i<lstFAQ.size();i++){
+          System.out.println(lstFAQ.size());
+            %>
+                <tr>
+                    <td>
+                        <%=((FaqTransferData)lstFAQ.get(i)).getID() %>
+                    </td>
+                    <td>
+                        <%=((FaqTransferData)lstFAQ.get(i)).getQuestion()%>
+                    </td>
+                    <td>
+                        <%=((FaqTransferData)lstFAQ.get(i)).getAnswer()%>
+                    </td>
+                    <td>
+                        <%=((FaqTransferData)lstFAQ.get(i)).getCreate_date()%>
+                    </td>
+                    <td>
+                        <%=((FaqTransferData)lstFAQ.get(i)).getUsername()%>
+                    </td>
+                    <td>
+                        <input type="button" name="" value="Update" onclick="" />
+                    </td>
+                    <td>
+                        <input type="button" name="" value="Delete" onclick="click_delete()" />
+                    </td>
+                </tr>
+            <%
+                }
+            %>
             <tr>
-                <td><input type="text" name="txtQuestion"/></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Submit"/></td>
+                <td>
+                    <input type="button" name="" value="Create" onclick="" />
+               </td>
             </tr>
     </table>
-</form>
+          </form>
+            <script type="text/javascript">
+            function click_delete(){
+            var a = confirm("Are you sure to delete this FAQ?? ");
+            }
+            </script>
