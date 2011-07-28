@@ -101,7 +101,7 @@ public abstract class Contact implements EntityBean {
         return null;
     }
 
-    public void ejbPostCreate(Integer id, String title, String content, String email, Timestamp create_date, String username){
+    public void ejbPostCreate(String title, String content, String email, Timestamp create_date, String username){
 
     }
     public abstract Integer getId();
