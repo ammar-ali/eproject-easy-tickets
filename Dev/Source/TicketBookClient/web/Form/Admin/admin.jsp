@@ -28,7 +28,7 @@
                 <td <c:if test="${param.name eq 'booking'}">style="background-color:black;border-bottom:0px"</c:if>>
                     <a style="color:white" href="<%=request.getContextPath()%>/Form/Admin/admin.jsp?name=booking">Booking</a></td>
                 <td <c:if test="${param.name eq 'FAQ'}">style="background-color:black;border-bottom:0px"</c:if>>
-                    <a style="color:white" href="<%=request.getContextPath()%>/Form/Admin/admin.jsp?name=FAQ">FAQ</a></td>
+                    <a style="color:white" href="<%=request.getContextPath()%>/Form/Admin/admin.jsp?name=FAQ">FAQs</a></td>
                 <td <c:if test="${param.name eq 'contact'}">style="background-color:black;border-bottom: 0px"</c:if>>
                     <a style="color:white" href="<%=request.getContextPath()%>/Form/Admin/admin.jsp?name=contact">Contact</a></td>
             </tr>
@@ -36,7 +36,7 @@
                 <td colspan="4" align="center" style="border-width: 1px;border-top:hidden">
                     <c:choose>
                         <c:when test="${param.name eq 'FAQ'}">
-                            <jsp:include page="faq_create.jsp"></jsp:include>
+                            <jsp:include page="faq_manage.jsp"></jsp:include>
                         </c:when>
                         <c:when test="${param.name eq 'ticket'}">
                             <jsp:include page="ticket_manage.jsp"></jsp:include>
