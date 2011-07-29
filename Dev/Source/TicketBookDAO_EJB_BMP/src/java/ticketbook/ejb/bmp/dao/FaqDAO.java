@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import ticketbook.ejb.bmp.Faq;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.FaqTransferData;
@@ -26,7 +27,7 @@ public class FaqDAO {
     }
 
     public static FaqDAO getInstance(SQLTicketBookConnection conn) {
-        TicketDAO.connection = conn;
+        FaqDAO.connection = conn;
         if (faqDAO == null) {
             faqDAO = new FaqDAO();
         }
