@@ -6,7 +6,6 @@
 package ticketbook.transfer;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import ticketbook.util.Constant;
 
 /**
@@ -14,38 +13,38 @@ import ticketbook.util.Constant;
  * @author QuocHai
  */
 public class FaqTransferData implements Serializable {
-    Integer id;
+    Integer ID;
     String question;
     String answer;
-    Timestamp create_date;
+    String createDate;
     String username;
 
     public FaqTransferData(){
-        this.id= Constant.DEFAULT_VALUE_INTEGER;
+        this.ID= Constant.ID_FALSE_INTETER;
         this.question = Constant.DEFAULT_VALUE_STRING;
         this.answer = Constant.DEFAULT_VALUE_STRING;
-        this.create_date = Constant.DEFAULT_VALUE_TIMESTAMP;
+        this.createDate = Constant.DEFAULT_VALUE_STRING;
         this.username = Constant.DEFAULT_VALUE_STRING;
     }
 
-    public FaqTransferData(Integer id, String question, String answer, Timestamp create_date, String username){
-    this.id = id;
+    public FaqTransferData(Integer id, String question, String answer, String create_date, String username){
+    this.ID = id;
     this.question = question;
     this.answer = answer;
-    this.create_date = create_date;
+    this.createDate = create_date;
     this.username = username;
     }
     
     public Integer getID() {
-        return id;
+        return ID;
     }
 
     public String getAnswer() {
         return answer;
     }
 
-    public Timestamp getCreate_date() {
-        return create_date;
+    public String getCreateDate() {
+        return createDate;
     }
 
     public String getQuestion() {
@@ -57,15 +56,15 @@ public class FaqTransferData implements Serializable {
     }
 
     public void setID(Integer ID) {
-        this.id = ID;
+        this.ID = ID;
     }
 
     public void setAnswer(String answer) {
         this.answer = answer;
     }
 
-    public void setCreate_date(Timestamp create_date) {
-        this.create_date = create_date;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public void setQuestion(String question) {
