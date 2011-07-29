@@ -178,7 +178,7 @@ public class TicketBookLookUpJNDI {
         }
         return null;
     }
-
+     
       public static FaqRemoteHome getFaqRemoteHome(){
         try{
             Config.settingSystemPropertiesForEntityBean();
