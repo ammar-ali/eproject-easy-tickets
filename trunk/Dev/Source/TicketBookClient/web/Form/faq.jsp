@@ -27,24 +27,31 @@
 <jsp:include page="../Block/block1.jsp"/>
   <form action="FAQsController" method="post">
 <font class="_content_title">FAQ'S</font>
-<center>
-    <table border="1">
+<table border="1" cellspacing="4px" style="width:640px; float: left;margin-left:100px">
             <tr>
-                <th>No.</th>
                 <th>Question</th>
+                <th>Function</th>
             </tr>
+            <c:set var="count" value="1"></c:set>
             <c:forEach items="${faqlist}" var="obj">
                 <tr>
                     <td>
                         ${obj.question}
                     </td>
                     <td>
-                        ${obj.answer}
+                        <a href="<%= request.getContextPath()%>/Form/faq.jsp?index=${count}">View</a>
                     </td>
                 </tr>
+                <c:if test="${param.index eq count}">
+                    <tr>
+                        <td colspan="2">
+                            ${obj.answer}
+                        </td>
+                    </tr>
+                </c:if>
+                <c:set var="count" value="${count+1}"></c:set>
            </c:forEach>        
     </table>
-</center>
           </form>
 <jsp:include page="../Block/block2.jsp"/>
 </body>
