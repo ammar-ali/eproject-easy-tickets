@@ -93,6 +93,16 @@
             <prim-key-class>java.lang.Integer</prim-key-class>
             <reentrant>false</reentrant>
         </entity>
+        <entity>
+            <display-name>FaqEB</display-name>
+            <ejb-name>Faq</ejb-name>
+            <home>ticketbook.ejb.bmp.FaqRemoteHome</home>
+            <remote>ticketbook.ejb.bmp.FaqRemote</remote>
+            <ejb-class>ticketbook.ejb.bmp.Faq</ejb-class>
+            <persistence-type>Bean</persistence-type>
+            <prim-key-class>java.lang.Integer</prim-key-class>
+            <reentrant>false</reentrant>
+        </entity>
         </enterprise-beans>
     <assembly-descriptor>
 
@@ -160,6 +170,12 @@
             </method>
             <trans-attribute>Required</trans-attribute>
         </container-transaction>
+        <container-transaction>
+            <method>
+                <ejb-name>Faq</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
         </assembly-descriptor>
-
 </ejb-jar>
