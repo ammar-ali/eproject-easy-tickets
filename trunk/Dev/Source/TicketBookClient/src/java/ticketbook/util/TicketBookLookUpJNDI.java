@@ -12,6 +12,7 @@ import ticketbook.ejb.bmp.CityRemoteHome;
 import ticketbook.ejb.bmp.DateRemoteHome;
 import ticketbook.ejb.bmp.EventRemoteHome;
 import ticketbook.ejb.bmp.EventTypeRemoteHome;
+import ticketbook.ejb.bmp.FaqRemoteHome;
 import ticketbook.ejb.bmp.PaymentTypeRemoteHome;
 import ticketbook.ejb.bmp.TicketBookingRemoteHome;
 import ticketbook.ejb.bmp.TicketRemoteHome;
@@ -178,4 +179,20 @@ public class TicketBookLookUpJNDI {
         return null;
     }
 
+      public static FaqRemoteHome getFaqRemoteHome(){
+        try{
+            Config.settingSystemPropertiesForEntityBean();
+            Context ctx=new InitialContext();
+            Object ref=ctx.lookup("Faq");
+            FaqRemoteHome home=(FaqRemoteHome)
+                            javax.rmi.PortableRemoteObject.narrow(
+                             ref,FaqRemoteHome.class);
+            return home;
+        } catch (ConfigException ex) {
+            ex.printStackTrace();
+        }catch(NamingException namingException){
+            namingException.printStackTrace();
+        }
+        return null;
+    }
 }
