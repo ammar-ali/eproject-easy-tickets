@@ -5,12 +5,15 @@
 
 package ticketbook.ejb.bmp;
 
+import java.util.Collection;
 import javax.ejb.EntityBean;
 import javax.ejb.EntityContext;
 import javax.ejb.FinderException;
 import ticketbook.ejb.bmp.dao.EventDAO;
+import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.EventTransferData;
+import ticketbook.util.Constant;
 
 /**
  *
@@ -37,7 +40,7 @@ public class Event extends EventTransferData implements EntityBean {
      * @see javax.ejb.EntityBean#ejbActivate()
      */
     public void ejbActivate() {
-        
+         this.setID((Integer)context.getPrimaryKey());
     }
     
     /**
@@ -65,7 +68,26 @@ public class Event extends EventTransferData implements EntityBean {
      * @see javax.ejb.EntityBean#ejbLoad()
      */
     public void ejbLoad() {
-        // TODO add code to retrieve data
+        try {
+            EventTransferData event = EventDAO.getInstance(SQLTicketBookConnection.getInstance()).getEventByID(this.getID());
+            if(event!=null){
+                this.setID(event.getID());
+                this.setArtist(event.getArtist());
+                this.setTitle(event.getTitle());
+                this.setContent(event.getContent());
+                this.setImage(event.getImage());
+                this.setEventTypeID(event.getEventTypeID());
+                this.setVenueID(event.getVenueID());
+                this.setCityID(event.getCityID());
+                this.setEventTypeName(event.getEventTypeName());
+                this.setVenueName(event.getVenueName());
+                this.setCityName(event.getCityName());
+                this.setVenueAddress(event.getVenueAddress());
+            }
+        } catch (SQLTicketBookException ex) {
+            ex.printStackTrace();
+        }
+        
     }
     
     /**
@@ -87,14 +109,34 @@ public class Event extends EventTransferData implements EntityBean {
         return aKey;
     }
     public Integer ejbCreate(EventTransferData event){
-        try {
-            EventDAO.getInstance(SQLTicketBookConnection.getInstance()).insertEvent(event);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        if(event!=null){
+            try {
+                EventDAO.getInstance(SQLTicketBookConnection.getInstance()).insertEvent(event);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return event.getID();
         }
-        return event.getID();
+        else
+            return Constant.ID_FALSE_INTETER;
     }
     public void ejbPostCreate(EventTransferData event){
 
+    }
+    public Collection ejbFindAllEvent(int indexRecord,int totalRecord){
+        try {
+             return  EventDAO.getInstance(SQLTicketBookConnection.getInstance()).getAllEventID(indexRecord,totalRecord);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    public Integer countAllEvent(){
+        try {
+           return  EventDAO.getInstance(SQLTicketBookConnection.getInstance()).countAllEvent();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return new Integer(0);
     }
 }

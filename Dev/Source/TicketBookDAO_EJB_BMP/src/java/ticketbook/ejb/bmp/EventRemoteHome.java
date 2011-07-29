@@ -6,6 +6,7 @@
 package ticketbook.ejb.bmp;
 
 import java.rmi.RemoteException;
+import java.util.Collection;
 import javax.ejb.CreateException;
 import javax.ejb.EJBHome;
 import javax.ejb.FinderException;
@@ -19,4 +20,5 @@ public interface EventRemoteHome extends EJBHome {
 
     ticketbook.ejb.bmp.EventRemote findByPrimaryKey(java.lang.Integer key)  throws FinderException, RemoteException;
     EventRemote create(EventTransferData event) throws CreateException,RemoteException;
+    Collection findAllEvent(int indexRecord,int totalRecord) throws RemoteException,FinderException;
 }

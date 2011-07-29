@@ -22,4 +22,5 @@ public interface TicketBookingRemoteHome extends EJBHome {
 
     TicketBookingRemote create(TicketBookingTransferData data) throws CreateException,RemoteException;
     Collection findAllByStatus(String status,int indexStart,int totalRecord) throws FinderException,RemoteException;
+
 }
