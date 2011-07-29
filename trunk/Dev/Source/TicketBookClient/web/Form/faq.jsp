@@ -6,8 +6,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="ticketbook.transfer.FaqTransferData" %>
-<%@page import="java.util.Vector" %>
-<%@page import="ticketbook.model.FAQ" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="ticketbook.model.Faq" %>
+<%@page import="ticketbook.ejb.bmp.FaqRemote" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -21,7 +23,7 @@
 
 </head>
 <body>
-
+    <c:set var="faqlist" value= '<%=Faq.getAll(1, 10)%>' ></c:set>
 <jsp:include page="../Block/block1.jsp"/>
   <form action="FAQsController" method="post">
 <font class="_content_title">FAQ'S</font>
@@ -30,26 +32,17 @@
             <tr>
                 <th>No.</th>
                 <th>Question</th>
-                <th>Answer</th>
             </tr>
-            
-          <% Vector lstFAQ = FAQ.getAll();%>
-          <% for(int i=0;i<lstFAQ.size();i++){
-            %>
+            <c:forEach items="${faqlist}" var="obj">
                 <tr>
                     <td>
-                        <%=((FaqTransferData)lstFAQ.get(i)).getID() %>
+                        ${obj.question}
                     </td>
                     <td>
-                        <%=((FaqTransferData)lstFAQ.get(i)).getQuestion()%>
-                    </td>
-                    <td>
-                        <%=((FaqTransferData)lstFAQ.get(i)).getAnswer()%>
+                        ${obj.answer}
                     </td>
                 </tr>
-            <%
-                }
-            %>
+           </c:forEach>        
     </table>
 </center>
           </form>
