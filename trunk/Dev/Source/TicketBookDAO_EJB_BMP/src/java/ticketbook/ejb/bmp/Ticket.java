@@ -168,4 +168,18 @@ public class Ticket extends TicketTransferData implements EntityBean {
         }
         return new ArrayList();
     }
+    public Integer ejbCreate(TicketTransferData data){
+        if(data!=null){
+            try {
+               TicketDAO.getInstance(SQLTicketBookConnection.getInstance()).insertTicket(data);
+               return data.getID();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return new Integer(0);
+    }
+    public void ejbPostCreate(TicketTransferData data){
+    
+    }
 }

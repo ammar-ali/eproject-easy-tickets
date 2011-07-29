@@ -6,8 +6,10 @@
 package ticketbook.ejb.bmp;
 
 import java.rmi.RemoteException;
+import javax.ejb.CreateException;
 import javax.ejb.EJBHome;
 import javax.ejb.FinderException;
+import ticketbook.transfer.TicketTransferData;
 
 /**
  *
@@ -21,4 +23,5 @@ public interface TicketRemoteHome extends EJBHome {
     java.util.Collection findAvailableReferenceTicketByTitle(String title) throws FinderException,RemoteException;
 
     java.util.Collection findAvailableReferenceTicketIDsByEventID(Integer eventID) throws FinderException,RemoteException;
+    TicketRemote create(TicketTransferData data) throws RemoteException,CreateException;
 }

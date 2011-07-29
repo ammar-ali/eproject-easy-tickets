@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.TicketTransferData;
+import ticketbook.util.Constant;
 import ticketbook.util.StringUtil;
 
 /**
@@ -198,6 +199,29 @@ public class TicketDAO{
         if(rs.getString("view_status")!=null)
             ticket.setViewStatus(rs.getString("view_status"));
         return ticket;
+    }
+        public void insertTicket(TicketTransferData ticket) {
+        try {
+            CallableStatement cs = connection.getConnection().prepareCall("{call sp_insert_ticket(?,?,?,?,?,?,?,?,?,?)}");
+            cs.registerOutParameter("ID", java.sql.Types.INTEGER);
+            cs.setString("promotion", StringUtil.convertToUTF8(ticket.getPromotion()));
+            cs.setString("discount",ticket.getDiscount());
+            cs.setString("price",ticket.getPrice());
+            cs.setInt("ticket_total",ticket.getTicketTotal().intValue());
+            cs.setString("create_date", ticket.getCreateDate());
+            cs.setString("view_date",ticket.getViewDate());
+            cs.setString("view_time",ticket.getViewTime());
+            cs.setString("create_username",ticket.getCreateUsername());
+            cs.setInt("eventID", ticket.getEventID().intValue());
+            cs.execute();
+            if (cs.getInt("ID") != Constant.ID_FALSE_INTETER.intValue()) {
+                ticket.setID(new Integer(cs.getInt("ID")));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            connection.closeConnection();
+        }
     }
 
 }
