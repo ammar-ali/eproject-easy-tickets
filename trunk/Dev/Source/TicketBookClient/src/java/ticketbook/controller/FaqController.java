@@ -34,12 +34,12 @@ public class FaqController extends HandlerController {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            if(request.getParameter(FormController.ACTIONTYPE_NAME)!=null){
-                if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_INSERT_FAQ)){
+            if(request.getParameter(HandlerController.ACTIONTYPE_NAME)!=null){
+                if(request.getParameter(HandlerController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_INSERT_FAQ)){
                     //this.insertFAQs(request, response);
-                }else if (request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_UPDATE_FAQ)){
+                }else if (request.getParameter(HandlerController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_UPDATE_FAQ)){
                    // this.updateFAQs(request, response);
-                }else if(request.getParameter(FormController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_DELETE_FAQ)){
+                }else if(request.getParameter(HandlerController.ACTIONTYPE_NAME).equals(HandlerController.ACTIONTYPE_VALUE_DELETE_FAQ)){
                     //this.deleteFAQs(request, response);
                 }else if(handlerController!=null){
                     handlerController.processRequest(request, response);
