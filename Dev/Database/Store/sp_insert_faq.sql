@@ -12,7 +12,7 @@ GO
 CREATE PROCEDURE sp_insert_faq
 	@ID INT OUTPUT,
 	@question VARCHAR(200),
-	@answer VARCHAR(500),
+	@answer VARCHAR(500)
 AS
 BEGIN
 	BEGIN TRANSACTION
