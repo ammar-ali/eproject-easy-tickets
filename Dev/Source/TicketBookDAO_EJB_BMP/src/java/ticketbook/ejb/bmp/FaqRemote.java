@@ -43,5 +43,7 @@ public interface FaqRemote extends EJBObject {
 
     public void setUsername(String username)throws RemoteException;
 
+    public Integer countFindAll() throws RemoteException;
+    
 
 }
