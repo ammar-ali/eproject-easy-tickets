@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import ticketbook.ejb.bmp.Faq;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.FaqTransferData;
@@ -76,4 +75,25 @@ public class FaqDAO {
         }
         return faq;
     }
+
+    public Integer countRecordFindAll() throws SQLTicketBookException {
+        Integer o = new Integer(0);
+        try {
+            String sql = "SELECT COUNT(ID) AS COUNT "
+                    +" FROM [FAQ]";
+            
+            PreparedStatement pre = connection.getConnection().prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()){
+                return new Integer(rs.getInt("COUNT"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }finally{
+            connection.closeConnection();
+        }
+        return o;
+    }
+
+
 }
