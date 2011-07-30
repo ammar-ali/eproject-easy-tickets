@@ -10,17 +10,17 @@ import java.util.Collection;
 import javax.ejb.EntityBean;
 import javax.ejb.EntityContext;
 import javax.ejb.FinderException;
-import ticketbook.ejb.bmp.dao.FaqDAO;
+import ticketbook.ejb.bmp.dao.ContactDAO;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
-import ticketbook.transfer.FaqTransferData;
+import ticketbook.transfer.ContactTransferData;
 import ticketbook.util.Constant;
 
 /**
  *
  * @author QuocHai
  */
-public class Faq extends FaqTransferData implements EntityBean {
+public class Contact extends ContactTransferData implements EntityBean {
 
     private EntityContext context;
     
@@ -70,13 +70,15 @@ public class Faq extends FaqTransferData implements EntityBean {
      */
     public void ejbLoad() {
         try {
-            FaqTransferData faq = FaqDAO.getInstance(SQLTicketBookConnection.getInstance()).getFaqByID(this.getID());
-            this.setQuestion(faq.getQuestion());
-            this.setAnswer(faq.getAnswer());
-            this.setCreateDate(faq.getCreateDate());
-            this.setUsername(faq.getUsername());
-        } catch (SQLTicketBookException ex) {
-            ex.printStackTrace();
+            ContactTransferData contact = ContactDAO.getInstance(SQLTicketBookConnection.getInstance()).getContactByID(this.getID());
+            this.setTitle(contact.getTitle());
+            this.setContent(contact.getContent());
+            this.setAnswer(contact.getAnswer());
+            this.setEmail(contact.getEmail());
+            this.setCreateDate(contact.getCreateDate());
+            this.setUsername(contact.getUsername());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
@@ -101,7 +103,7 @@ public class Faq extends FaqTransferData implements EntityBean {
 
     public Collection ejbFindAll(int index, int total){
         try {
-            return FaqDAO.getInstance(SQLTicketBookConnection.getInstance()).getAll(index, total);
+            return ContactDAO.getInstance(SQLTicketBookConnection.getInstance()).getAll(index, total);
         } catch (SQLTicketBookException ex) {
             ex.printStackTrace();
         }
@@ -110,14 +112,14 @@ public class Faq extends FaqTransferData implements EntityBean {
 
     public Integer countFindAll(){
         try {
-            return FaqDAO.getInstance(SQLTicketBookConnection.getInstance()).countRecordFindAll();
+            return ContactDAO.getInstance(SQLTicketBookConnection.getInstance()).countRecordFindAll();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new Integer(0);
     }
 
-    public Integer ejbCreate(FaqTransferData data){
+    public Integer ejbCreate(ContactTransferData data){
         try {
             if(data!=null){
             }
@@ -127,7 +129,8 @@ public class Faq extends FaqTransferData implements EntityBean {
         return Constant.ID_FALSE_INTETER;
     }
 
-    public void ejbPostCreate(FaqTransferData data){
-        
+    public void ejbPostCreate(ContactTransferData data){
+
     }
+
 }
