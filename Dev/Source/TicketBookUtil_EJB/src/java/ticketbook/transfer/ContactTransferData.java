@@ -19,20 +19,20 @@ public class ContactTransferData implements Serializable{
     String content;
     String answer;
     String email;
-    Timestamp create_date;
+    String create_date;
     String username;
 
     public ContactTransferData(){
-        this.ID = Constant.DEFAULT_VALUE_INTEGER;
+        this.ID = Constant.ID_FALSE_INTETER;
         this.title = Constant.DEFAULT_VALUE_STRING;
         this.content = Constant.DEFAULT_VALUE_STRING;
         this.answer = Constant.DEFAULT_VALUE_STRING;
         this.email = Constant.DEFAULT_VALUE_STRING;
-        this.create_date = Constant.DEFAULT_VALUE_TIMESTAMP;
+        this.create_date = Constant.DEFAULT_VALUE_STRING;
         this.username = Constant.DEFAULT_VALUE_STRING;
     }
 
-    public ContactTransferData(Integer id, String title, String content, String answer, String email, Timestamp create_date, String username){
+    public ContactTransferData(Integer id, String title, String content, String answer, String email, String create_date, String username){
         this.ID = id;
         this.title = title;
         this.content = content;
@@ -54,7 +54,7 @@ public class ContactTransferData implements Serializable{
         this.content = content;
     }
 
-    public void setCreate_date(Timestamp create_date) {
+    public void setCreate_date(String create_date) {
         this.create_date = create_date;
     }
 
@@ -82,7 +82,7 @@ public class ContactTransferData implements Serializable{
         return content;
     }
 
-    public Timestamp getCreate_date() {
+    public String getCreate_date() {
         return create_date;
     }
 
