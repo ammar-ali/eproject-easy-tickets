@@ -6,7 +6,6 @@
 package ticketbook.transfer;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import ticketbook.util.Constant;
 
 /**
@@ -19,7 +18,7 @@ public class ContactTransferData implements Serializable{
     String content;
     String answer;
     String email;
-    String create_date;
+    String createDate;
     String username;
 
     public ContactTransferData(){
@@ -28,17 +27,17 @@ public class ContactTransferData implements Serializable{
         this.content = Constant.DEFAULT_VALUE_STRING;
         this.answer = Constant.DEFAULT_VALUE_STRING;
         this.email = Constant.DEFAULT_VALUE_STRING;
-        this.create_date = Constant.DEFAULT_VALUE_STRING;
+        this.createDate = Constant.DEFAULT_VALUE_STRING;
         this.username = Constant.DEFAULT_VALUE_STRING;
     }
 
-    public ContactTransferData(Integer id, String title, String content, String answer, String email, String create_date, String username){
+    public ContactTransferData(Integer id, String title, String content, String answer, String email, String createDate, String username){
         this.ID = id;
         this.title = title;
         this.content = content;
         this.answer = answer;
         this.email = email;
-        this.create_date = create_date;
+        this.createDate = createDate;
         this.username = username;
     }
 
@@ -54,8 +53,8 @@ public class ContactTransferData implements Serializable{
         this.content = content;
     }
 
-    public void setCreate_date(String create_date) {
-        this.create_date = create_date;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public void setEmail(String email) {
@@ -82,8 +81,8 @@ public class ContactTransferData implements Serializable{
         return content;
     }
 
-    public String getCreate_date() {
-        return create_date;
+    public String getCreateDate() {
+        return createDate;
     }
 
     public String getEmail() {
