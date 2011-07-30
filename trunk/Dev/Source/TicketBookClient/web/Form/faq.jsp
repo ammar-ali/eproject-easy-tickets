@@ -34,7 +34,7 @@
     <c:set var="faqlist" value= '${faqELF:getAll(param.pindex,TOTAL_RECORD_SHOW)}' ></c:set>
 <jsp:include page="../Block/block1.jsp"/>
 
-  <form action="FAQsController" method="post">
+  <form action="FaqController" method="post">
 <font class="_content_title">FAQ'S</font>
 <c:if test="${totalRecord gt TOTAL_RECORD_SHOW}">
                 <w:paging pathName="faq.jsp"
