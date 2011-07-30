@@ -64,7 +64,7 @@
                         ${obj.question}
                     </td>
                     <td align="center">
-                        <a href="<%= request.getContextPath()%>/Form/faq.jsp?index=${count}">View</a>
+                        <a href="<%= request.getContextPath()%>/Form/faq.jsp?index=${count}&pindex=${param.pindex}">View</a>
                     </td>
                 </tr>
                 <c:if test="${param.index eq count}">
