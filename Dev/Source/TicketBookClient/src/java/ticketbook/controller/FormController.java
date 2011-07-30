@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author Admin
  */
 public class FormController extends HttpServlet {
-    public static final String ACTIONTYPE_NAME="actionType";
     //CHINH SUA LAI SAU
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,8 +31,8 @@ public class FormController extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             UserController userController=new UserController();
-//            ContactController contactController=new ContactController();
-//            userController.setHandlerController(contactController);
+            ContactController contactController=new ContactController();
+            userController.setHandlerController(contactController);
             userController.processRequest(request, response);
         } finally { 
             out.close();
