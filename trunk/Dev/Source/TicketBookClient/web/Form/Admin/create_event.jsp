@@ -1,12 +1,13 @@
-<%--
-   Document   : index
-    Created on : Jul 8, 2011, 3:16:48 PM
+<%-- 
+    Document   : create_event
+    Created on : Jul 26, 2011, 1:14:49 PM
     Author     : Admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+   "http://www.w3.org/TR/html4/loose.dtd">
+
 <%@ taglib uri="/WEB-INF/TLD/taglib.tld" prefix="w" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib uri="/WEB-INF/TLD/elfcity" prefix="cityELF" %>
@@ -103,13 +104,13 @@
                document.getElementById("txtAlertTitle").innerHTML="can't empty";
                stt=false;
            }else document.getElementById("txtAlertTitle").innerHTML="";
-            
+
            if(content.value==""||Validate.isAllSpace(content.value)){
                document.getElementById("txtAlertContent").innerHTML="can't empty";
                stt=false;
            }else document.getElementById("txtAlertContent").innerHTML="";
-         
-         
+
+
            return stt;
        }
 </script>
