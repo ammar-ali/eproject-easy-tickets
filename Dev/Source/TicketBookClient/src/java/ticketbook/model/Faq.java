@@ -31,6 +31,7 @@ private Faq(){}
             FaqRemoteHome home = TicketBookLookUpJNDI.getFaqRemoteHome();
             return home.create(null).countFindAll();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return new Integer(0);
     }
