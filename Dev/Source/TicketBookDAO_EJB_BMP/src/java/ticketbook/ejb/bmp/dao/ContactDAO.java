@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.ContactTransferData;
+import ticketbook.util.Constant;
+import ticketbook.util.StringUtil;
 
 /**
  *
@@ -94,5 +96,21 @@ public class ContactDAO {
             connection.closeConnection();
         }
         return o;
+    }
+
+    public void insertContact(ContactTransferData data){
+        try {
+            CallableStatement cs = connection.getConnection().prepareCall("{call sp_insert_contact(?,?,?,?)}");
+            cs.registerOutParameter("ID", java.sql.Types.INTEGER);
+            cs.setString("title", StringUtil.convertToUTF8(data.getTitle()));
+            cs.setString("content", StringUtil.convertToUTF8(data.getContent()));
+            cs.setString("email", data.getEmail());
+            cs.execute();
+            if (cs.getInt("ID") != Constant.ID_FALSE_INTETER.intValue()) {
+                data.setID(new Integer(cs.getInt("ID")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
