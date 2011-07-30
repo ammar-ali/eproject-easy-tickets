@@ -122,6 +122,8 @@ public class Contact extends ContactTransferData implements EntityBean {
     public Integer ejbCreate(ContactTransferData data){
         try {
             if(data!=null){
+                ContactDAO.getInstance(SQLTicketBookConnection.getInstance()).insertContact(data);
+                return data.getID();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,7 +132,6 @@ public class Contact extends ContactTransferData implements EntityBean {
     }
 
     public void ejbPostCreate(ContactTransferData data){
-
     }
 
 }
