@@ -19,7 +19,7 @@ import ticketbook.transfer.FaqTransferData;
  * @author QuocHai
  */
 public class FaqDAO {
-     static FaqDAO faqDAO;
+    static FaqDAO faqDAO;
     static SQLTicketBookConnection connection;
 
     private FaqDAO() {
