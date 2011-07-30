@@ -2,7 +2,7 @@
 <ejb-jar version="2.1" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
     <enterprise-beans>
         
-        <entity>
+        <entity>  
             <display-name>EventTypeEB</display-name>
             <ejb-name>EventType</ejb-name>
             <home>ticketbook.ejb.bmp.EventTypeRemoteHome</home>
