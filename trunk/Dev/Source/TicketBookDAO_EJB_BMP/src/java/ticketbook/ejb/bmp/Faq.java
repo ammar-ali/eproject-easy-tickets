@@ -14,6 +14,7 @@ import ticketbook.ejb.bmp.dao.FaqDAO;
 import ticketbook.exception.SQLTicketBookException;
 import ticketbook.sql.SQLTicketBookConnection;
 import ticketbook.transfer.FaqTransferData;
+import ticketbook.util.Constant;
 
 /**
  *
@@ -107,4 +108,26 @@ public class Faq extends FaqTransferData implements EntityBean {
         return new ArrayList();
     }
 
+    public Integer countFindAll(){
+        try {
+            return FaqDAO.getInstance(SQLTicketBookConnection.getInstance()).countRecordFindAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Integer(0);
+    }
+
+    public Integer ejbCreate(FaqTransferData data){
+        try {
+            if(data!=null){
+
+            }
+        } catch (Exception e) {
+        }
+        return Constant.ID_FALSE_INTETER;
+    }
+
+    public void ejbPostCreate(FaqTransferData data){
+        
+    }
 }
