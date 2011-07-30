@@ -3,77 +3,80 @@
     Created on : Jul 21, 2011, 4:41:52 PM
     Author     : Admin
 --%>
-<%@page import="java.util.Vector" %>
+<%@page import="java.util.ArrayList" %>
 <%@page import="ticketbook.transfer.ContactTransferData" %>
 <%@page import="ticketbook.model.Contact" %>
+<%@page import="ticketbook.ejb.bmp.ContactRemote" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/TLD/elfticketbook" prefix="ticketbookELF" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib uri="/WEB-INF/TLD/taglib.tld" prefix="w" %>
+<%@ taglib uri="/WEB-INF/TLD/elffaq" prefix="faqELF" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<c:set var="CONTEXT_PATH" value='<%=request.getContextPath()%>'></c:set>
-<form action="${CONTEXT_PATH}/ContactController" method="post" name="frmContact">
-    <input type="hidden" value="" name="${ACTIONTYPE_NAME}" id="actionType">
-<font class="_content_title">Contacts</font>
-<table border="1">
-            <tr>
-                <th>No.</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Answer</th>
-                <th>Email</th>
-                <th>Create Date</th>
-                <th>Creator</th>
-                <th colspan="2">Function</th>
-            </tr>
+   <c:set var="SYSTEM_PARAM" value='${ticketbookELF:getSystemParameter()}'/>
+    <c:set var="TOTAL_RECORD_SHOW" value="${SYSTEM_PARAM.recordNumberNeedShow}"></c:set>
+    <c:set var="TOTAL_PAGE_SHOW" value="${SYSTEM_PARAM.pageNumberNeedShow}"></c:set>
+    <c:set var="totalRecord" value='<%= Contact.countFindAll() %>'></c:set>
 
-          <% Vector lstContact = Contact.getAll();%>
-          <% for(int i=0;i<lstContact.size();i++){
-            %>
+    <c:set var="contactlist" value= '${faqELF:getAll(param.pindex,TOTAL_RECORD_SHOW)}' ></c:set>
+    <form action="ContactController" method="post">
+<font class="_content_title">Contact</font>
+<c:if test="${totalRecord gt TOTAL_RECORD_SHOW}">
+                <w:paging pathName="contact_manage.jsp"
+                          enableFirstPage="true"
+                enableLastPage="true"
+                enableIndexChoose="true"
+                styleIndexChoose="color:blue"
+                index="${param.pindex}"
+                totalRecord="${totalRecord}"
+                numPageDivide="${TOTAL_PAGE_SHOW}"
+                numRecordDivide="${TOTAL_RECORD_SHOW}"
+                style="cursor:pointer"
+                pageName="pindex">
+                </w:paging>
+            </c:if>
+<br/>
+
+<table border="1" cellpadding="4px"  style="width:640px;">
+            <tr>
+                <th align="center">Title</th>
+                <th align="center">Content</th>
+                <th align="center">Answer</th>
+                <th align="center">Email</th>
+                <th align="center">Create Date</th>
+                <th align="center">Username</th>
+            </tr>
+            <c:set var="count" value="1"></c:set>
+            <c:forEach items="${contactlist}" var="obj">
                 <tr>
-                    <td>
-                        <%=((ContactTransferData)lstContact.get(i)).getID() %>
+                    <td align="left">
+                        ${obj.title}
                     </td>
                     <td>
-                        <%=((ContactTransferData)lstContact.get(i)).getTitle() %>
+                        ${obj.content}
                     </td>
                     <td>
-                        <%=((ContactTransferData)lstContact.get(i)).getContent() %>
+                        ${obj.email}
                     </td>
                     <td>
-                        <%= ((ContactTransferData)lstContact.get(i)).getAnswer() %>
+                        ${obj.create_date}
                     </td>
                     <td>
-                        <%= ((ContactTransferData)lstContact.get(i)).getEmail() %>
+                        ${obj.username}
                     </td>
-                    <td>
-                        <%= ((ContactTransferData)lstContact.get(i)).getCreate_date() %>
-                    </td>
-                     <td>
-                        <%= ((ContactTransferData)lstContact.get(i)).getUsername() %>
-                    </td>
-                    <td>
-                        <input type="button" onclick="" name="" value="Answer"/>
-                    </td>
-                     <td>
-                        <input type="button" onclick="click_delete()" name="" value="Delete"/>
+                    <td align="center">
+                        <a href="<%= request.getContextPath()%>/Form/Admin/contact_manage.jsp?index=${count}">Answer</a>
                     </td>
                 </tr>
-            <%
-                }
-            %>
+                <c:if test="${param.index eq count}">
+                    <tr>
+                        <td colspan="6">
+                            ${obj.answer}
+                        </td>
+                    </tr>
+                </c:if>
+                <c:set var="count" value="${count+1}"></c:set>
+           </c:forEach>
     </table>
           </form>
-    <script type="text/javascript">
-        function submitUpdateContact(){
-            document.getElementById(id).value="${ACTIONTYPE_VALUE}";
-        }
-
-        function createContact(){
-            if(document.getElementById(id).value=="create"){
-                window.location
-            }
-        }
-        function click_delete(){
-            var a = confirm("Are you sure to delete this contact?? ");
-        }
-
-    </script>
