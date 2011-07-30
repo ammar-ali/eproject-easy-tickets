@@ -21,7 +21,7 @@
         <jsp:include page="../../Block/block1.jsp"/>
         <font class="_content_title">Answer Contact</font>
         <center>
-            <form action="ContactController" method="post">
+            <form action="ContactController?act" method="post">
                 <table>
                 <% Vector lstContact = Contact.getAll();%>
                   <% for(int i=0;i<lstContact.size();i++){
