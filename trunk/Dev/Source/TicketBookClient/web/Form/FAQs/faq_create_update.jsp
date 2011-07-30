@@ -20,7 +20,7 @@
         <font class="_content_title">Create FAQs</font>
         <center>
             <table>
-                <form action="FaqController" method="post">
+                <form action="../../FAQsController?act=create" method="post">
                     <tr>
                         <td>Question:</td>
                         <td><input type="text" value="" name="txtQuestion"/><br/></td>
@@ -31,7 +31,7 @@
                     </tr>
                     <tr>
                         <td><input type="submit" value="Create"/></td>
-                        <td><input type="button" value="Cancel" onclick="history.back()"</td>
+                       <td><input type="button" value="Cancel" onclick="history.back()"</td>
                     </tr>
                 </form>
             </table>
