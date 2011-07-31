@@ -31,12 +31,6 @@ BEGIN
 			RETURN 0
 		END
 	END
-	SET @str=CAST(@str AS INT)
-	IF @str<0
-	BEGIN
-		RETURN 0
-	END
+
 	RETURN 1
 END
-
---drop function ispositivenumber
